@@ -2,19 +2,24 @@
 	<view class="container">
 		<view class="machine-name">
 			<text class="nameTips">账 户:</text>
-			<input name="name" focus="true" placeholder="请输入你的账户" />
+			<input type="name" focus="true" placeholder="请输入你的账户" />
 		</view><br>
 		<view class="machine-name">
 			<text class="nameTips">密 码:</text>
-			<input name="pwd" focus="true" placeholder="请输入你的密码" />
+			<input type="pwd" focus="true" placeholder="请输入你的密码" />
 		</view><br>
 		<view class="machine-name-3">
 			<text class="nameTips">界面号:</text>
-			<input name="ui" focus="true" placeholder="请输入你的界面号" />
+			<input type="ui" focus="true" @input="onKeyInput" placeholder="请输入你的界面号" />
 		</view><br>
-		<navigator url="/pages/scan/scan">
+
+
 		<button class="button" @click="login">登录</button>
-        </navigator>
+
+	</view>
+
+
+
 	</view>
 
 </template>
@@ -22,20 +27,27 @@
 	export default {
 		data() {
 			return {
-				
+				inputValue: '',
 			}
 		},
-		 methods: {
-		    login() {
-		      const { name, pwd, ui,$router } = this;
-		      this.$router.push({
-		        name: "Main",
-		        params: {
-		          username: this.name,
-		        }
-		      })
-		    }
-		  }
+		methods: {
+			onKeyInput: function(event) {
+				console.log("输出的是：",event.target.value)
+				this.inputValue = event.target.value
+			},
+			login: function() {
+				if (this.inputValue =="7-1" ) {
+					uni.navigateTo({
+						url: '../singly-move/singly-move'
+					})
+				} else {
+					uni.navigateTo({
+						url: '../scan/scan'
+					})
+				}
+			}
+		}
+
 	}
 </script>
 

@@ -1,16 +1,23 @@
 {
 	"pages": [
-		{
-		"path": "pages/index/index"
+	{
+		"path": "pages/register/register"
 	},
 	{
 		"path": "pages/scan/scan"
+	},
+	{
+		"path": "pages/singly-move/singly-move"
+	},
+	{
+		"path": "pages/index/index"
+		
 	}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#777777",
+		"navigationBarBackgroundColor": "#377EB8",
 		"backgroundColor": "#FFFFFF"
 	}
 }
