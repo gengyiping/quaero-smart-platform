@@ -1,7 +1,13 @@
 {
 	"pages": [
 	{
-		"path": "pages/register/register"
+		"path": "pages/register/register",
+		"style": {
+						/* "navigationBarTitleText": "登录界面", */
+						 "navigationStyle":"custom"  
+						
+					}
+					
 	},
 	{
 		"path": "pages/scan/scan"

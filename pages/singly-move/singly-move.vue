@@ -9,6 +9,7 @@
 			<text class="nameTips">原 位 置:</text>
 			<input name="name" focus="true" placeholder="扫码带入" />
 		</view><br>
+
 		<view class="machine-name-3">
 			<text class="nameTips">目 标 位:</text>
 			<input name="name" focus="true" placeholder="扫码带入" />
@@ -16,11 +17,21 @@
 
 
 		<view>
-			<label class="radio">
-				<radio value="r1" />全部转移</label>
-			<label class="radio">
-				<radio value="r2" />部分转移</label>
+			<radio-group class="depict" @change="radioChange">
+				
+				<label class="radio" v-for="(item, index) in items" :key="item.value">
+					<view>
+						<radio :value="item.value" :checked="index === current" />
+					</view>
+					<view>{{item.name}}</view>
+				</label>
+				
+			</radio-group>
 		</view><br>
+
+
+
+
 		<view class="machine-name-5">
 			<text class="num">移动数量:</text>
 			<input name="name" focus="true" placeholder="" />
@@ -46,11 +57,41 @@
 	export default {
 		data() {
 			return {
-				href: 'pages/scan/scan'
+				items:[
+					{
+					value:'CHN',
+					name:'中国',
+					checked:'true'
+				},
+				{
+					value:'USA',
+					name:'美国',
+				},
+				],
+				 current: 0
 			}
+			
 		},
 		methods: {
-
+            radioChange: function(evt) {
+              for (let i = 0; i < this.items.length; i++) {
+				  console.log("用户输入的是:",this.items[i].value)
+                if (this.items[i].value === evt.target.value) {
+                    this.current = i;
+					console.log("用户输入的是id号是:",this.current)
+                    break;
+                }
+            }
+        },
+		login:function(e){
+			uni.scanCode({
+			    scanType: ['barCode'],
+			    success: function (res) {
+			        console.log('条码类型：' + res.scanType);
+			        console.log('条码内容：' + res.result);
+			    }
+			});
+		}
 		}
 	}
 </script>
