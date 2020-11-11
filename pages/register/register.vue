@@ -48,11 +48,14 @@
 				this.inputValue = event.target.value
 			},
 			login: function() {
+<<<<<<< HEAD
 			/* uni.request({
 				url:'http://192.168.122.200:8890/v2/api-docs',
 				method: 'POST',
 				data: {UserName:this.account, Password:this.password, E_Mail:this.email},
 			}) */
+=======
+>>>>>>> d40310b839152528d9ba4f54c6f15a5e6b1171c7
 				console.log('用户选择的界面号是:',this.index)
 				if (this.index == "0") {
 					uni.navigateTo({

@@ -82,6 +82,7 @@
                     break;
                 }
             }
+<<<<<<< HEAD
         },
 		login:function(e){
 			uni.scanCode({
@@ -92,6 +93,9 @@
 			    }
 			});
 		}
+=======
+        }
+>>>>>>> d40310b839152528d9ba4f54c6f15a5e6b1171c7
 		}
 	}
 </script>
