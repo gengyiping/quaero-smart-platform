@@ -1,24 +1,31 @@
 {
-	"pages": [
-	{
-		"path": "pages/register/register",
-		"style": {
-						/* "navigationBarTitleText": "登录界面", */
-						 "navigationStyle":"custom"  
-						
-					}
-					
-	},
-	{
-		"path": "pages/scan/scan"
-	},
-	{
-		"path": "pages/singly-move/singly-move"
-	},
-	{
-		"path": "pages/index/index"
-		
-	}
+	"pages": [{
+			"path": "pages/register/register",
+			"style": {
+				/* "navigationBarTitleText": "登录界面", */
+				"navigationStyle": "custom"
+
+			}
+
+		},
+		{
+			"path": "pages/scan/scan",
+			"style": {
+				"navigationStyle": "custom"
+
+			}
+		},
+		{
+			"path": "pages/singly-move/singly-move",
+			"style": {
+				"navigationStyle": "custom"
+
+			}
+		},
+		{
+			"path": "pages/index/index"
+
+		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
