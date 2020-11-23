@@ -1,5 +1,6 @@
 {
-	"pages": [{
+	"pages": [
+		{
 			"path": "pages/register/register",
 			"style": {
 				/* "navigationBarTitleText": "登录界面", */
@@ -26,6 +27,7 @@
 			"path": "pages/index/index"
 
 		}
+		
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
