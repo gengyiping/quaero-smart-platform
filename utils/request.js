@@ -1,6 +1,8 @@
+import Vue from 'vue'
+
 const baseurl = 'http://192.168.122.200:8890';
 
-const request = (url, data, method = 'get', contentType = 1) => {
+function request(url, data, method, contentType) {
 	console.log("url=", url)
 	let header = {
 		'content-type': contentType === 1 ? 'application/json' : 'application/x-www-form-urlencoded',
@@ -59,4 +61,7 @@ const request = (url, data, method = 'get', contentType = 1) => {
 		})
 	}); */
 }
-export default request
+export default {
+	request,
+	baseurl,
+}

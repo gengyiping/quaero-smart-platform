@@ -77,7 +77,7 @@
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
 						that.oname=res.result 
-					this.$request('/api/materialTransfer/nonStockInquire',{
+						this.$request.request('/api/materialTransfer/nonStockInquire',{
 						baseEntry: that.oname,
 						baseline: '',
 						disNum: '',
