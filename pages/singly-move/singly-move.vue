@@ -7,11 +7,18 @@
 			<view class="avater">
 				<image @click="login" class="img " src="../../static/scan.png" mode="widthFix"></image>
 			</view>
-		</view><br>
-		<view class="machine-name">
-			<text class="nameTips">原 位 置:</text>
-			<input @input="nInput" v-model="nname" focus="true" placeholder="扫码带入" value='nname' />
+		</view><br><br>
+		<view class="machine-name2">
+			<!-- <text class="nameTips2">原 位 置:</text> -->
+			<!-- <input @input="nInput" v-model="nname" focus="true" placeholder="扫码带入" value='nname' />
 			<view class="avater">
+				<image @click="loginn" class="img " src="../../static/scan.png" mode="widthFix"></image>
+			</view> -->
+			<picker @change="bindPickerChange" :value="index" :range="array" :range-key="'ol'">
+				<view class="uni-input">原 位 置 : {{array[index].ol}}</view>
+			</picker>
+
+			<view class="avater2">
 				<image @click="loginn" class="img " src="../../static/scan.png" mode="widthFix"></image>
 			</view>
 		</view><br>
@@ -27,33 +34,27 @@
 		<view>
 			<radio-group class="depict" @change="radioChange">
 				<label class="radio">
-					<radio value="0" checked="true" />部分
+					<radio value="0" checked="true" />全部移动
 				</label>
 				<label>
-					<radio value="1" />全部
+					<radio value="1" />部分移动
 				</label>
 			</radio-group>
 		</view>
 		<br>
 		<view class="machine-name-5">
-			<text class="num">移动数量:</text>
+			<text class="num">移动数量: {{array[ind].qty}}</text>
 			<input name="name" focus="true" placeholder="" />
 		</view>
-		<!-- <view class="but">
-		<button class="button-l " @click="login">确认转移</button>
-		<button class="button-l " @click="login">异常呼叫</button>
-		</view> -->
 		<view class="uni-textarea">
-			<textarea placeholder-style="color:#fff" placeholder="占位符字体是红色的" />
+			<textarea @input="etextarea" v-model="xname" focus="true" placeholder-style="color:#000000" placeholder="显示" value='xname' />
 			</view><br>
 		<view class="but">
-			<button class="button-c"  @click="login">清空</button>
-			<button class="button-c "  @click="login">复制</button>
-			 <button class="button-c "  @click="login">异常</button>
-			<button class="button-c "  @click="login">确认</button> 
+			<button class="button-c"  @click="ClearButton">清空</button>
+			<button class="button-c "  @click="CopyButton">复制</button>
+			 <button class="button-c "  @click=" AbnormityButton">异常</button>
+			<button class="button-c "  @click="ConfirmButton">确认</button> 
 		</view> 
-									
-		<!-- <button class="button"  @click="login">扫码</button> -->
 	</view>
 	
 </template> 
@@ -65,48 +66,43 @@
 				 current: 0,
 				 oname:'',
 				 nname:'',
-				 ename:''
+				 ename:'',
+				 xname:'',
+				 array:[''],
+				 index: 0,
+				 arr:[''],
+				 arrol:[''],
+			     ind:0,
+				
 			}
-			
 		},
 		methods: {
 			login:function(){
-				let that=this
-				uni.scanCode({
-				    success:function(res) {
+				console.log('1111',this.$request.baseurl)
+				let that=this 
+				/* uni.scanCode({
+				    success:function(res) { 
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
 						that.oname=res.result 
-						this.$request.request('/api/materialTransfer/nonStockInquire',{
-						baseEntry: that.oname,
+						console.log('1111',that.$request.baseurl) */
+					 	that.$request.request('/api/materialTransfer/nonStockInquire',{
+						baseEntry: '47130',
 						baseline: '',
-						disNum: '',
-						doctype: '',
-						itemCode:''	 
-						},'post','application/x-www-form-urlencoded').then(res => {
-
-                            console.log("查询成功", res)
-                         })
-						/* uni.request({
-							url: 'http://192.168.122.200:8890/api/materialTransfer/nonStockInquire',
-							method: 'POST',
-							data: {
-								baseEntry: that.oname,
-								baseline: '',
-								disNum: '',
-								doctype: '',
-								itemCode:''
-							},
-							header: {
-								"Content-Type": 'application/x-www-form-urlencoded',
-							},
-							success: res => {
-								console.log("查询成功", res)
-							},
-						}) */
-				    },
+						disNum: '0B01',
+						doctype: '40', 
+						itemCode:'10629160'	  
+						},'post','application/json').then(res => {
+                            console.log('查询成功',res.data);
+							that.array=res.data.data;
+							that.xname=that.array[0].itemCode
+							console.log('查询成功that.array[0]',that.array[0].ol);
+							console.log('查询成功that.array[1]',that.array[1].ol);
+							
+                         }) 
+				 /*   },
 				
-				})
+				 }) */
 			},
 			loginn:function(){
 				let that=this
@@ -114,10 +110,41 @@
 				    success:function(res) {
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
-						that.nname=res.result
-				    },
-				
-				})
+						that.arr=res.result 		
+				        console.log('1111',that.$request.baseurl)
+						that.$request.request('/api/materialTransfer/nonStockInquire',{
+						baseEntry: '47130',
+						baseline: '',
+						disNum: '0B01',
+						doctype: '40', 
+						itemCode:'10629160'	  
+						},'post','application/json').then(res => {
+				            console.log('查询成功',res.data);  
+							that.arrol=res.data.data 
+							//扫码的结果与后台的数据对比
+							var j=0
+							for(var i=0;i<res.data.data.length;i++){
+								if( that.arr == that.arrol[i].ol){
+									that.array= that.arrol
+									console.log("相等2",that.array); 
+									j=j+1  
+								} else {
+									console.log("不相等");
+								} 
+							}  
+							console.log('是否有相等的次数:',j) 
+							if(j=0){
+								console.log('是否有相等的次数:',j)
+								uni.showToast({
+									icon: 'none',
+									title: '无次对应数据',
+								});
+							}
+							
+				        }) 
+				   },
+						 		  
+				}) 
 			},
 			logine:function(){
 				let that=this
@@ -127,8 +154,27 @@
 				        console.log('条码内容：' + res.result);
 						that.ename=res.result
 				    },
-				
 				})
+			},
+			ClearButton:function(){
+			
+			},
+			ConfirmButton:function(){
+				let that=this	
+				that.$request.request('/api/materialTransfer/nonStock',{
+						baseEntry: '47130',
+						baseline: '',
+						disNum: '0B01',
+						doctype: '40', 
+						itemCode:'10629160',
+						olocation:'',
+						qty:'',
+						tlocation:'',
+						uids:'',
+						wzbs:'',						   
+						},'post','application/json').then(res => {
+                            console.log('查询成功',res.data);
+                         })
 			},
 		radioChange:function(e){
 			console.log('携带值为', e.target.value)
@@ -146,7 +192,16 @@
 		eInput: function(event) {
 			console.log("eInput输出的是：", event.target.value)
 			this.inputValue = event.target.value
-		}
+		},
+		/* etextarea:: function(event) {
+			console.log("eInput输出的是：", event.target.value)
+			this.inputValue = event.target.value
+		}, */
+		 bindPickerChange: function (e) {
+		    console.log('picker发送选择改变，携带值为', e.detail.value)
+		   this.ind=e.detail.value
+		 
+		  },
 		}
 	}
 </script>
@@ -186,7 +241,15 @@
 		margin-top: -56rpx;
 		margin-left: 550rpx;
 	}
+	.avater2 {
+		margin-top: -56rpx;
+		margin-left: 510rpx;
+	}
+	.avater2 .img {
+		width: 50rpx;
+		margin-top:0rpx;
 	
+	}
 	.avater .img {
 		width: 50rpx;
 		margin-top:0rpx;
@@ -195,6 +258,17 @@
 	
 	.name{
 		font-size:22px;
+	}
+	.nameTips2{
+		margin-right: 525rpx;
+		font-size: 15px;
+	}
+	.uni-input {
+		margin-top: -40rpx;
+		margin-left:-40rpx;
+		
+		font-size: 15px;
+	
 	}
 	.nameTips{
 		font-size: 15px;
@@ -208,6 +282,7 @@
 	  margin-left: 70px;
 	  margin-top: -25px;
 	}
+	
 	.machine-name-3 input {
 	  border-bottom: 1px solid rgb(2, 2, 2);
 	  width: 500rpx;
@@ -253,6 +328,10 @@
 	 width: 700rpx;
 	/*  padding-left: 20px; */
 	  margin-top: 10px	
+	}
+	.uni-textarea textarea{
+		margin-top: 30rpx;
+		margin-left: 50rpx;
 	}
 
 </style>

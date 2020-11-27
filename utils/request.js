@@ -5,13 +5,13 @@ const baseurl = 'http://192.168.122.200:8890';
 function request(url, data, method, contentType) {
 	console.log("url=", url)
 	let header = {
-		'content-type': contentType === 1 ? 'application/json' : 'application/x-www-form-urlencoded',
+		/* 'content-type': contentType === 1 ? 'application/json' : 'application/x-www-form-urlencoded', */ 
 		Authorization: uni.getStorageSync('Authorization') != '' ? uni.getStorageSync('Authorization') : null
-	}
-	console.log("header=", header)
+	}  
+	/* console.log("header=", header) */
 	 return new Promise((resolve, reject) => {
 	        uni.request({
-	            url: baseUrl + url,
+	            url: baseurl + url,
 	            data,
 	            method,
 	            header,

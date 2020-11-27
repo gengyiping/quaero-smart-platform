@@ -12,13 +12,13 @@
 			</view>
 			<view class="inputWrapper">
 				<input name="Password" class="input" type="password" @input="wordInput" value="" placeholder="请输入密码">
-			</view>
+			</view><br>
 			<view class="number">
 				<view class="uni-list-cell-left" style="color:#F1F1F1">
-					选择界面号:
+					<!-- 选择界面号: -->
 					<view class="uni-list-cell-db" style="color:#F1F1F1">
 						<picker @change="bindPickerChange" :value="index" :range="array">
-							<view class="uni-input">{{array[index]}}</view>
+							<view class="uni-input">选择界面号 : {{array[index]}}</view>
 						</picker>
 					</view>
 				</view>
@@ -198,8 +198,7 @@
 
 	.uni-list-cell-left {
 		margin-top: 40rpx;
-		margin-left: -250rpx;
-
+		margin-left: -460rpx;
 	}
 
 	.uni-input {
