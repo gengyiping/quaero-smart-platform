@@ -21,7 +21,7 @@
 			<view class="avater2">
 				<image @click="loginn" class="img " src="../../static/scan.png" mode="widthFix"></image>
 			</view>
-		</view><br>
+		</view><br> 
 
 		<view class="machine-name-3">
 			<text class="nameTips">目 标 位:</text>
@@ -32,7 +32,7 @@
 		</view><br>
 
 		<view>
-			<radio-group class="depict" @change="radioChange">
+			<radio-group name="depicttype" class="depict" @change="radioChange">
 				<label class="radio">
 					<radio value="0" checked="true" />全部移动
 				</label>
@@ -43,17 +43,17 @@
 		</view>
 		<br>
 		<view class="machine-name-5">
-			<text class="num">移动数量: {{array[ind].qty}}</text>
+			<text class="num">移动数量: {{array[index].qty}}</text>
 			<input name="name" focus="true" placeholder="" />
 		</view>
 		<view class="uni-textarea">
-			<textarea @input="etextarea" v-model="xname" focus="true" placeholder-style="color:#000000" placeholder="显示" value='xname' />
+			<textarea v-model="xname" focus="true" placeholder-style="color:#000000" placeholder="显示" value='xname' />
 			</view><br>
-		<view class="but">
+		<view class="but"> 
 			<button class="button-c"  @click="ClearButton">清空</button>
-			<button class="button-c "  @click="CopyButton">复制</button>
-			 <button class="button-c "  @click=" AbnormityButton">异常</button>
-			<button class="button-c "  @click="ConfirmButton">确认</button> 
+			<button class="button-c "  @click="ClearButton">复制</button>
+			 <button class="button-c "  @click="ClearButton">异常</button>
+			<button class="button-c "  @click="ConfirmButton">确认</button>  
 		</view> 
 	</view>
 	
@@ -80,74 +80,66 @@
 			login:function(){
 				console.log('1111',this.$request.baseurl)
 				let that=this 
-				/* uni.scanCode({
+				 uni.scanCode({
 				    success:function(res) { 
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
 						that.oname=res.result 
-						console.log('1111',that.$request.baseurl) */
-					 	that.$request.request('/api/materialTransfer/nonStockInquire',{
-						baseEntry: '47130',
-						baseline: '',
-						disNum: '0B01',
-						doctype: '40', 
-						itemCode:'10629160'	  
+						var listname=that.oname.split('-')   
+						console.log("分割出来的数据:",listname)
+						console.log('1111',that.$request.baseurl)  
+						console.log("分割出来的数据:",listname[0]) 
+					  	that.$request.request('/api/materialTransfer/nonStockInquire',{
+						baseEntry: listname[3],
+						baseline: listname[4],
+						disNum: listname[1],
+						doctype: listname[2],   
+						itemCode:listname[0]	  
 						},'post','application/json').then(res => {
                             console.log('查询成功',res.data);
 							that.array=res.data.data;
 							that.xname=that.array[0].itemCode
-							console.log('查询成功that.array[0]',that.array[0].ol);
-							console.log('查询成功that.array[1]',that.array[1].ol);
+							/* console.log('查询成功that.array[0]',that.array[0].ol);
+							console.log('查询成功that.array[1]',that.array[1].ol); */
 							
                          }) 
-				 /*   },
+				    },
 				
-				 }) */
+				 }) 
 			},
 			loginn:function(){
-				let that=this
-				uni.scanCode({
-				    success:function(res) {
-				        console.log('条码类型：' + res.scanType);
-				        console.log('条码内容：' + res.result);
-						that.arr=res.result 		
-				        console.log('1111',that.$request.baseurl)
-						that.$request.request('/api/materialTransfer/nonStockInquire',{
-						baseEntry: '47130',
-						baseline: '',
-						disNum: '0B01',
-						doctype: '40', 
-						itemCode:'10629160'	  
-						},'post','application/json').then(res => {
-				            console.log('查询成功',res.data);  
-							that.arrol=res.data.data 
-							//扫码的结果与后台的数据对比
-							var j=0
-							for(var i=0;i<res.data.data.length;i++){
-								if( that.arr == that.arrol[i].ol){
-									that.array= that.arrol
-									console.log("相等2",that.array); 
-									j=j+1  
-								} else {
-									console.log("不相等");
-								} 
-							}  
-							console.log('是否有相等的次数:',j) 
-							if(j=0){
-								console.log('是否有相等的次数:',j)
-								uni.showToast({
-									icon: 'none',
-									title: '无次对应数据',
-								});
-							}
-							
-				        }) 
-				   },
-						 		  
-				}) 
-			},
-			logine:function(){
-				let that=this
+				console.log("123456:",this.oname)
+				if(this.oname==''){
+					uni.showToast({
+						icon: 'none',
+						title: '请先扫码-物料条码',
+					});
+				} else{
+					var that=this
+					uni.scanCode({ 
+					    success:function(res) {  
+					        console.log('条码类型：' + res.scanType);
+					        console.log('条码内容：' + res.result);
+							that.arr=res.result 		
+					        /* console.log('1111',that.$request.baseurl)
+							console.log("55556",that.array.length) */
+					    for(var i=0;i<that.array.length;i++){
+							console.log("55556",that.array[0].ol) 
+							console.log("555566",that.arr)
+						   if( that.arr == that.array[i].ol){
+							   that.index=i
+						} else {
+							console.log("不相等");
+						} 
+					} 
+				     }
+				   })
+				  }
+				  
+				},
+			
+			logine:function(){ 
+				let that=this 
 				uni.scanCode({
 				    success:function(res) {
 				        console.log('条码类型：' + res.scanType);
@@ -160,25 +152,37 @@
 			
 			},
 			ConfirmButton:function(){
-				let that=this	
+				var that=this	
+				/* console.log("baseEntry1",that.oname) 
+				console.log("baseEntry1",that.array[that.index].ol)  
+				console.log("baseEntry2",that.ename) */
+				console.log("baseEntry3",that.ind) 
+				var listname=that.oname.split('-')
+				console.log("分割出来的数据:",listname)
+				console.log('1111',that.$request.baseurl)  
+				console.log("分割出来的数据:",listname[0]) 
 				that.$request.request('/api/materialTransfer/nonStock',{
-						baseEntry: '47130',
-						baseline: '',
-						disNum: '0B01',
-						doctype: '40', 
-						itemCode:'10629160',
-						olocation:'',
-						qty:'',
-						tlocation:'',
-						uids:'',
-						wzbs:'',						   
+						baseEntry: listname[3],
+						baseline: listname[4], 
+						disNum: listname[1],
+						doctype: listname[2],   
+						itemCode:listname[0],	  
+						olocation:that.array[that.index].ol,
+						qty:that.array[that.index].qty,
+						tlocation:that.ename, 
+						uids:that.array[that.index].uid,
+						wzbs:that.ind,	
 						},'post','application/json').then(res => {
                             console.log('查询成功',res.data);
+							uni.showToast({
+								icon: 'none',
+								title: '确定成功', 
+							});
                          })
 			},
 		radioChange:function(e){
 			console.log('携带值为', e.target.value)
-			this.index=e.target.value
+			this.ind=e.target.value
 		},
 		oInput: function(event) {
 			console.log("oInput输出的是：", event.target.value)
@@ -192,14 +196,10 @@
 		eInput: function(event) {
 			console.log("eInput输出的是：", event.target.value)
 			this.inputValue = event.target.value
-		},
-		/* etextarea:: function(event) {
-			console.log("eInput输出的是：", event.target.value)
-			this.inputValue = event.target.value
-		}, */
+		}, 
 		 bindPickerChange: function (e) {
 		    console.log('picker发送选择改变，携带值为', e.detail.value)
-		   this.ind=e.detail.value
+		   this.index=e.detail.value 
 		 
 		  },
 		}
@@ -239,11 +239,11 @@
 	}
 	.avater {
 		margin-top: -56rpx;
-		margin-left: 550rpx;
+		margin-left: 590rpx;
 	}
 	.avater2 {
 		margin-top: -56rpx;
-		margin-left: 510rpx;
+		margin-left: 580rpx;
 	}
 	.avater2 .img {
 		width: 50rpx;
@@ -265,7 +265,7 @@
 	}
 	.uni-input {
 		margin-top: -40rpx;
-		margin-left:-40rpx;
+		margin-left:-10rpx;
 		
 		font-size: 15px;
 	
