@@ -1607,7 +1607,7 @@ var render = function() {
                 { staticClass: _vm._$g(25, "sc"), attrs: { _i: 25 } },
                 [
                   _c("v-uni-radio", {
-                    attrs: { value: "0", checked: "true", _i: 26 }
+                    attrs: { value: "true", checked: "true", _i: 26 }
                   }),
                   _vm._v("全部移动")
                 ],
@@ -1617,7 +1617,7 @@ var render = function() {
                 "v-uni-label",
                 { attrs: { _i: 27 } },
                 [
-                  _c("v-uni-radio", { attrs: { value: "1", _i: 28 } }),
+                  _c("v-uni-radio", { attrs: { value: "false", _i: 28 } }),
                   _vm._v("部分移动")
                 ],
                 1
@@ -1648,35 +1648,59 @@ var render = function() {
         "v-uni-view",
         { staticClass: _vm._$g(33, "sc"), attrs: { _i: 33 } },
         [
+          _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(34, "sc"), attrs: { _i: 34 } },
+            [
+              _vm._$g(35, "i")
+                ? _c(
+                    "v-uni-view",
+                    { attrs: { _i: 35 } },
+                    [
+                      _c("v-uni-view", { attrs: { _i: 36 } }, [
+                        _vm._v("名称规格：" + _vm._$g(36, "t0-0"))
+                      ]),
+                      _c("br", { attrs: { _i: 37 } }),
+                      _c("v-uni-view", { attrs: { _i: 38 } }, [
+                        _vm._v("单据数量：" + _vm._$g(38, "t0-0"))
+                      ]),
+                      _c("br", { attrs: { _i: 39 } }),
+                      _c("v-uni-view", { attrs: { _i: 40 } }, [
+                        _vm._v("操作员：" + _vm._$g(40, "t0-0"))
+                      ]),
+                      _c("br", { attrs: { _i: 41 } }),
+                      _c("v-uni-view", { attrs: { _i: 42 } }, [
+                        _vm._v("操作时间：" + _vm._$g(42, "t0-0"))
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
           _c("v-uni-textarea", {
             attrs: {
               focus: "true",
-              "placeholder-style": "color:#000000",
-              placeholder: "显示",
-              value: "xname",
-              _i: 34
-            },
-            model: {
-              value: _vm._$g(34, "v-model"),
-              callback: function($$v) {
-                _vm.$handleVModelEvent(34, $$v)
-              },
-              expression: "xname"
+              "placeholder-style": "color:#868686",
+              placeholder: "",
+              value: "",
+              _i: 43
             }
           })
         ],
         1
       ),
-      _c("br", { attrs: { _i: 35 } }),
+      _c("br", { attrs: { _i: 44 } }),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(36, "sc"), attrs: { _i: 36 } },
+        { staticClass: _vm._$g(45, "sc"), attrs: { _i: 45 } },
         [
           _c(
             "v-uni-button",
             {
-              staticClass: _vm._$g(37, "sc"),
-              attrs: { _i: 37 },
+              staticClass: _vm._$g(46, "sc"),
+              attrs: { _i: 46 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -1688,8 +1712,8 @@ var render = function() {
           _c(
             "v-uni-button",
             {
-              staticClass: _vm._$g(38, "sc"),
-              attrs: { _i: 38 },
+              staticClass: _vm._$g(47, "sc"),
+              attrs: { _i: 47 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -1701,8 +1725,8 @@ var render = function() {
           _c(
             "v-uni-button",
             {
-              staticClass: _vm._$g(39, "sc"),
-              attrs: { _i: 39 },
+              staticClass: _vm._$g(48, "sc"),
+              attrs: { _i: 48 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -1714,8 +1738,8 @@ var render = function() {
           _c(
             "v-uni-button",
             {
-              staticClass: _vm._$g(40, "sc"),
-              attrs: { _i: 40 },
+              staticClass: _vm._$g(49, "sc"),
+              attrs: { _i: 49 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -1819,7 +1843,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../HBuilder/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .but{\n  margin-top: -260px;\n    margin-right: 360px;\n\n\n} */\n.button-c{\n\tmargin-top: 15rPX;\n\twidth: 160rpx;\n\theight: 80rpx;\n\tbackground-color: #00a0e9;\n\tcolor: #fff;\t\n\tdisplay:inline-block;\n\tmargin-left: 5rpx;\n\tmargin-right: 0rpx;\n\tfont-size:15px;\n\ttext-align: center;\n}\n.button-l{\n\tmargin-right: 60rpx;\n\tmargin-left:20rpx;\n\tmargin-top:23rPX;\n\twidth: 200rpx;\n\theight: 80rpx;\n\tbackground-color: #00a0e9;\n\tcolor: #fff;\n\tdisplay:inline-block;\n\ttext-align: center;\n\tfont-size:15px;\n}\n.avater {\n\tmargin-top: -56rpx;\n\tmargin-left: 590rpx;\n}\n.avater2 {\n\tmargin-top: -56rpx;\n\tmargin-left: 580rpx;\n}\n.avater2 .img {\n\twidth: 50rpx;\n\tmargin-top:0rpx;\n}\n.avater .img {\n\twidth: 50rpx;\n\tmargin-top:0rpx;\n}\n.name{\n\tfont-size:22px;\n}\n.nameTips2{\n\tmargin-right: 525rpx;\n\tfont-size: 15px;\n}\n.uni-input {\n\tmargin-top: -40rpx;\n\tmargin-left:-10rpx;\n\t\n\tfont-size: 15px;\n}\n.nameTips{\n\tfont-size: 15px;\n}\n.machine-name{\n\tmargin-top: -30rpx;\n}\n.machine-name uni-input {\n  border-bottom: 1px solid rgb(2, 2, 2);\n  width: 500rpx;\n  margin-left: 70px;\n  margin-top: -25px;\n}\n.machine-name-3 uni-input {\n  border-bottom: 1px solid rgb(2, 2, 2);\n  width: 500rpx;\n  margin-left:70px;\n  margin-top:-25px;\n}\n.machine-name-5{\n\tmargin-left: -300rpx;\n}\n.machine-name-5 uni-input {\n  border-bottom: 1px solid rgb(2, 2, 2);\n  width: 200rpx;\n  margin-left:70px;\n  margin-top:-25px;\n}\n.container {\n\tpadding: 20px;\n\tfont-size: 14px;\n\tline-height: 24px;\n\tmargin-top: 10px;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n}\n.radio{\n\tfont-size: 15px;\n\tmargin-right: 90px;\n}\n.num{\n\tfont-size: 15px;\n\tmargin-top: 120px;\n}\n.uni-textarea{\n  border: lightgrey;\n  border-style: dashed;\n  border-width: 1px;\n  font-size: 10px;\n  -webkit-border-radius: 20px;\n          border-radius: 20px;\n  height: 260px;\n width: 700rpx;\n/*  padding-left: 20px; */\n  margin-top: 10px\n}\n.uni-textarea uni-textarea{\n\tmargin-top: 30rpx;\n\tmargin-left: 50rpx;\n}\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .but{\n  margin-top: -260px;\n    margin-right: 360px;\n\n\n} */\n.depict{\nmargin-left: 50rpx;\nmargin-top: 60rpx;\n}\n.button-c{\n\tmargin-top: 15rPX;\n\twidth: 160rpx;\n\theight: 80rpx;\n\tbackground-color: #00a0e9;\n\tcolor: #fff;\t\n\tdisplay:inline-block;\n\tmargin-left: 5rpx;\n\tmargin-right: 0rpx;\n\tfont-size:15px;\n\ttext-align: center;\n}\n.button-l{\n\tmargin-right: 60rpx;\n\tmargin-left:20rpx;\n\tmargin-top:23rPX;\n\twidth: 200rpx;\n\theight: 80rpx;\n\tbackground-color: #00a0e9;\n\tcolor: #fff;\n\tdisplay:inline-block;\n\ttext-align: center;\n\tfont-size:15px;\n}\n.avater {\n\tmargin-top: -56rpx;\n\tmargin-left: 590rpx;\n}\n.avater2 {\n\tmargin-top: -56rpx;\n\tmargin-left: 580rpx;\n}\n.avater2 .img {\n\twidth: 50rpx;\n\tmargin-top:0rpx;\n}\n.avater .img {\n\twidth: 50rpx;\n\tmargin-top:0rpx;\n}\n.name{\n\tfont-size:22px;\n}\n.nameTips2{\n\tmargin-right: 525rpx;\n\tfont-size: 15px;\n}\n.uni-input {\n\tmargin-top: -40rpx;\n\tmargin-left:-10rpx;\n\t\n\tfont-size: 15px;\n}\n.nameTips{\n\tfont-size: 15px;\n}\n.machine-name{\n\tmargin-top: -30rpx;\n}\n.machine-name uni-input {\n  border-bottom: 1px solid rgb(2, 2, 2);\n  width: 500rpx;\n  margin-left: 70px;\n  margin-top: -25px;\n}\n.machine-name-3 uni-input {\n  border-bottom: 1px solid rgb(2, 2, 2);\n  width: 500rpx;\n  margin-left:70px;\n  margin-top:-25px;\n}\n.machine-name-5{\n\tmargin-left: -300rpx;\n}\n.machine-name-5 uni-input {\n  border-bottom: 1px solid rgb(2, 2, 2);\n  width: 200rpx;\n  margin-left:70px;\n  margin-top:-25px;\n}\n.container {\n\tpadding: 20px;\n\tfont-size: 14px;\n\tline-height: 24px;\n\tmargin-top: 10px;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n}\n.radio{\n\tfont-size: 15px;\n\tmargin-right: 70px;\n}\n.num{\n\tfont-size: 15px;\n\tmargin-top: 120px;\n}\n.uni-textarea{\n  border: lightgrey;\n  border-style: dashed;\n  border-width: 1px;\n  font-size: 10px;\n  -webkit-border-radius: 20px;\n          border-radius: 20px;\n  height: 260px;\n width: 700rpx;\n/*  padding-left: 20px; */\n  margin-top: 10px\n}\n.uni-textarea uni-textarea{\n\tmargin-top: 30rpx;\n\tmargin-left: 50rpx;\n}\n\n", ""]);
 // Exports
 module.exports = exports;
 

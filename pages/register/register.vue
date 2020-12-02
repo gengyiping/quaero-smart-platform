@@ -84,8 +84,8 @@
 											console.log("获取缓存中的Authorization是:",res.data);
 										}
 									});
-								}
-							})
+								} 
+							}) 
 							console.log('用户选择的界面号是:', this.index)
 							if (this.index == "0") {
 								uni.navigateTo({

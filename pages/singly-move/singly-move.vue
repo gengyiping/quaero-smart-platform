@@ -21,7 +21,7 @@
 			<view class="avater2">
 				<image @click="loginn" class="img " src="../../static/scan.png" mode="widthFix"></image>
 			</view>
-		</view><br> 
+		</view><br>
 
 		<view class="machine-name-3">
 			<text class="nameTips">目 标 位:</text>
@@ -32,12 +32,12 @@
 		</view><br>
 
 		<view>
-			<radio-group name="depicttype" class="depict" @change="radioChange">
+			<radio-group name="depicttype" class="depict1" @change="radioChange">
 				<label class="radio">
-					<radio value="0" checked="true" />全部移动
+					<radio value="true" checked="true" />全部移动
 				</label>
 				<label>
-					<radio value="1" />部分移动
+					<radio value="false" />部分移动
 				</label>
 			</radio-group>
 		</view>
@@ -47,7 +47,16 @@
 			<input name="name" focus="true" placeholder="" />
 		</view>
 		<view class="uni-textarea">
-			<textarea v-model="xname" focus="true" placeholder-style="color:#000000" placeholder="显示" value='xname' />
+			<view class="depict">
+				<view v-if="isShow">
+					<view>名称规格：{{array[index].itemName}}</view><br>
+					<view>单据数量：{{array[index].docNum}}</view><br>
+					<view>操作员：{{array[index].creator}}</view><br>
+					<view>操作时间：{{array[index].docDate}}</view>
+				</view>
+			</view>
+			<textarea focus="true" placeholder-style="color:#868686" placeholder="" value='' />
+
 			</view><br>
 		<view class="but"> 
 			<button class="button-c"  @click="ClearButton">清空</button>
@@ -62,7 +71,8 @@
 	export default {
 		data() {
 			return {
-			inputValue: '',
+				isShow:false,
+			    inputValue: '',
 				 current: 0,
 				 oname:'',
 				 nname:'',
@@ -72,7 +82,7 @@
 				 index: 0,
 				 arr:[''],
 				 arrol:[''],
-			     ind:0,
+			     ind:true,
 				
 			}
 		},
@@ -80,32 +90,38 @@
 			login:function(){
 				console.log('1111',this.$request.baseurl)
 				let that=this 
-				 uni.scanCode({
+				/* uni.scanCode({
 				    success:function(res) { 
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
 						that.oname=res.result 
-						var listname=that.oname.split('-')   
+						console.log("分割后的数据:",that.oname.substring(0,8))
+						console.log("分割后的数据:",that.oname.substring(8,12))
+						console.log("分割后的数据:",that.oname.substring(12,14))
+						console.log("分割后的数据:",that.oname.substring(14,20))
+						console.log("分割后的数据:",that.oname.substring(20,23)) */
+						/* var listname=that.oname.split('-')   
 						console.log("分割出来的数据:",listname)
 						console.log('1111',that.$request.baseurl)  
-						console.log("分割出来的数据:",listname[0]) 
+						console.log("分割出来的数据:",listname[0]) */
 					  	that.$request.request('/api/materialTransfer/nonStockInquire',{
-						baseEntry: listname[3],
-						baseline: listname[4],
-						disNum: listname[1],
-						doctype: listname[2],   
-						itemCode:listname[0]	  
+						/* baseEntry: that.oname.substring(14,20),
+						baseline: that.oname.substring(20,23),
+						disNum: that.oname.substring(8,12),
+						doctype: that.oname.substring(12,14),   
+						itemCode:that.oname.substring(0,8) */
+						baseEntry: '047130',
+						baseline: '002',
+						disNum: '0B01',
+						doctype: '40',    
+						itemCode:'10629160'  
 						},'post','application/json').then(res => {
-                            console.log('查询成功',res.data);
-							that.array=res.data.data;
-							that.xname=that.array[0].itemCode
-							/* console.log('查询成功that.array[0]',that.array[0].ol);
-							console.log('查询成功that.array[1]',that.array[1].ol); */
-							
+                            console.log('查询成功',res.data);  
+							that.isShow = true;
+							that.array=res.data.data; 						
                          }) 
-				    },
-				
-				 }) 
+				 /*   },
+				 }) */
 			},
 			loginn:function(){
 				console.log("123456:",this.oname)
@@ -124,10 +140,10 @@
 					        /* console.log('1111',that.$request.baseurl)
 							console.log("55556",that.array.length) */
 					    for(var i=0;i<that.array.length;i++){
-							console.log("55556",that.array[0].ol) 
+							console.log("55556",that.array[0].ol)  
 							console.log("555566",that.arr)
 						   if( that.arr == that.array[i].ol){
-							   that.index=i
+							   that.index=i 
 						} else {
 							console.log("不相等");
 						} 
@@ -157,16 +173,16 @@
 				console.log("baseEntry1",that.array[that.index].ol)  
 				console.log("baseEntry2",that.ename) */
 				console.log("baseEntry3",that.ind) 
-				var listname=that.oname.split('-')
-				console.log("分割出来的数据:",listname)
+				/* var listname=that.oname.split('-')
+				console.log("分割出来的数据:",listname)  
 				console.log('1111',that.$request.baseurl)  
-				console.log("分割出来的数据:",listname[0]) 
+				console.log("分割出来的数据:",listname[0]) */
 				that.$request.request('/api/materialTransfer/nonStock',{
-						baseEntry: listname[3],
-						baseline: listname[4], 
-						disNum: listname[1],
-						doctype: listname[2],   
-						itemCode:listname[0],	  
+						baseEntry: that.oname.substring(14,20),
+						baseline: that.oname.substring(20,23),
+						disNum: that.oname.substring(8,12),
+						doctype: that.oname.substring(12,14),    
+						itemCode:that.oname.substring(0,8),	   
 						olocation:that.array[that.index].ol,
 						qty:that.array[that.index].qty,
 						tlocation:that.ename, 
@@ -183,6 +199,7 @@
 		radioChange:function(e){
 			console.log('携带值为', e.target.value)
 			this.ind=e.target.value
+			console.log('携带值为1', this.ind)
 		},
 		oInput: function(event) {
 			console.log("oInput输出的是：", event.target.value)
@@ -194,7 +211,7 @@
 			this.inputValue = event.target.value
 		},
 		eInput: function(event) {
-			console.log("eInput输出的是：", event.target.value)
+			console.log("eInput输出的是：", event.target.value) 
 			this.inputValue = event.target.value
 		}, 
 		 bindPickerChange: function (e) {
@@ -213,6 +230,10 @@
 	
 	
 	} */
+	.depict{
+	margin-left: 50rpx;
+	margin-top: 60rpx;
+	}
 	.button-c{
 		margin-top: 15rPX;
 		width: 160rpx;
@@ -312,7 +333,7 @@
 	
 	.radio{
 		font-size: 15px;
-		margin-right: 90px;
+		margin-right: 70px;
 	}
 	.num{
 		font-size: 15px;
