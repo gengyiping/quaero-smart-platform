@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<text class="name">7-1:转移界面</text><br><br>
+		<text class="name">7-1:非库存转移界面</text><br><br>
 		<view class="machine-name">
 			<text class="nameTips">物料条码:</text>
 			<input @input="oInput" v-model="oname" focus="true" placeholder="扫码:料号+批号+单据条码" value="oname" />
@@ -44,13 +44,13 @@
 		<br>
 		<view class="machine-name-5">
 			<text class="num">移动数量: {{array[index].qty}}</text>
-			<input name="name" focus="true" placeholder="" />
+			<input  focus="true" placeholder="" />
 		</view>
 		<view class="uni-textarea">
 			<view class="depict">
 				<view v-if="isShow">
 					<view>名称规格：{{array[index].itemName}}</view><br>
-					<view>单据数量：{{array[index].docNum}}</view><br>
+					<view>单据数量：{{array.docTotal}}</view><br>
 					<view>操作员：{{array[index].creator}}</view><br>
 					<view>操作时间：{{array[index].docDate}}</view>
 				</view>
@@ -87,6 +87,10 @@
 			}
 		},
 		methods: {
+			ClearButton:function(){
+				this.ename=''
+				
+			},
 			login:function(){
 				console.log('1111',this.$request.baseurl)
 				let that=this 
@@ -111,13 +115,14 @@
 						doctype: that.oname.substring(12,14),   
 						itemCode:that.oname.substring(0,8) */
 						baseEntry: '047130',
-						baseline: '002',
+						baseline: '',
 						disNum: '0B01',
 						doctype: '40',    
 						itemCode:'10629160'  
 						},'post','application/json').then(res => {
                             console.log('查询成功',res.data);  
 							that.isShow = true;
+							
 							that.array=res.data.data; 						
                          }) 
 				 /*   },
@@ -164,9 +169,7 @@
 				    },
 				})
 			},
-			ClearButton:function(){
 			
-			},
 			ConfirmButton:function(){
 				var that=this	
 				/* console.log("baseEntry1",that.oname) 
@@ -231,6 +234,7 @@
 	
 	} */
 	.depict{
+		font-size: 13px;
 	margin-left: 50rpx;
 	margin-top: 60rpx;
 	}
@@ -264,7 +268,7 @@
 	}
 	.avater2 {
 		margin-top: -56rpx;
-		margin-left: 580rpx;
+		margin-left: 590rpx;
 	}
 	.avater2 .img {
 		width: 50rpx;
@@ -286,7 +290,7 @@
 	}
 	.uni-input {
 		margin-top: -40rpx;
-		margin-left:-10rpx;
+		margin-left:0rpx;
 		
 		font-size: 15px;
 	

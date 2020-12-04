@@ -17,10 +17,24 @@
 			}
 		},
 		{
+			"path": "pages/scan-more/scan-more",
+			"style": {
+				"navigationStyle": "custom"
+		
+			}
+		},
+		{
 			"path": "pages/singly-move/singly-move",
 			"style": {
 				"navigationStyle": "custom"
 
+			}
+		},
+		{
+			"path": "pages/singly-movee/singly-movee",
+			"style": {
+				"navigationStyle": "custom"
+		
 			}
 		},
 		{

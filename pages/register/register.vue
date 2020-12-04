@@ -89,13 +89,22 @@
 							console.log('用户选择的界面号是:', this.index)
 							if (this.index == "0") {
 								uni.navigateTo({
-									url: '../singly-move/singly-move'
+									url: '../singly-move/singly-move'//非库存
 								})
 							} else if (this.index == "1") {
 								uni.navigateTo({
-									url: '../scan/scan'
+									
+									url: '../singly-movee/singly-movee'//库存
 								})
-							} else if (this.index == "2") {
+							}else if (this.index == "2") {
+								uni.navigateTo({
+										url: '../scan/scan' //非库存批量
+								})
+							} else if (this.index == "3") {
+								uni.navigateTo({
+									url: '../scan-more/scan-more' //库存批量
+								})
+							}else if (this.index == "4") {
 								uni.showToast({
 									icon: 'none',
 									title: '请选择正确的界面号',
