@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<text class="name">7-3:非库存批量转移界面</text><br><br>
+		<text class="name">7-4:库存批量转移界面</text><br><br>
 		<view class="machine-name">
 			<text class="nameTips">原 位 置:</text>
 			<input @input="nInput" v-model="nname" focus="true" placeholder="扫码带入" value='nname' />
@@ -18,19 +18,17 @@
 		</view>
 
 		<view class="uni-textarea">
-			
-			 <textarea maxlength="-1" v-if="isShow" v-model="textareaVal"  placeholder-style="color:#0055ff" placeholder="" value='textareaVal'>
-			  <!-- <textarea v-if="isShow" v-model="textareaVal"> -->
-			 <!-- <view class="depict">
-			 <view v-if="isShow">
-			 	<view>名称规格：{{1}}</view><br>
-			 	<view>单据数量：{{2}}</view><br>
-			 	<view>操作员：{{3}}</view><br>
-			 	<view>操作时间：{{array.list}}</view>
-			 </view>
-			 </view> -->
-			 </textarea>
-			<!-- <textarea  placeholder-style="color:#0055ff" placeholder=""   /> --> 
+			<textarea maxlength="-1" v-if="isShow" v-model="textareaVal"  placeholder-style="color:#ffffff" placeholder="你好你好" value='textareaVal' >
+			 <!-- <textarea v-if="isShow" v-model="textareaVal"> -->
+			<!-- <view class="depict">
+			<view v-if="isShow">
+				<view>名称规格：{{1}}</view><br>
+				<view>单据数量：{{2}}</view><br>
+				<view>操作员：{{3}}</view><br>
+				<view>操作时间：{{array.list}}</view>
+			</view>
+			</view> -->
+			</textarea>
 			</view><br>
 		<view class="but">
 			<button class="button-c"  @click="loginq">清空</button>
@@ -39,48 +37,42 @@
 			<button class="button-c "  @click="loginsure">确认</button> 
 		</view> 
 	</view>
-	 
+	
 </template> 
 <script>
 	export default {
 		data() {
 			return {
+				mcgg:'',
+				djsl:'',
+				czy : '',
+				czsj: '',
 				 isShow:false,
-				 mcgg:'',
-				 djsl:'',
-				 czy : '',
-				 czsj: '',
 			     inputValue: '',
 				 current: 0,
 				 oname:'',
 				 nname:'',
 				 ename:'',
 				 array:[''],
-				 textareaVal:'批次数量: {0}\r\n单据总数: {1}\r\n物料总数: {2}\r\n '
+				  textareaVal:'批次数量: {0}\r\n单据总数: {1}\r\n物料总数: {2}\r\n '
 			}
 			
 		},
 		methods: {
-			loginq:function(){
-				this.textareaVal=''
-				this.nname=''
-				this.ename=''
-			},
 			loginn:function(){
 				let that=this
-				
 				/* uni.scanCode({
 				    success:function(res) {
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
 						that.nname=res.result */
-						that.$request.request('/api/materialTransfer/nonStockBatchInquire',{
+						that.$request.request('/api/materialTransfer/stockBatchInquire',{
 						/* baseEntry: that.oname.substring(14,20),
 						baseline: that.oname.substring(20,23),
 						disNum: that.oname.substring(8,12),
 						doctype: that.oname.substring(12,14),   
 						itemCode:that.oname.substring(0,8) */
-						location:"KWYD-666"
+						location:"KWYD-777" 
 						},'post','application/json').then(res => {
 							that.isShow=true
 						    console.log('查询成功',res.data);  
@@ -94,9 +86,7 @@
 							   var obj = that.array.list[i];
 							   console.log("数组显示",obj)
 							  /* that.czsj = obj.docDate; */
-							 
 							   that.textareaVal = that.textareaVal.replace("{0}",that.mcgg).replace("{1}",that.djsl).replace("{2}",that.czy);
-							 	
 							   for(var fieldName in obj){
 								   console.info('22222',fieldName);
 								   console.info('33333',obj[fieldName]);
@@ -108,7 +98,7 @@
 								 
 							   }
 							   that.textareaVal = that.textareaVal.replace("creator","操作员").replace('disNum','批号').replace('docDate','操作时间').replace("itemCode","料号").replace('itemName','名称规格').replace('qty','数量')
-							    	
+							    
 						   }
 						  
 						   console.log("11111",that.array.list.length)
@@ -116,7 +106,7 @@
 							   that.textareaVal = that.textareaVal +that.czsj
 						   } */
 						 })
-				/*    },
+			/* 	    },
 				
 				}) */
 			},
@@ -133,16 +123,21 @@
 			},
 			loginsure:function(){
 				var that=this
-				that.$request.request('/api/materialTransfer/nonStockBatch',{
-						 "location": "KWYD-666", 
+				that.$request.request('/api/materialTransfer/stockBatch',{
+						 "location": "KWYD-456", 
 						  "targetLocation": that.ename
 						},'post','application/json').then(res => {
-				            console.log('查询成功',res.data);
+				            console.log('确定成功',res.data);
 							uni.showToast({
 								icon: 'none',
 								title: '确定成功', 
 							});
 				         })
+			},
+			loginq:function(){
+				this.textareaVal=''
+				this.nname=''
+				this.ename=''
 			},
 		nInput: function(event) {
 			console.log("nInput输出的是：", event.target.value)
@@ -152,10 +147,10 @@
 			console.log("eInput输出的是：", event.target.value)
 			this.inputValue = event.target.value
 		}
-		}
+		}  
 	}
 </script>
-
+ 
 <style>
 	.depict{
 		font-size: 13px;
@@ -245,7 +240,7 @@
 	/*  padding-left: 20px; */
 	  margin-top: 10px	
 	}
-	.uni-textarea textarea{
+   .uni-textarea textarea{
 		padding:60rpx 0rpx -36rpx 0rpx;
 		margin-top: 20rpx;
 		margin-right: -10rpx;
@@ -254,5 +249,4 @@
 		margin-left: 20rpx;
 		font-size: 13px;
 	}
-
 </style>

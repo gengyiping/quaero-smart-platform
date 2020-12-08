@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<text class="name">7-1:非库存转移界面</text><br><br>
+		<text class="name">7-2:库存转移界面</text><br><br>
 		<view class="machine-name">
 			<text class="nameTips">物料条码:</text>
 			<input @input="oInput" v-model="oname" focus="true" placeholder="扫码:料号+批号+单据条码" value="oname" />
@@ -44,13 +44,13 @@
 		<br>
 		<view class="machine-name-5">
 			<text class="num">移动数量: {{array[index].qty}}</text>
-			<input v-model="move" focus="true" placeholder="" />
+			<input name="name" focus="true" placeholder="" />
 		</view>
 		<view class="uni-textarea">
 			<view class="depict">
 				<view v-if="isShow">
 					<view>名称规格：{{array[index].itemName}}</view><br>
-					<view>单据数量：{{array.docTotal}}</view><br>
+					<view>单据数量：{{array[index].docNum}}</view><br>
 					<view>操作员：{{array[index].creator}}</view><br>
 					<view>操作时间：{{array[index].docDate}}</view>
 				</view>
@@ -65,7 +65,7 @@
 			<button class="button-c "  @click="ConfirmButton">确认</button>  
 		</view> 
 	</view>
-	 
+	
 </template> 
 <script>
 	export default {
@@ -83,17 +83,10 @@
 				 arr:[''],
 				 arrol:[''],
 			     ind:true,
-				 move:''
 				
 			}
 		},
 		methods: {
-			ClearButton:function(){ 
-				this.ename=''
-				this.oname=''
-				this.move=''
-				
-			},
 			login:function(){
 				console.log('1111',this.$request.baseurl)
 				let that=this 
@@ -111,17 +104,17 @@
 						console.log("分割出来的数据:",listname)
 						console.log('1111',that.$request.baseurl)  
 						console.log("分割出来的数据:",listname[0]) */
-					  	that.$request.request('/api/materialTransfer/nonStockInquire',{
+					  	that.$request.request('/api/materialTransfer/stockInquire',{
 						/* baseEntry: that.oname.substring(14,20),
 						baseline: that.oname.substring(20,23),
 						disNum: that.oname.substring(8,12),
 						doctype: that.oname.substring(12,14),   
 						itemCode:that.oname.substring(0,8) */
-						baseEntry: '047130',
+						baseEntry: '',
 						baseline: '',
-						disNum: '0B01',
-						doctype: '40',    
-						itemCode:'10629160'  
+						disNum: '0B02',
+						doctype: '',    
+						itemCode:'51608001'  
 						},'post','application/json').then(res => {
                             console.log('查询成功',res.data);  
 							that.isShow = true;
@@ -183,7 +176,7 @@
 				console.log("分割出来的数据:",listname)  
 				console.log('1111',that.$request.baseurl)  
 				console.log("分割出来的数据:",listname[0]) */
-				that.$request.request('/api/materialTransfer/nonStock',{
+				that.$request.request('/api/materialTransfer/stock',{
 						baseEntry: that.oname.substring(14,20),
 						baseline: that.oname.substring(20,23),
 						disNum: that.oname.substring(8,12),
@@ -237,7 +230,6 @@
 	
 	} */
 	.depict{
-		font-size: 13px;
 	margin-left: 50rpx;
 	margin-top: 60rpx;
 	}
@@ -271,7 +263,7 @@
 	}
 	.avater2 {
 		margin-top: -56rpx;
-		margin-left: 590rpx;
+		margin-left: 580rpx;
 	}
 	.avater2 .img {
 		width: 50rpx;
@@ -293,7 +285,7 @@
 	}
 	.uni-input {
 		margin-top: -40rpx;
-		margin-left:0rpx;
+		margin-left:-10rpx;
 		
 		font-size: 15px;
 	
@@ -363,3 +355,4 @@
 	}
 
 </style>
+
