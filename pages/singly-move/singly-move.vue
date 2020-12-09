@@ -44,60 +44,61 @@
 		<br>
 		<view class="machine-name-5">
 			<text class="num">移动数量: {{array[index].qty}}</text>
-			<input v-model="move" focus="true" placeholder="" />
+			<input focus="true" placeholder="" />
 		</view>
 		<view class="uni-textarea">
-			<view class="depict">
-				<view v-if="isShow">
-					<view>名称规格：{{array[index].itemName}}</view><br>
-					<view>单据数量：{{array.docTotal}}</view><br>
-					<view>操作员：{{array[index].creator}}</view><br>
-					<view>操作时间：{{array[index].docDate}}</view>
-				</view>
-			</view>
-			<textarea focus="true" placeholder-style="color:#868686" placeholder="" value='' />
 
-			</view><br>
-		<view class="but"> 
-			<button class="button-c"  @click="ClearButton">清空</button>
-			<button class="button-c "  @click="ClearButton">复制</button>
-			 <button class="button-c "  @click="ClearButton">异常</button>
-			<button class="button-c "  @click="ConfirmButton">确认</button>  
-		</view> 
+			<textarea maxlength="-1" v-if="isShow" v-model="textareaVal" focus="true" placeholder-style="color:#0055ff"
+			 placeholder="" value=''>
+				</textarea>
+
+		</view><br>
+		<view class="but">
+			<button class="button-c" @click="ClearButton">清空</button>
+			<button class="button-c " @click="ClearButton">复制</button>
+			<button class="button-c " @click="ClearButton">异常</button>
+			<button class="button-c " @click="ConfirmButton">确认</button>
+		</view>
 	</view>
-	 
-</template> 
+
+</template>
 <script>
 	export default {
 		data() {
 			return {
-				isShow:false,
-			    inputValue: '',
-				 current: 0,
-				 oname:'',
-				 nname:'',
-				 ename:'',
-				 xname:'',
-				 array:[''],
-				 index: 0,
-				 arr:[''],
-				 arrol:[''],
-			     ind:true,
-				 move:''
-				
+				isShow: false,
+				inputValue: '',
+				current: 0,
+				oname: '',
+				nname: '',
+				ename: '',
+				xname: '',
+				array: [''],
+				index: 0,
+				arr: [''],
+				arrol: [''],
+				ind: true,
+				mcgg: ',',
+				djsl: '',
+				czy: '',
+				czsj: '',
+				textareaVal: '名称规格: {0}\r\n\r\n单据数量: {1}\r\n\r\n操作员: {2}\r\n\r\n操作时间:{3}\r\n\r\n'
 			}
 		},
 		methods: {
-			ClearButton:function(){ 
-				this.ename=''
-				this.oname=''
-				this.move=''
+			ClearButton: function() {
+				this.index=0
+				this.ename = ''
+				this.oname = ''
+                this.textareaVal =''
+                this.array[this.index].qty=''
+				this.array[this.index].ol=''
 				
 			},
-			login:function(){
-				console.log('1111',this.$request.baseurl)
-				let that=this 
-				/* uni.scanCode({
+			login: function() {
+				console.log('1111', this.$request.baseurl)
+				let that = this
+				 uni.scanCode({
 				    success:function(res) { 
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
@@ -106,227 +107,278 @@
 						console.log("分割后的数据:",that.oname.substring(8,12))
 						console.log("分割后的数据:",that.oname.substring(12,14))
 						console.log("分割后的数据:",that.oname.substring(14,20))
-						console.log("分割后的数据:",that.oname.substring(20,23)) */
-						/* var listname=that.oname.split('-')   
-						console.log("分割出来的数据:",listname)
-						console.log('1111',that.$request.baseurl)  
-						console.log("分割出来的数据:",listname[0]) */
-					  	that.$request.request('/api/materialTransfer/nonStockInquire',{
-						/* baseEntry: that.oname.substring(14,20),
-						baseline: that.oname.substring(20,23),
-						disNum: that.oname.substring(8,12),
-						doctype: that.oname.substring(12,14),   
-						itemCode:that.oname.substring(0,8) */
-						baseEntry: '047130',
-						baseline: '',
-						disNum: '0B01',
-						doctype: '40',    
-						itemCode:'10629160'  
-						},'post','application/json').then(res => {
-                            console.log('查询成功',res.data);  
-							that.isShow = true;
-							
-							that.array=res.data.data; 						
-                         }) 
-				 /*   },
-				 }) */
+						console.log("分割后的数据:",that.oname.substring(20,23)) 
+				/* var listname=that.oname.split('-')   
+				console.log("分割出来的数据:",listname)
+				console.log('1111',that.$request.baseurl)  
+				console.log("分割出来的数据:",listname[0]) */
+				that.$request.request('/api/materialTransfer/nonStockInquire', {
+					 baseEntry: that.oname.substring(14,20),
+					baseline: that.oname.substring(20,23),
+					disNum: that.oname.substring(8,12),
+					doctype: that.oname.substring(12,14),   
+					itemCode:that.oname.substring(0,8) 
+					/* baseEntry: '047130',
+					baseline: '',
+					disNum: '0B01',
+					doctype: '40',
+					itemCode: '10629160' */
+				}, 'post', 'application/json').then(res => {
+					console.log('查询成功', res.data);
+					that.isShow = true;
+					that.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' + '\r\n\r\n '
+					that.array = res.data.data
+					// todo  这里赋值
+					that.mcgg = that.array[that.index].itemName;
+					that.djsl=that.array[that.index].docNum;
+					that.czy=that.array[that.index].creator;
+					that.czsj=that.array[that.index].docDate;
+					that.textareaVal = that.textareaVal.replace("{0}",that.mcgg).replace("{1}",that.djsl).replace("{2}",that.czy).replace("{3}",that.czsj);
+				})
+				   },
+				}) 
 			},
-			loginn:function(){
-				console.log("123456:",this.oname)
-				if(this.oname==''){
+			loginn: function() {
+				console.log("123456:", this.oname)
+				if (this.oname == '') {
 					uni.showToast({
 						icon: 'none',
 						title: '请先扫码-物料条码',
 					});
-				} else{
-					var that=this
-					uni.scanCode({ 
-					    success:function(res) {  
-					        console.log('条码类型：' + res.scanType);
-					        console.log('条码内容：' + res.result);
-							that.arr=res.result 		
-					        /* console.log('1111',that.$request.baseurl)
+				} else {
+					var that = this
+					uni.scanCode({
+						success: function(res) {
+							console.log('条码类型：' + res.scanType);
+							console.log('条码内容：' + res.result);
+							that.arr = res.result
+							/* console.log('1111',that.$request.baseurl)
 							console.log("55556",that.array.length) */
-					    for(var i=0;i<that.array.length;i++){
-							console.log("55556",that.array[0].ol)  
-							console.log("555566",that.arr)
-						   if( that.arr == that.array[i].ol){
-							   that.index=i 
-						} else {
-							console.log("不相等");
-						} 
-					} 
-				     }
-				   })
-				  }
-				  
-				},
-			
-			logine:function(){ 
-				let that=this 
+							for (var i = 0; i < that.array.length; i++) {
+								var j=0
+								console.log("55556", that.array[i].ol)
+								console.log("555566", that.arr)
+								if (that.arr == that.array[i].ol) {
+									j=j+1;
+									that.index = i
+									that.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' + '\r\n\r\n ' 
+									 console.log("此时的数据显示",that.index);
+									 console.log("此时的数据显示1",that.array[that.index].docDate)
+									  that.mcgg = that.array[that.index].itemName;
+									  that.djsl=that.array[that.index].docNum; 
+									  that.czy=that.array[that.index].creator;   
+									  that.czsj=that.array[that.index].docDate;
+									  that.textareaVal = that.textareaVal.replace("{0}",that.mcgg).replace("{1}",that.djsl).replace("{2}",that.czy).replace("{3}",that.czsj);
+								      
+									  console.log("cishi的J=",j) 
+								}							
+							}
+							if(j==0){
+								uni.showToast({
+									icon: 'none',
+									title: '请检查条码的准确性', 
+								});
+							}
+						}
+					})
+				}
+
+			},
+
+			logine: function() {
+				let that = this
 				uni.scanCode({
-				    success:function(res) {
-				        console.log('条码类型：' + res.scanType);
-				        console.log('条码内容：' + res.result);
-						that.ename=res.result
-				    },
+					success: function(res) {
+						console.log('条码类型：' + res.scanType);
+						console.log('条码内容：' + res.result);
+						that.ename = res.result
+					},
 				})
 			},
-			
-			ConfirmButton:function(){
-				var that=this	
+
+			ConfirmButton: function() {
+				var that = this
 				/* console.log("baseEntry1",that.oname) 
 				console.log("baseEntry1",that.array[that.index].ol)  
 				console.log("baseEntry2",that.ename) */
-				console.log("baseEntry3",that.ind) 
+				console.log("baseEntry3", that.ind)
 				/* var listname=that.oname.split('-')
 				console.log("分割出来的数据:",listname)  
 				console.log('1111',that.$request.baseurl)  
 				console.log("分割出来的数据:",listname[0]) */
-				that.$request.request('/api/materialTransfer/nonStock',{
-						baseEntry: that.oname.substring(14,20),
-						baseline: that.oname.substring(20,23),
-						disNum: that.oname.substring(8,12),
-						doctype: that.oname.substring(12,14),    
-						itemCode:that.oname.substring(0,8),	   
-						olocation:that.array[that.index].ol,
-						qty:that.array[that.index].qty,
-						tlocation:that.ename, 
-						uids:that.array[that.index].uid,
-						wzbs:that.ind,	
-						},'post','application/json').then(res => {
-                            console.log('查询成功',res.data);
-							uni.showToast({
-								icon: 'none',
-								title: '确定成功', 
-							});
-                         })
+				that.$request.request('/api/materialTransfer/nonStock', {
+					baseEntry: that.oname.substring(14, 20),
+					baseline: that.oname.substring(20, 23),
+					disNum: that.oname.substring(8, 12),
+					doctype: that.oname.substring(12, 14),
+					itemCode: that.oname.substring(0, 8),
+					olocation: that.array[that.index].ol,
+					qty: that.array[that.index].qty,
+					tlocation: that.ename,
+					uids: that.array[that.index].uid,
+					wzbs: that.ind,
+				}, 'post', 'application/json').then(res => {
+					console.log('查询成功', res.data);
+					uni.showToast({
+						icon: 'none',
+						title: '确定成功',
+					});
+				})
 			},
-		radioChange:function(e){
-			console.log('携带值为', e.target.value)
-			this.ind=e.target.value
-			console.log('携带值为1', this.ind)
-		},
-		oInput: function(event) {
-			console.log("oInput输出的是：", event.target.value)
-			this.oname = event.target.value
-			
-		},
-		nInput: function(event) {
-			console.log("nInput输出的是：", event.target.value)
-			this.inputValue = event.target.value
-		},
-		eInput: function(event) {
-			console.log("eInput输出的是：", event.target.value) 
-			this.inputValue = event.target.value
-		}, 
-		 bindPickerChange: function (e) {
-		    console.log('picker发送选择改变，携带值为', e.detail.value)
-		   this.index=e.detail.value 
-		 
-		  },
+			radioChange: function(e) {
+				console.log('携带值为', e.target.value)
+				this.ind = e.target.value
+				console.log('携带值为1', this.ind)
+			},
+			oInput: function(event) {
+				console.log("oInput输出的是：", event.target.value)
+				this.oname = event.target.value
+
+			},
+			nInput: function(event) {
+				console.log("nInput输出的是：", event.target.value)
+				this.inputValue = event.target.value
+			},
+			eInput: function(event) {
+				console.log("eInput输出的是：", event.target.value)
+				this.inputValue = event.target.value
+			},
+			bindPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为', e.detail.value)
+				this.index = e.detail.value
+				  this.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' + '\r\n\r\n '
+                    this.mcgg = this.array[this.index].itemName;
+					this.djsl=this.array[this.index].docNum;
+					this.czy=this.array[this.index].creator;  
+					this.czsj=this.array[this.index].docDate;
+					this.textareaVal = this.textareaVal.replace("{0}",this.mcgg).replace("{1}",this.djsl).replace("{2}",this.czy).replace("{3}",this.czsj);
+			},
 		}
 	}
 </script>
 
 <style>
+	.uni-textarea textarea {
+		padding: 60rpx 0rpx -36rpx 0rpx;
+		margin-top: 20rpx;
+		margin-right: -10rpx;
+		width: 640rpx;
+		height: 240px;
+		margin-left: 20rpx;
+		font-size: 13px;
+	}
+
 	/* .but{
 	  margin-top: -260px;
 	    margin-right: 360px;
 	
 	
 	} */
-	.depict{
+	.depict {
 		font-size: 13px;
-	margin-left: 50rpx;
-	margin-top: 60rpx;
+		margin-left: 50rpx;
+		margin-top: 60rpx;
 	}
-	.button-c{
+
+	.button-c {
 		margin-top: 15rPX;
 		width: 160rpx;
 		height: 80rpx;
 		background-color: #00a0e9;
-		color: #fff;	
-		display:inline-block;
+		color: #fff;
+		display: inline-block;
 		margin-left: 5rpx;
 		margin-right: 0rpx;
-		font-size:15px;
+		font-size: 15px;
 		text-align: center;
 	}
-	.button-l{
+
+	.button-l {
 		margin-right: 60rpx;
-		margin-left:20rpx;
-		margin-top:23rPX;
+		margin-left: 20rpx;
+		margin-top: 23rPX;
 		width: 200rpx;
 		height: 80rpx;
 		background-color: #00a0e9;
 		color: #fff;
-		display:inline-block;
+		display: inline-block;
 		text-align: center;
-		font-size:15px;
+		font-size: 15px;
 	}
+
 	.avater {
 		margin-top: -56rpx;
 		margin-left: 590rpx;
 	}
+
 	.avater2 {
 		margin-top: -56rpx;
 		margin-left: 590rpx;
 	}
+
 	.avater2 .img {
 		width: 50rpx;
-		margin-top:0rpx;
-	
+		margin-top: 0rpx;
+
 	}
+
 	.avater .img {
 		width: 50rpx;
-		margin-top:0rpx;
-	
+		margin-top: 0rpx;
+
 	}
-	
-	.name{
-		font-size:22px;
+
+	.name {
+		font-size: 22px;
 	}
-	.nameTips2{
+
+	.nameTips2 {
 		margin-right: 525rpx;
 		font-size: 15px;
 	}
+
 	.uni-input {
 		margin-top: -40rpx;
-		margin-left:0rpx;
-		
+		margin-left: 0rpx;
+
 		font-size: 15px;
-	
+
 	}
-	.nameTips{
+
+	.nameTips {
 		font-size: 15px;
 	}
-	.machine-name{
+
+	.machine-name {
 		margin-top: -30rpx;
 	}
+
 	.machine-name input {
-	  border-bottom: 1px solid rgb(2, 2, 2);
-	  width: 500rpx;
-	  margin-left: 70px;
-	  margin-top: -25px;
+		border-bottom: 1px solid rgb(2, 2, 2);
+		width: 500rpx;
+		margin-left: 70px;
+		margin-top: -25px;
 	}
-	
+
 	.machine-name-3 input {
-	  border-bottom: 1px solid rgb(2, 2, 2);
-	  width: 500rpx;
-	  margin-left:70px;
-	  margin-top:-25px;
+		border-bottom: 1px solid rgb(2, 2, 2);
+		width: 500rpx;
+		margin-left: 70px;
+		margin-top: -25px;
 	}
-	.machine-name-5{
+
+	.machine-name-5 {
 		margin-left: -300rpx;
 	}
+
 	.machine-name-5 input {
-	  border-bottom: 1px solid rgb(2, 2, 2);
-	  width: 200rpx;
-	  margin-left:70px;
-	  margin-top:-25px;
-	  
+		border-bottom: 1px solid rgb(2, 2, 2);
+		width: 200rpx;
+		margin-left: 70px;
+		margin-top: -25px;
+
 	}
+
 	.container {
 		padding: 20px;
 		font-size: 14px;
@@ -337,29 +389,31 @@
 		align-items: center;
 		flex-direction: column;
 	}
-	
-	.radio{
+
+	.radio {
 		font-size: 15px;
 		margin-right: 70px;
 	}
-	.num{
+
+	.num {
 		font-size: 15px;
 		margin-top: 120px;
 	}
-	.uni-textarea{
-	  border: lightgrey;
-	  border-style: dashed;
-	  border-width: 1px;
-	  font-size: 10px;
-	  border-radius: 20px;
-	  height: 260px;
-	 width: 700rpx;
-	/*  padding-left: 20px; */
-	  margin-top: 10px	
+
+	.uni-textarea {
+		border: lightgrey;
+		border-style: dashed;
+		border-width: 1px;
+		font-size: 10px;
+		border-radius: 20px;
+		height: 260px;
+		width: 700rpx;
+		/*  padding-left: 20px; */
+		margin-top: 10px
 	}
-	.uni-textarea textarea{
+
+	.uni-textarea textarea {
 		margin-top: 30rpx;
 		margin-left: 50rpx;
 	}
-
 </style>

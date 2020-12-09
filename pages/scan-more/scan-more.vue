@@ -54,25 +54,20 @@
 				 nname:'',
 				 ename:'',
 				 array:[''],
-				  textareaVal:'批次数量: {0}\r\n单据总数: {1}\r\n物料总数: {2}\r\n '
+				 textareaVal:'批次数量: {0}\r\n单据总数: {1}\r\n物料总数: {2}\r\n '
 			}
 			
 		},
 		methods: {
 			loginn:function(){
 				let that=this
-				/* uni.scanCode({
+				 uni.scanCode({
 				    success:function(res) {
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
-						that.nname=res.result */
-						that.$request.request('/api/materialTransfer/stockBatchInquire',{
-						/* baseEntry: that.oname.substring(14,20),
-						baseline: that.oname.substring(20,23),
-						disNum: that.oname.substring(8,12),
-						doctype: that.oname.substring(12,14),   
-						itemCode:that.oname.substring(0,8) */
-						location:"KWYD-777" 
+						that.nname=res.result 
+						that.$request.request('/api/materialTransfer/stockBatchInquire',{					
+						location:that.nname 
 						},'post','application/json').then(res => {
 							that.isShow=true
 						    console.log('查询成功',res.data);  
@@ -106,9 +101,9 @@
 							   that.textareaVal = that.textareaVal +that.czsj
 						   } */
 						 })
-			/* 	    },
+			 	    },
 				
-				}) */
+				}) 
 			},
 			logine:function(){
 				let that=this
@@ -124,8 +119,8 @@
 			loginsure:function(){
 				var that=this
 				that.$request.request('/api/materialTransfer/stockBatch',{
-						 "location": "KWYD-456", 
-						  "targetLocation": that.ename
+						 location:that.nname , 
+						  targetLocation: that.ename
 						},'post','application/json').then(res => {
 				            console.log('确定成功',res.data);
 							uni.showToast({

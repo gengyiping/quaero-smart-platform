@@ -69,18 +69,13 @@
 			loginn:function(){
 				let that=this
 				
-				/* uni.scanCode({
+				 uni.scanCode({
 				    success:function(res) {
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
-						that.nname=res.result */
+						that.nname=res.result 
 						that.$request.request('/api/materialTransfer/nonStockBatchInquire',{
-						/* baseEntry: that.oname.substring(14,20),
-						baseline: that.oname.substring(20,23),
-						disNum: that.oname.substring(8,12),
-						doctype: that.oname.substring(12,14),   
-						itemCode:that.oname.substring(0,8) */
-						location:"KWYD-666"
+						location:that.nname
 						},'post','application/json').then(res => {
 							that.isShow=true
 						    console.log('查询成功',res.data);  
@@ -116,9 +111,9 @@
 							   that.textareaVal = that.textareaVal +that.czsj
 						   } */
 						 })
-				/*    },
+				  },
 				
-				}) */
+				}) 
 			},
 			logine:function(){
 				let that=this
@@ -134,8 +129,8 @@
 			loginsure:function(){
 				var that=this
 				that.$request.request('/api/materialTransfer/nonStockBatch',{
-						 "location": "KWYD-666", 
-						  "targetLocation": that.ename
+						 location: that.nname, 
+						  targetLocation: that.ename
 						},'post','application/json').then(res => {
 				            console.log('查询成功',res.data);
 							uni.showToast({

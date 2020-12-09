@@ -47,15 +47,9 @@
 			<input name="name" focus="true" placeholder="" />
 		</view>
 		<view class="uni-textarea">
-			<view class="depict">
-				<view v-if="isShow">
-					<view>名称规格：{{array[index].itemName}}</view><br>
-					<view>单据数量：{{array[index].docNum}}</view><br>
-					<view>操作员：{{array[index].creator}}</view><br>
-					<view>操作时间：{{array[index].docDate}}</view>
-				</view>
-			</view>
-			<textarea focus="true" placeholder-style="color:#868686" placeholder="" value='' />
+			
+			<textarea maxlength="-1" v-if="isShow" v-model="textareaVal" focus="true" placeholder-style="color:#868686" placeholder="" value=''>
+				</textarea>
 
 			</view><br>
 		<view class="but"> 
@@ -83,14 +77,26 @@
 				 arr:[''],
 				 arrol:[''],
 			     ind:true,
-				
+				mcgg: ',',
+				djsl: '',
+				czy: '',
+				czsj: '',
+				textareaVal: '名称规格: {0}\r\n\r\n单据数量: {1}\r\n\r\n操作员: {2}\r\n\r\n操作时间:{3}\r\n\r\n'
 			}
 		},
 		methods: {
+			ClearButton:function(){
+				this.index=0
+				this.ename = ''
+				this.oname = ''
+				this.textareaVal =''
+				this.array[this.index].qty=''
+				this.array[this.index].ol=''
+			},
 			login:function(){
 				console.log('1111',this.$request.baseurl)
 				let that=this 
-				/* uni.scanCode({
+				 uni.scanCode({
 				    success:function(res) { 
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
@@ -99,30 +105,36 @@
 						console.log("分割后的数据:",that.oname.substring(8,12))
 						console.log("分割后的数据:",that.oname.substring(12,14))
 						console.log("分割后的数据:",that.oname.substring(14,20))
-						console.log("分割后的数据:",that.oname.substring(20,23)) */
+						console.log("分割后的数据:",that.oname.substring(20,23)) 
 						/* var listname=that.oname.split('-')   
 						console.log("分割出来的数据:",listname)
 						console.log('1111',that.$request.baseurl)  
 						console.log("分割出来的数据:",listname[0]) */
 					  	that.$request.request('/api/materialTransfer/stockInquire',{
-						/* baseEntry: that.oname.substring(14,20),
+						 baseEntry: that.oname.substring(14,20),
 						baseline: that.oname.substring(20,23),
 						disNum: that.oname.substring(8,12),
 						doctype: that.oname.substring(12,14),   
-						itemCode:that.oname.substring(0,8) */
-						baseEntry: '',
+						itemCode:that.oname.substring(0,8) 
+						/* baseEntry: '',
 						baseline: '',
 						disNum: '0B02',
 						doctype: '',    
-						itemCode:'51608001'  
+						itemCode:'51608001'  */
 						},'post','application/json').then(res => {
                             console.log('查询成功',res.data);  
-							that.isShow = true;
-							
-							that.array=res.data.data; 						
+							that.isShow = true;					
+							that.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' + '\r\n\r\n '
+							that.array = res.data.data
+							// todo  这里赋值
+							that.mcgg = that.array[that.index].itemName;
+							that.djsl=that.array[that.index].docNum;
+							that.czy=that.array[that.index].creator;
+							that.czsj=that.array[that.index].docDate;
+							that.textareaVal = that.textareaVal.replace("{0}",that.mcgg).replace("{1}",that.djsl).replace("{2}",that.czy).replace("{3}",that.czsj);				
                          }) 
-				 /*   },
-				 }) */
+				    },
+				 }) 
 			},
 			loginn:function(){
 				console.log("123456:",this.oname)
@@ -216,7 +228,12 @@
 		 bindPickerChange: function (e) {
 		    console.log('picker发送选择改变，携带值为', e.detail.value)
 		   this.index=e.detail.value 
-		 
+		 this.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' + '\r\n\r\n '
+		   this.mcgg = this.array[this.index].itemName;
+		 					this.djsl=this.array[this.index].docNum;
+		 					this.czy=this.array[this.index].creator;  
+		 					this.czsj=this.array[this.index].docDate;
+		 					this.textareaVal = this.textareaVal.replace("{0}",this.mcgg).replace("{1}",this.djsl).replace("{2}",this.czy).replace("{3}",this.czsj);
 		  },
 		}
 	}
@@ -353,6 +370,13 @@
 		margin-top: 30rpx;
 		margin-left: 50rpx;
 	}
-
+   .uni-textarea textarea {
+		padding: 60rpx 0rpx -36rpx 0rpx;
+		margin-top: 20rpx;
+		margin-right: -10rpx;
+		width: 640rpx;
+		height: 240px;
+		margin-left: 20rpx;
+		font-size: 13px;
+	}
 </style>
-
