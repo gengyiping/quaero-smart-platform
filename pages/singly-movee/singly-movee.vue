@@ -43,8 +43,8 @@
 		</view>
 		<br>
 		<view class="machine-name-5">
-			<text class="num">移动数量: {{array[index].qty}}</text>
-			<input name="name" focus="true" placeholder="" />
+			<text class="num">移动数量: </text>
+			<input @input="numInput" v-model="nnum"  placeholder="" value="nnum"/>
 		</view>
 		<view class="uni-textarea">
 			
@@ -72,6 +72,7 @@
 				 nname:'',
 				 ename:'',
 				 xname:'',
+				 nnum:'',
 				 array:[''],
 				 index: 0,
 				 arr:[''],
@@ -90,7 +91,7 @@
 				this.ename = ''
 				this.oname = ''
 				this.textareaVal =''
-				this.array[this.index].qty=''
+				this.nnum=''
 				this.array[this.index].ol=''
 			},
 			login:function(){
@@ -111,32 +112,41 @@
 						console.log('1111',that.$request.baseurl)  
 						console.log("分割出来的数据:",listname[0]) */
 					  	that.$request.request('/api/materialTransfer/stockInquire',{
-						 baseEntry: that.oname.substring(14,20),
+					    baseEntry: that.oname.substring(14,20),
 						baseline: that.oname.substring(20,23),
 						disNum: that.oname.substring(8,12),
 						doctype: that.oname.substring(12,14),   
 						itemCode:that.oname.substring(0,8) 
 						/* baseEntry: '',
 						baseline: '',
-						disNum: '0B02',
+						disNum: '0C01',
 						doctype: '',    
-						itemCode:'51608001'  */
+						itemCode:'11023920'  */
 						},'post','application/json').then(res => {
                             console.log('查询成功',res.data);  
+							if (res.data.code == 400) {
+							    uni.showToast({ 
+							        icon: 'none',
+							        title: res.data.msg,
+							        duration: 1500
+							    });
+							}
 							that.isShow = true;					
 							that.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' + '\r\n\r\n '
 							that.array = res.data.data
 							// todo  这里赋值
 							that.mcgg = that.array[that.index].itemName;
-							that.djsl=that.array[that.index].docNum;
+							that.djsl=that.array[that.index].docNum; 
 							that.czy=that.array[that.index].creator;
 							that.czsj=that.array[that.index].docDate;
-							that.textareaVal = that.textareaVal.replace("{0}",that.mcgg).replace("{1}",that.djsl).replace("{2}",that.czy).replace("{3}",that.czsj);				
+							that.nnum=that.array[that.index].qty;
+							that.textareaVal = that.textareaVal.replace("{0}",that.mcgg).replace("{1}",that.djsl).replace("{2}",that.czy).replace("{3}",that.czsj);		
+									
                          }) 
-				    },
+				    }, 
 				 }) 
 			},
-			loginn:function(){
+			loginn:function(){ 
 				console.log("123456:",this.oname)
 				if(this.oname==''){
 					uni.showToast({
@@ -205,6 +215,13 @@
 								icon: 'none',
 								title: '确定成功', 
 							});
+							that.index=0
+							that.ename = ''
+							that.oname = ''
+										
+							that.textareaVal =''
+							that.nnum=''
+							that.array[that.index].ol=''
                          })
 			},
 		radioChange:function(e){
@@ -216,6 +233,10 @@
 			console.log("oInput输出的是：", event.target.value)
 			this.oname = event.target.value
 			
+		},
+		numInput: function(event) {
+			console.log("eInput输出的是：", event.target.value)
+			this.nnum = event.target.value
 		},
 		nInput: function(event) {
 			console.log("nInput输出的是：", event.target.value)

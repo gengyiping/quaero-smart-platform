@@ -1,5 +1,5 @@
 {
-    "name" : "SAP-ALL",
+    "name" : "凯实-数据",
     "appid" : "__UNI__EB96FE7",
     "description" : "数据扫码",
     "versionName" : "1.0.0",
@@ -36,7 +36,9 @@
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
                 ]
             },
-            "ios" : {},
+            "ios" : {
+                "idfa" : false
+            },
             "sdkConfigs" : {
                 "ad" : {}
             },
@@ -72,6 +74,9 @@
                     }
                 }
             }
+        },
+        "uniStatistics" : {
+            "enable" : true
         }
     },
     "quickapp" : {},
@@ -79,6 +84,37 @@
         "appid" : "",
         "setting" : {
             "urlCheck" : true
+        },
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "uniStatistics" : {
+        "enable" : true
+    },
+    "h5" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-alipay" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-baidu" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-qq" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-toutiao" : {
+        "uniStatistics" : {
+            "enable" : true
         }
     }
 }

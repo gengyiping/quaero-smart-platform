@@ -5,10 +5,20 @@ export default {
 		plus.screen.lockOrientation("portrait-primary")
 	},
 	onShow: function() {
-		console.log('App Show');
+		console.log("此时的打印信息显示：")
+		uni.onNetworkStatusChange(function(res){
+		console.log("网络类型:" + res.networkType + ",网络连接:" + res.isConnected);
+		if(!res.isConnected){
+		uni.showToast({
+		title:"网络未连接"
+		});
+		return; 
+		}
+		})
+	console.log('App Hide');  
 	},
 	onHide: function() {
-		console.log('App Hide');
+		console.log('App Hide');  
 	}
 };
 </script>

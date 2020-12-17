@@ -8,21 +8,21 @@
 
 		<view class="form">
 			<view class="inputWrapper">
-				<input name="Username" class="input" type="text" @input="nameInput" value="" placeholder="请输入用户名">
+				<input v-model="Username" class="input" type="text" @input="nameInput" value="" placeholder="请输入用户名">
 			</view>
 			<view class="inputWrapper">
 				<input name="Password" class="input" type="password" @input="wordInput" value="" placeholder="请输入密码">
 			</view><br>
-			<view class="number">
+			<!-- <view class="number">
 				<view class="uni-list-cell-left" style="color:#F1F1F1">
-					<!-- 选择界面号: -->
+					
 					<view class="uni-list-cell-db" style="color:#F1F1F1">
 						<picker @change="bindPickerChange" :value="index" :range="array">
 							<view class="uni-input">选择界面号 : {{array[index]}}</view>
 						</picker>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<button class="button" @click="login">登录</button>
 		</view>
 	</view>
@@ -33,36 +33,49 @@
 		data() {
 			return {
 				inputValue: '',
-				array: ['7-1', '7-2', '7-3', '7-4', '7-5'],
-				index: 0,
+				array: ['7-1:非库存转移  ', '7-2:库存转移   ', '7-3:非库存批量转移', '7-4:库存批量   ', '7-5'],
+				index: 0, 
 				username: '',
 				password: ''
 			}
 		},
 		methods: {
+			onLoad:function(){
+				var  info = uni.getStorageSync("username");
+				console.log("账号输出的是22：", info)
+				if(info!=''){
+					this.Username=info  
+					console.log("账号输出的是212：", this.Username)
+					
+				}
+			},
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value
 			},
 			nameInput: function(event) {
+				
 				console.log("账号输出的是：", event.target.value)
 				this.Username = event.target.value
+				
 			},
 			wordInput: function(event) {
 				console.log("密码输出的是：", event.target.value)
 				this.Password = event.target.value
-			},
+			}, 
 			login: function() {
+			
+				
 				console.log("账号输出的是1：", this.Username)
 				console.log("密码输出的是2：", this.Password)
 
 				uni.request({
-					url: 'http://192.168.122.200:8890/api/login',
+					url: 'http://192.168.123.47:8890/api/login',
 					method: 'POST',
 					data: {
 						username: this.Username,
 						password: this.Password
-					},
+					},  
 					header: {
 						"Content-Type": 'application/x-www-form-urlencoded',
 					},
@@ -73,11 +86,21 @@
 								icon: 'none',
 								title: '登录成功',
 							});
+							uni.navigateTo({
+								url: '../index/index'//用户选择界面
+							})
+							uni.setStorage({
+								key: 'username',
+								data: this.Username,
+								success: function() {
+									console.log("存储账号到本地成功！");
+								} 
+							})  
 							uni.setStorage({
 								key: 'Authorization',
 								data: res.data.msg,
 								success: function() {
-									console.log("存储用户名到本地成功！", res.data.msg);
+									console.log("存储Authorization到本地成功！", res.data.msg);
 									uni.getStorage({
 										key: 'Authorization',
 										success: function(res) {
@@ -87,7 +110,7 @@
 								} 
 							}) 
 							console.log('用户选择的界面号是:', this.index)
-							if (this.index == "0") {
+							/* if (this.index == "0") {
 								uni.navigateTo({
 									url: '../singly-move/singly-move'//非库存
 								})
@@ -109,7 +132,7 @@
 									icon: 'none',
 									title: '请选择正确的界面号',
 								});
-							}
+							} */
 						} else {
 							uni.showToast({
 								icon: 'none',
@@ -183,7 +206,7 @@
 		height: 100%;
 		text-align: center;
 		font-size: 30rpx;
-
+        background: white;
 	}
 
 	.button {
@@ -192,14 +215,14 @@
 		height: 80rpx;
 		background-color: #77B3D7;
 		border-radius: 15rpx;
-		margin-top: 40rpx;
+		margin-top: 20rpx;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
 	}
 
-	.number {
+	/* .number {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -207,7 +230,7 @@
 
 	.uni-list-cell-left {
 		margin-top: 40rpx;
-		margin-left: -460rpx;
+		margin-left: -320rpx;
 	}
 
 	.uni-input {
@@ -215,5 +238,5 @@
 		margin-left: 200rpx;
 		font-size: 30rpx;
 
-	}
+	} */
 </style>
