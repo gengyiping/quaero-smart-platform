@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const baseurl = 'http://192.168.122.200:8890';
+const baseurl = 'http://192.168.123.47:8890';
 
 function request(url, data, method, contentType) {
 	console.log("url=", url)

@@ -43,8 +43,8 @@
 		</view>
 		<br>
 		<view class="machine-name-5">
-			<text class="num">移动数量: {{array[index].qty}}</text>
-			<input focus="true" placeholder="" />
+			<text class="num">移动数量: </text>
+			<input @input="numInput" v-model="nnum" placeholder="" value="nnum" />
 		</view>
 		<view class="uni-textarea">
 
@@ -73,6 +73,7 @@
 				nname: '',
 				ename: '',
 				xname: '',
+				nnum: '',
 				array: [''],
 				index: 0,
 				arr: [''],
@@ -87,56 +88,71 @@
 		},
 		methods: {
 			ClearButton: function() {
-				this.index=0
+				this.index = 0
 				this.ename = ''
 				this.oname = ''
-                this.textareaVal =''
-                this.array[this.index].qty=''
-				this.array[this.index].ol=''
-				
+				this.textareaVal = ''
+				this.nnum = ''
+				this.array[this.index].ol = ''
 			},
 			login: function() {
 				console.log('1111', this.$request.baseurl)
 				let that = this
-				 uni.scanCode({
-				    success:function(res) { 
-				        console.log('条码类型：' + res.scanType);
-				        console.log('条码内容：' + res.result);
-						that.oname=res.result 
-						console.log("分割后的数据:",that.oname.substring(0,8))
-						console.log("分割后的数据:",that.oname.substring(8,12))
-						console.log("分割后的数据:",that.oname.substring(12,14))
-						console.log("分割后的数据:",that.oname.substring(14,20))
-						console.log("分割后的数据:",that.oname.substring(20,23)) 
-				/* var listname=that.oname.split('-')   
-				console.log("分割出来的数据:",listname)
-				console.log('1111',that.$request.baseurl)  
-				console.log("分割出来的数据:",listname[0]) */
-				that.$request.request('/api/materialTransfer/nonStockInquire', {
-					 baseEntry: that.oname.substring(14,20),
-					baseline: that.oname.substring(20,23),
-					disNum: that.oname.substring(8,12),
-					doctype: that.oname.substring(12,14),   
-					itemCode:that.oname.substring(0,8) 
-					/* baseEntry: '047130',
-					baseline: '',
-					disNum: '0B01',
-					doctype: '40',
-					itemCode: '10629160' */
-				}, 'post', 'application/json').then(res => {
-					console.log('查询成功', res.data);
-					that.isShow = true;
-					that.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' + '\r\n\r\n '
-					that.array = res.data.data
-					// todo  这里赋值
-					that.mcgg = that.array[that.index].itemName;
-					that.djsl=that.array[that.index].docNum;
-					that.czy=that.array[that.index].creator;
-					that.czsj=that.array[that.index].docDate;
-					that.textareaVal = that.textareaVal.replace("{0}",that.mcgg).replace("{1}",that.djsl).replace("{2}",that.czy).replace("{3}",that.czsj);
+				uni.scanCode({
+					success: function(res) {
+						console.log('条码类型：' + res.scanType);
+						console.log('条码内容：' + res.result);
+						that.oname = res.result
+						console.log("分割后的数据:", that.oname.substring(0, 8))
+						console.log("分割后的数据:", that.oname.substring(8, 12))
+						console.log("分割后的数据:", that.oname.substring(12, 14))
+						console.log("分割后的数据:", that.oname.substring(14, 20))
+						console.log("分割后的数据:", that.oname.substring(20, 23))
+						/* var listname=that.oname.split('-')   
+						console.log("分割出来的数据:",listname)
+						console.log('1111',that.$request.baseurl)  
+						console.log("分割出来的数据:",listname[0]) */
+						that.$request.request('/api/materialTransfer/nonStockInquire', {
+							baseEntry: that.oname.substring(14, 20),
+							baseline: that.oname.substring(20, 23),
+							disNum: that.oname.substring(8, 12),
+							doctype: that.oname.substring(12, 14),
+							itemCode: that.oname.substring(0, 8)
+							/* baseEntry: '047130',
+							baseline: '',
+							disNum: '0B01',
+							doctype: '40',
+							itemCode: '10629160' */
+						}, 'post', 'application/json').then(res => {
+							console.log('查询成功', res.data);
+							/* console.log('查询成功',res.data.data.array[that.index].ol);  
+							that.nnum=res.data.data.array[that.index].ol */
+
+							if (res.data.code == 400) {
+								uni.showToast({
+									icon: 'none',
+									title: res.data.msg,
+									duration: 1500
+								});
+							} 
+								console.log("显示isShow:", that.isShow)
+								that.isShow = true;
+								that.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' +
+									'操作时间: {3}' + '\r\n\r\n '
+								that.array = res.data.data
+								// todo  这里赋值
+
+								that.mcgg = that.array[that.index].itemName;
+								that.djsl = that.array[that.index].docNum;
+								that.czy = that.array[that.index].creator; 
+								that.czsj = that.array[that.index].docDate;
+								that.nnum = that.array[that.index].qty;
+								that.textareaVal = that.textareaVal.replace("{0}", that.mcgg).replace("{1}", that.djsl).replace("{2}",
+									that.czy).replace("{3}", that.czsj);
+							
+						})
+					},
 				})
-				   },
-				}) 
 			},
 			loginn: function() {
 				console.log("123456:", this.oname)
@@ -149,34 +165,37 @@
 					var that = this
 					uni.scanCode({
 						success: function(res) {
+							var j = 0
 							console.log('条码类型：' + res.scanType);
 							console.log('条码内容：' + res.result);
 							that.arr = res.result
 							/* console.log('1111',that.$request.baseurl)
 							console.log("55556",that.array.length) */
 							for (var i = 0; i < that.array.length; i++) {
-								var j=0
 								console.log("55556", that.array[i].ol)
 								console.log("555566", that.arr)
 								if (that.arr == that.array[i].ol) {
-									j=j+1;
+									j = j + 1;
 									that.index = i
-									that.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' + '\r\n\r\n ' 
-									 console.log("此时的数据显示",that.index);
-									 console.log("此时的数据显示1",that.array[that.index].docDate)
-									  that.mcgg = that.array[that.index].itemName;
-									  that.djsl=that.array[that.index].docNum; 
-									  that.czy=that.array[that.index].creator;   
-									  that.czsj=that.array[that.index].docDate;
-									  that.textareaVal = that.textareaVal.replace("{0}",that.mcgg).replace("{1}",that.djsl).replace("{2}",that.czy).replace("{3}",that.czsj);
-								      
-									  console.log("cishi的J=",j) 
-								}							
+									that.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' +
+										'操作时间: {3}' + '\r\n\r\n '
+									console.log("此时的数据显示", that.index);
+									console.log("此时的数据显示1", that.array[that.index].docDate)
+									that.mcgg = that.array[that.index].itemName;
+									that.djsl = that.array[that.index].docNum;
+									that.czy = that.array[that.index].creator;
+									that.czsj = that.array[that.index].docDate;
+									that.textareaVal = that.textareaVal.replace("{0}", that.mcgg).replace("{1}", that.djsl).replace("{2}",
+										that.czy).replace("{3}", that.czsj);
+
+
+								}
+								console.log("cishi的J=", j)
 							}
-							if(j==0){
+							if (j == 0) {
 								uni.showToast({
 									icon: 'none',
-									title: '请检查条码的准确性', 
+									title: '请检查条码的准确性',
 								});
 							}
 						}
@@ -223,6 +242,13 @@
 						icon: 'none',
 						title: '确定成功',
 					});
+					that.index = 0
+					that.ename = ''
+					that.oname = ''
+
+					that.textareaVal = ''
+					that.nnum = ''
+					that.array[that.index].ol = ''
 				})
 			},
 			radioChange: function(e) {
@@ -243,15 +269,21 @@
 				console.log("eInput输出的是：", event.target.value)
 				this.inputValue = event.target.value
 			},
+			numInput: function(event) {
+				console.log("eInput输出的是：", event.target.value)
+				this.nnum = event.target.value
+			},
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.detail.value)
 				this.index = e.detail.value
-				  this.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' + '\r\n\r\n '
-                    this.mcgg = this.array[this.index].itemName;
-					this.djsl=this.array[this.index].docNum;
-					this.czy=this.array[this.index].creator;  
-					this.czsj=this.array[this.index].docDate;
-					this.textareaVal = this.textareaVal.replace("{0}",this.mcgg).replace("{1}",this.djsl).replace("{2}",this.czy).replace("{3}",this.czsj);
+				this.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' +
+					'\r\n\r\n '
+				this.mcgg = this.array[this.index].itemName;
+				this.djsl = this.array[this.index].docNum;
+				this.czy = this.array[this.index].creator;
+				this.czsj = this.array[this.index].docDate;
+				this.textareaVal = this.textareaVal.replace("{0}", this.mcgg).replace("{1}", this.djsl).replace("{2}", this.czy).replace(
+					"{3}", this.czsj);
 			},
 		}
 	}

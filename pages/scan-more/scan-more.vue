@@ -18,7 +18,7 @@
 		</view>
 
 		<view class="uni-textarea">
-			<textarea maxlength="-1" v-if="isShow" v-model="textareaVal"  placeholder-style="color:#ffffff" placeholder="你好你好" value='textareaVal' >
+			<textarea maxlength="-1" v-if="isShow" v-model="textareaVal" focus="true" placeholder-style="color:#ffffff" placeholder="" value='' >
 			 <!-- <textarea v-if="isShow" v-model="textareaVal"> -->
 			<!-- <view class="depict">
 			<view v-if="isShow">
@@ -67,10 +67,17 @@
 				        console.log('条码内容：' + res.result);
 						that.nname=res.result 
 						that.$request.request('/api/materialTransfer/stockBatchInquire',{					
-						location:that.nname 
+						location:that.nname
 						},'post','application/json').then(res => {
+							 console.log('查询成功',res.data);  
+							if (res.data.code == 400) {
+							    uni.showToast({ 
+							        icon: 'none',
+							        title: res.data.msg,
+							        duration: 1500
+							    });
+							}else{
 							that.isShow=true
-						    console.log('查询成功',res.data);  
 							that.textareaVal='批次数量: {0}'+'\r\n'+'单据总数: {1}'+'\r\n'+'物料总数: {2}'+'\r\n '
 							that.array=res.data.data
 							// todo  这里赋值
@@ -94,13 +101,15 @@
 							   }
 							   that.textareaVal = that.textareaVal.replace("creator","操作员").replace('disNum','批号').replace('docDate','操作时间').replace("itemCode","料号").replace('itemName','名称规格').replace('qty','数量')
 							    
-						   }
+						   } 
 						  
 						   console.log("11111",that.array.list.length)
 						   /* for(var i=0;i<that.array.list.length;i++){
 							   that.textareaVal = that.textareaVal +that.czsj
 						   } */
+						   }
 						 })
+						 
 			 	    },
 				
 				}) 
@@ -127,6 +136,9 @@
 								icon: 'none',
 								title: '确定成功', 
 							});
+							that.textareaVal=''
+							that.nname=''
+							that.ename=''
 				         })
 			},
 			loginq:function(){
