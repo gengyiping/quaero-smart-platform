@@ -63,20 +63,20 @@
 				let that=this
 				 uni.scanCode({
 				    success:function(res) {
-				        console.log('条码类型：' + res.scanType);
-				        console.log('条码内容：' + res.result);
+				     //   console.log('条码类型：' + res.scanType);
+				      //  console.log('条码内容：' + res.result);
 						that.nname=res.result 
 						that.$request.request('/api/materialTransfer/stockBatchInquire',{					
 						location:that.nname
 						},'post','application/json').then(res => {
-							 console.log('查询成功',res.data);  
+							// console.log('查询成功',res.data);  
 							if (res.data.code == 400) {
 							    uni.showToast({ 
 							        icon: 'none',
 							        title: res.data.msg,
 							        duration: 1500
 							    });
-							}else{
+							}else{ 
 							that.isShow=true
 							that.textareaVal='批次数量: {0}'+'\r\n'+'单据总数: {1}'+'\r\n'+'物料总数: {2}'+'\r\n '
 							that.array=res.data.data
@@ -86,16 +86,16 @@
 						   that.czy = that.array.itemTotal;
 						   for(var i=0;i<that.array.list.length;i++){
 							   var obj = that.array.list[i];
-							   console.log("数组显示",obj)
+							  // console.log("数组显示",obj)
 							  /* that.czsj = obj.docDate; */
 							   that.textareaVal = that.textareaVal.replace("{0}",that.mcgg).replace("{1}",that.djsl).replace("{2}",that.czy);
 							   for(var fieldName in obj){
-								   console.info('22222',fieldName);
-								   console.info('33333',obj[fieldName]);
+								//   console.info('22222',fieldName);
+								//   console.info('33333',obj[fieldName]);
 								  if(fieldName!=('uid')){
 									  that.textareaVal = that.textareaVal +'\r\n'+(i+1)+'-'+fieldName+': '+obj[fieldName]
 									   
-									    console.info('textareaVal',that.textareaVal)
+									 //   console.info('textareaVal',that.textareaVal)
 								  }
 								 
 							   }
@@ -103,7 +103,7 @@
 							    
 						   } 
 						  
-						   console.log("11111",that.array.list.length)
+						 //  console.log("11111",that.array.list.length)
 						   /* for(var i=0;i<that.array.list.length;i++){
 							   that.textareaVal = that.textareaVal +that.czsj
 						   } */
@@ -118,8 +118,8 @@
 				let that=this
 				uni.scanCode({
 				    success:function(res) {
-				        console.log('条码类型：' + res.scanType);
-				        console.log('条码内容：' + res.result);
+				      //  console.log('条码类型：' + res.scanType);
+				      //  console.log('条码内容：' + res.result);
 						that.ename=res.result
 				    },
 				
@@ -131,7 +131,7 @@
 						 location:that.nname , 
 						  targetLocation: that.ename
 						},'post','application/json').then(res => {
-				            console.log('确定成功',res.data);
+				         //   console.log('确定成功',res.data);
 							uni.showToast({
 								icon: 'none',
 								title: '确定成功', 
@@ -147,11 +147,11 @@
 				this.ename=''
 			},
 		nInput: function(event) {
-			console.log("nInput输出的是：", event.target.value)
+			//console.log("nInput输出的是：", event.target.value)
 			this.inputValue = event.target.value
 		},
 		eInput: function(event) {
-			console.log("eInput输出的是：", event.target.value)
+			//console.log("eInput输出的是：", event.target.value)
 			this.inputValue = event.target.value
 		}
 		}  

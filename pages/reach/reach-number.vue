@@ -1,0 +1,119 @@
+<template>
+	<u-form :model="form" ref="uForm" style="margin-left: 50rpx;" label-width=190>
+		<uni-view class="name">按订单计划到料</uni-view>
+		<u-form-item label="供应商代号">
+			<u-input v-model="form.code" />
+		</u-form-item>
+		<u-form-item label="料号">
+			<u-input v-model="form.number" />
+		</u-form-item>
+		<u-form-item label="业务员">
+			<u-input v-model="form.staff" />
+		</u-form-item>
+		<u-form-item label="要求到料日期:">
+			<u-calendar v-model="show" :mode="mode" @change="change" max-date="2022-12-30"></u-calendar>
+			<u-button style="margin-left: 3rpx;" @click="show = true">{{datebtn}}</u-button>
+
+		</u-form-item>
+		<!-- <u-form-item >
+				<u-radio-group v-model="radio">
+					<u-radio @change="radioChange" v-for="(item, index) in radioList" :key="index" :name="item.name" :disabled="item.disabled" :value="item.value">
+						{{ item.name }}
+					</u-radio>
+				</u-radio-group>
+			</u-form-item> -->
+		<view>
+			<br>
+			<radio-group name="depicttype" class="depict1" @change="radioChange">
+				<label class="radio">
+					<radio value="true" checked="true" />采购订单未交
+				</label>
+				<label>
+					<radio value="false" />生产订单未交
+				</label>
+			</radio-group>
+		</view>
+		</u-form-item>
+		<u-form-item>
+			<u-button @click="loginq" type="primary">清空</u-button>
+			<u-button type="primary" @click="chaxun">查询</u-button>
+		</u-form-item>
+	</u-form>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				index: 0,
+				ind: true,
+				datebtn: '请选择日期范围',
+				show: false,
+				mode: 'range',
+				form: {
+					name: '',
+					number: '',
+					staff: '',
+					code: '',
+				},
+
+				/* 	radioList: [
+						{
+							name: '采购订单未交',
+							disabled: false,
+							value:true
+							
+						},
+						{
+							name: '生产订单未交',
+							disabled: false,
+							value:false
+						}
+					],
+					radio: '', */
+				switchVal: false
+			};
+		},
+		methods: {
+			change: function(e) {
+				console.log(e)
+				this.datebtn = e.startDate + '-' + e.endDate;
+			},
+			radioChange: function(e) {
+				console.log("11111111", e.detail.value)
+				this.ind = e.detail.value
+			},
+			loginq: function(e) {
+				console.log("2222222", e)
+				this.datebtn = '请选择日期范围'
+				this.form.number = ''
+				this.form.code = ''
+				this.form.name = ''
+				this.form.staff = ''
+			},
+			chaxun: function(e) {
+				uni.navigateTo({
+					url: '../reach/reach-look' //用户选择界面
+				})
+			}
+		}
+	};
+</script>
+
+
+<style>
+	.name {
+		margin-top: 50rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 50rpx;
+		font-size: 16px;
+	}
+
+	.radio {
+		font-size: 14px;
+		margin-right: 70px;
+
+	}
+</style>

@@ -1,75 +1,76 @@
 <template>
-	<view class="content">
-		<view class="avatarWrapper">
-			<view class="avater">
-				<image class="img " src="../../static/logo.png" mode="widthFix"></image>
-			</view>
-		</view>
-<view class="form">
-			<view class="inputWrapper">
-				<input name="Username" class="input" type="text" @input="nameInput" value="" placeholder="请输入用户名">
-			</view>
-			<view class="inputWrapper">
-				<input name="Password" class="input" type="password" @input="wordInput" value="" placeholder="请输入密码">
-			</view>
+	<u-form :model="form" ref="uForm"style="margin-left: 50rpx;">
+		<uni-view  class="name">按料号计划到料</uni-view>
+			<u-form-item  label="代号" >
+				<u-input v-model="form.name" />
+				</u-form-item>
+			<u-form-item label="料号"><u-input v-model="form.intro" /></u-form-item>
+			<u-form-item label="业员"><u-input v-model="form.sex"  /></u-form-item>
+			<u-form-item label="时间">
+				<u-calendar v-model="show" :mode="mode"></u-calendar>
+		        <u-button @click="show = true">请选择日期</u-button>
+				 <uni-view>-</uni-view>
+				<u-calendar v-model="show" :mode="mode"></u-calendar>
+				<u-button @click="show = true">请选择日期</u-button> 
+				</u-form-item>
+		
 			
-			</view>
-			<button class="button" @click="login">登录</button>
+			<u-form-item >
+				<u-radio-group v-model="radio">
+					<u-radio v-for="(item, index) in radioList" :key="index" :name="item.name" :disabled="item.disabled">
+						{{ item.name }}
+					</u-radio>
+				</u-radio-group>
+			</u-form-item>
 			
-	</view>
+			
+			
+		</u-form-item>
+			<u-form-item><u-button type="primary">清空</u-button>
+			<u-button type="primary">返回</u-button>
+			<u-button type="primary">查询</u-button></u-form-item>
+			
+		</u-form>
+		
 </template>
 
 <script>
+export default {
+	data() {
+		return {
+			show: false,
+			mode:'date',
+			form: {
+				name: '',
+				intro: '',
+				sex: ''
+			},
+			
+			radioList: [
+				{
+					name: '采购订单未交',
+					disabled: false
+				},
+				{
+					name: '生产订单未交',
+					disabled: false
+				}
+			],
+			radio: '',
+			switchVal: false
+		};
+	}
+};
 </script>
 
 
 <style>
-	
-	
-	
-	
-	.button {
-		color: #fff;
-		width: 500rpx;
-		height: 80rpx;
-		background-color: #77B3D7;
-		border-radius: 10rpx;
-		margin-top: 35rpx;
-	
-	
-	}
-	.content{
-		background: #377EB8;
-		width: 100vw;
-		height: 100vh;
-		
-	}
-	.form {
-		padding: 0 100rpx;
-		margin-top: 380rpx;
-	display: flex;
+.name{
+	margin-top: 50rpx;
+    display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction:column;
-	}
-	
-	.inputWrapper {
-		width: 600rpx;
-		height: 80rpx;
-		background: white;
-		border-radius: 20rpx;
-		box-sizing: border-box;
-		
-		margin-top: 36rpx;
-		
-	}
-	
-	.inputWrapper .input {
-		width: 100%;
-		height: 100%;
-		text-align: center;
-		font-size: 30rpx;
-		
-	
-	}
+	margin-bottom: 50rpx;
+	font-size: 16px;
+}
 </style>

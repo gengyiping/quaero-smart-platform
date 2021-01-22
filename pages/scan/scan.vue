@@ -15,8 +15,7 @@
 			<view class="avater">
 				<image @click="logine" class="img " src="../../static/scan.png" mode="widthFix"></image>
 			</view>
-		</view>
-
+		</view>   
 		<view class="uni-textarea">
 
 			<textarea maxlength="-1" v-if="isShow" v-model="textareaVal" placeholder-style="color:#0055ff" placeholder="" value=''>
@@ -68,11 +67,10 @@
 			},
 			loginn: function() {
 				let that = this
-
 				uni.scanCode({
 					success: function(res) {
-						console.log('条码类型：' + res.scanType);
-						console.log('条码内容：' + res.result);
+						//console.log('条码类型：' + res.scanType);
+						//console.log('条码内容：' + res.result);
 						that.nname = res.result
 						that.$request.request('/api/materialTransfer/nonStockBatchInquire', {
 							location: that.nname
@@ -85,30 +83,32 @@
 									duration: 1500
 								});
 
-							} else {
-								console.log("显示isShow:", that.isShow)
+							} else{
+								//console.log("显示isShow:", that.isShow)
 								that.isShow = true
 								that.textareaVal = '批次数量: {0}' + '\r\n' + '单据总数: {1}' + '\r\n' + '物料总数: {2}' + '\r\n '
 								that.array = res.data.data
+								//console.log("that.array.list.length",that.array.list.length)
 								// todo  这里赋值
 								that.mcgg = that.array.disTotal;
 								that.djsl = that.array.docTotal;
 								that.czy = that.array.itemTotal;
+								
 								for (var i = 0; i < that.array.list.length; i++) {
 									var obj = that.array.list[i];
-									console.log("数组显示", obj)
+								//	console.log("数组显示", obj)
 									/* that.czsj = obj.docDate; */
 
 									that.textareaVal = that.textareaVal.replace("{0}", that.mcgg).replace("{1}", that.djsl).replace("{2}",
 										that.czy);
 
 									for (var fieldName in obj) {
-										console.info('22222', fieldName);
-										console.info('33333', obj[fieldName]);
+									//	console.info('22222', fieldName);
+									//	console.info('33333', obj[fieldName]);
 										if (fieldName != ('uid')) {
 											that.textareaVal = that.textareaVal + '\r\n' + (i + 1) + '-' + fieldName + ': ' + obj[fieldName]
 
-											console.info('textareaVal', that.textareaVal)
+										//	console.info('textareaVal', that.textareaVal)
 										}
 
 									}
@@ -117,12 +117,13 @@
 
 								}
 
-								console.log("11111", that.array.list.length)
-							}
+								//console.log("11111", that.array.list.length)
+							
 
 							/* for(var i=0;i<that.array.list.length;i++){
 							   that.textareaVal = that.textareaVal +that.czsj
 						   } */
+						   }
 						})
 					},
 
@@ -132,8 +133,8 @@
 				let that = this
 				uni.scanCode({
 					success: function(res) {
-						console.log('条码类型：' + res.scanType);
-						console.log('条码内容：' + res.result);
+						//console.log('条码类型：' + res.scanType);
+						//console.log('条码内容：' + res.result);
 						that.ename = res.result
 					},
 
@@ -145,7 +146,7 @@
 					location: that.nname,
 					targetLocation: that.ename
 				}, 'post', 'application/json').then(res => {
-					console.log('查询成功', res.data);
+				//	console.log('查询成功', res.data);
 					uni.showToast({
 						icon: 'none',
 						title: '确定成功',
@@ -156,11 +157,11 @@
 				})
 			},
 			nInput: function(event) {
-				console.log("nInput输出的是：", event.target.value)
+				//console.log("nInput输出的是：", event.target.value)
 				this.inputValue = event.target.value
 			},
 			eInput: function(event) {
-				console.log("eInput输出的是：", event.target.value)
+				//console.log("eInput输出的是：", event.target.value)
 				this.inputValue = event.target.value
 			}
 		}

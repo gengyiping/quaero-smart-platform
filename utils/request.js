@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const baseurl = 'http://192.168.123.47:8890';
+const baseurl = 'http://192.168.123.211:8890';
 
 function request(url, data, method, contentType) {
 	console.log("url=", url)
@@ -16,31 +16,34 @@ function request(url, data, method, contentType) {
 	            method,
 	            header,
 	            success: (res) => {
-	                if (res.statusCode == 200) {
+	                if (res.data.code == 200) {
 	                    resolve(res)
-	                } else if (res.statusCode == 405) {
+	                } else if (res.data.code == 403) {
 	                    uni.showToast({
 	                        icon: 'none',
-	                        title: '请求方法错误',
+	                        title: res.data.msg,
 	                        duration: 1500
 	                    });
 	                } else { 
 	                    uni.showToast({
 	                        icon: 'none',
-	                        title: '请求错误:' + res.statusCode,
+	                        title: '请求错误:' + res.data.msg,
 	                        duration: 1500
 	                    });
 	                }
 	            },
-	            fail: (err) => {
-	                console.log('request fail', err)
-	                uni.showToast({
-	                    icon: 'none',
-	                    title: err.errMsg,
-	                    duration: 2000
-	                });
-	                reject(err)
-	            }
+	     fail: (err) => {
+	         console.log('request fail', err)
+	     	if(err.errMsg=="request:fail timeout"){
+	     		uni.showToast({
+	     		    icon: 'none',
+	     		    title: err.errMsg,
+	     		    duration: 2000
+	     		});
+	     	}  
+	        
+	         reject(err)
+	     }
 	        })
 	    })
 	/* return new Promise((resolve, reject) => {

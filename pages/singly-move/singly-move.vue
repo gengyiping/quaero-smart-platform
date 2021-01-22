@@ -9,11 +9,6 @@
 			</view>
 		</view><br><br>
 		<view class="machine-name2">
-			<!-- <text class="nameTips2">原 位 置:</text> -->
-			<!-- <input @input="nInput" v-model="nname" focus="true" placeholder="扫码带入" value='nname' />
-			<view class="avater">
-				<image @click="loginn" class="img " src="../../static/scan.png" mode="widthFix"></image>
-			</view> -->
 			<picker @change="bindPickerChange" :value="index" :range="array" :range-key="'ol'">
 				<view class="uni-input">原 位 置 : {{array[index].ol}}</view>
 			</picker>
@@ -87,6 +82,7 @@
 			}
 		},
 		methods: {
+			
 			ClearButton: function() {
 				this.index = 0
 				this.ename = ''
@@ -96,18 +92,18 @@
 				this.array[this.index].ol = ''
 			},
 			login: function() {
-				console.log('1111', this.$request.baseurl)
+				//console.log('1111', this.$request.baseurl)
 				let that = this
 				uni.scanCode({
 					success: function(res) {
-						console.log('条码类型：' + res.scanType);
-						console.log('条码内容：' + res.result);
+						//console.log('条码类型：' + res.scanType);
+						//console.log('条码内容：' + res.result);
 						that.oname = res.result
-						console.log("分割后的数据:", that.oname.substring(0, 8))
+						/* console.log("分割后的数据:", that.oname.substring(0, 8))
 						console.log("分割后的数据:", that.oname.substring(8, 12))
 						console.log("分割后的数据:", that.oname.substring(12, 14))
 						console.log("分割后的数据:", that.oname.substring(14, 20))
-						console.log("分割后的数据:", that.oname.substring(20, 23))
+						console.log("分割后的数据:", that.oname.substring(20, 23)) */
 						/* var listname=that.oname.split('-')   
 						console.log("分割出来的数据:",listname)
 						console.log('1111',that.$request.baseurl)  
@@ -124,7 +120,7 @@
 							doctype: '40',
 							itemCode: '10629160' */
 						}, 'post', 'application/json').then(res => {
-							console.log('查询成功', res.data);
+							//console.log('查询成功', res.data);
 							/* console.log('查询成功',res.data.data.array[that.index].ol);  
 							that.nnum=res.data.data.array[that.index].ol */
 
@@ -134,8 +130,8 @@
 									title: res.data.msg,
 									duration: 1500
 								});
-							} 
-								console.log("显示isShow:", that.isShow)
+							} else{
+								//console.log("显示isShow:", that.isShow)
 								that.isShow = true;
 								that.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' +
 									'操作时间: {3}' + '\r\n\r\n '
@@ -149,13 +145,13 @@
 								that.nnum = that.array[that.index].qty;
 								that.textareaVal = that.textareaVal.replace("{0}", that.mcgg).replace("{1}", that.djsl).replace("{2}",
 									that.czy).replace("{3}", that.czsj);
-							
+							}
 						})
 					},
 				})
 			},
 			loginn: function() {
-				console.log("123456:", this.oname)
+				//console.log("123456:", this.oname)
 				if (this.oname == '') {
 					uni.showToast({
 						icon: 'none',
@@ -166,21 +162,21 @@
 					uni.scanCode({
 						success: function(res) {
 							var j = 0
-							console.log('条码类型：' + res.scanType);
-							console.log('条码内容：' + res.result);
+							//console.log('条码类型：' + res.scanType);
+							//console.log('条码内容：' + res.result);
 							that.arr = res.result
 							/* console.log('1111',that.$request.baseurl)
 							console.log("55556",that.array.length) */
 							for (var i = 0; i < that.array.length; i++) {
-								console.log("55556", that.array[i].ol)
-								console.log("555566", that.arr)
+								//console.log("55556", that.array[i].ol)
+								//console.log("555566", that.arr)
 								if (that.arr == that.array[i].ol) {
 									j = j + 1;
 									that.index = i
 									that.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' +
 										'操作时间: {3}' + '\r\n\r\n '
-									console.log("此时的数据显示", that.index);
-									console.log("此时的数据显示1", that.array[that.index].docDate)
+									//console.log("此时的数据显示", that.index);
+									//console.log("此时的数据显示1", that.array[that.index].docDate)
 									that.mcgg = that.array[that.index].itemName;
 									that.djsl = that.array[that.index].docNum;
 									that.czy = that.array[that.index].creator;
@@ -190,7 +186,7 @@
 
 
 								}
-								console.log("cishi的J=", j)
+								//console.log("cishi的J=", j)
 							}
 							if (j == 0) {
 								uni.showToast({
@@ -208,19 +204,18 @@
 				let that = this
 				uni.scanCode({
 					success: function(res) {
-						console.log('条码类型：' + res.scanType);
-						console.log('条码内容：' + res.result);
+					//	console.log('条码类型：' + res.scanType);
+						//console.log('条码内容：' + res.result);
 						that.ename = res.result
 					},
 				})
 			},
-
 			ConfirmButton: function() {
 				var that = this
 				/* console.log("baseEntry1",that.oname) 
 				console.log("baseEntry1",that.array[that.index].ol)  
 				console.log("baseEntry2",that.ename) */
-				console.log("baseEntry3", that.ind)
+				//console.log("baseEntry3", that.ind)
 				/* var listname=that.oname.split('-')
 				console.log("分割出来的数据:",listname)  
 				console.log('1111',that.$request.baseurl)  
@@ -237,7 +232,8 @@
 					uids: that.array[that.index].uid,
 					wzbs: that.ind,
 				}, 'post', 'application/json').then(res => {
-					console.log('查询成功', res.data);
+					if (res.data.code == 200) {
+					//console.log('查询成功', res.data);
 					uni.showToast({
 						icon: 'none',
 						title: '确定成功',
@@ -245,36 +241,36 @@
 					that.index = 0
 					that.ename = ''
 					that.oname = ''
-
 					that.textareaVal = ''
 					that.nnum = ''
 					that.array[that.index].ol = ''
+					} 
 				})
 			},
 			radioChange: function(e) {
 				console.log('携带值为', e.target.value)
 				this.ind = e.target.value
-				console.log('携带值为1', this.ind)
+				//console.log('携带值为1', this.ind)
 			},
 			oInput: function(event) {
-				console.log("oInput输出的是：", event.target.value)
+			//	console.log("oInput输出的是：", event.target.value)
 				this.oname = event.target.value
 
 			},
 			nInput: function(event) {
-				console.log("nInput输出的是：", event.target.value)
+			//	console.log("nInput输出的是：", event.target.value)
 				this.inputValue = event.target.value
 			},
 			eInput: function(event) {
-				console.log("eInput输出的是：", event.target.value)
+				//console.log("eInput输出的是：", event.target.value)
 				this.inputValue = event.target.value
 			},
 			numInput: function(event) {
-				console.log("eInput输出的是：", event.target.value)
+				//console.log("eInput输出的是：", event.target.value)
 				this.nnum = event.target.value
 			},
 			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e.detail.value)
+			//	console.log('picker发送选择改变，携带值为', e.detail.value)
 				this.index = e.detail.value
 				this.textareaVal = '名称规格: {0}' + '\r\n\r\n' + '单据数量: {1}' + '\r\n\r\n' + '操作员: {2}' + '\r\n\r\n' + '操作时间: {3}' +
 					'\r\n\r\n '

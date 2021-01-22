@@ -13,7 +13,8 @@
 			<view class="inputWrapper">
 				<input name="Password" class="input" type="password" @input="wordInput" value="" placeholder="请输入密码">
 			</view><br>
-			<!-- <view class="number">
+
+			<!-- <view class="number"> 
 				<view class="uni-list-cell-left" style="color:#F1F1F1">
 					
 					<view class="uni-list-cell-db" style="color:#F1F1F1">
@@ -21,131 +22,123 @@
 							<view class="uni-input">选择界面号 : {{array[index]}}</view>
 						</picker>
 					</view>
-				</view>
+				</view>  
 			</view> -->
 			<button class="button" @click="login">登录</button>
+			<!-- <view class="inputWrapper">
+				<input name="Ip" class="input" type="text" @input="IPInput" value="" placeholder="如服务器ip更改需要填写此处">
+			</view><br>
+			<text>注:IP的格式如192.168.123.211</text> -->
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		data() {
+		data() { 
 			return {
 				inputValue: '',
-				array: ['7-1:非库存转移  ', '7-2:库存转移   ', '7-3:非库存批量转移', '7-4:库存批量   ', '7-5'],
-				index: 0, 
+				index: 0,
 				username: '',
 				password: ''
 			}
 		},
 		methods: {
-			onLoad:function(){
-				var  info = uni.getStorageSync("username");
-				console.log("账号输出的是22：", info)
-				if(info!=''){
-					this.Username=info  
-					console.log("账号输出的是212：", this.Username)
-					
+			onLoad: function() {
+				var info = uni.getStorageSync("username");
+				//console.log("账号输出的是22：", info)
+				if (info != '') {
+					this.Username = info
+					//console.log("账号输出的是212：", this.Username)
+
 				}
 			},
 			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
+				//console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value
 			},
 			nameInput: function(event) {
-				
-				console.log("账号输出的是：", event.target.value)
+
+				//console.log("账号输出的是：", event.target.value)
 				this.Username = event.target.value
-				
+
 			},
 			wordInput: function(event) {
-				console.log("密码输出的是：", event.target.value)
+				//console.log("密码输出的是：", event.target.value)
 				this.Password = event.target.value
-			}, 
+			},
+			IPInput: function(event) {
+				console.log("密码输出的是：", event.target.value)
+				this.Ip = event.target.value
+			},
 			login: function() {
-			
-				
-				console.log("账号输出的是1：", this.Username)
-				console.log("密码输出的是2：", this.Password)
+
+				/* if(this.Ip!=''){
+					//console.log("IP------->",this.Ip)
+				}else{ */
+				//console.log("账号输出的是1：", this.Username)
+				//console.log("密码输出的是2：", this.Password)
 
 				uni.request({
-					url: 'http://192.168.123.47:8890/api/login',
+					url: 'http://192.168.123.211:8890/api/login',
 					method: 'POST',
 					data: {
 						username: this.Username,
 						password: this.Password
-					},  
+					},
 					header: {
 						"Content-Type": 'application/x-www-form-urlencoded',
 					},
 					success: res => {
-						console.log("1111", res)
+
+						//console.log("1111", res)
 						if (res.statusCode == 200) {
 							uni.showToast({
 								icon: 'none',
 								title: '登录成功',
 							});
 							uni.navigateTo({
-								url: '../index/index'//用户选择界面
+								url: '../index/index' //用户选择界面
 							})
 							uni.setStorage({
 								key: 'username',
 								data: this.Username,
 								success: function() {
-									console.log("存储账号到本地成功！");
-								} 
-							})  
+									//console.log("存储账号到本地成功！");
+								}
+							})
 							uni.setStorage({
 								key: 'Authorization',
 								data: res.data.msg,
 								success: function() {
-									console.log("存储Authorization到本地成功！", res.data.msg);
+									//console.log("存储Authorization到本地成功！", res.data.msg);
 									uni.getStorage({
 										key: 'Authorization',
 										success: function(res) {
-											console.log("获取缓存中的Authorization是:",res.data);
+											//console.log("获取缓存中的Authorization是:",res.data);
 										}
 									});
-								} 
-							}) 
-							console.log('用户选择的界面号是:', this.index)
-							/* if (this.index == "0") {
-								uni.navigateTo({
-									url: '../singly-move/singly-move'//非库存
-								})
-							} else if (this.index == "1") {
-								uni.navigateTo({
-									
-									url: '../singly-movee/singly-movee'//库存
-								})
-							}else if (this.index == "2") {
-								uni.navigateTo({
-										url: '../scan/scan' //非库存批量
-								})
-							} else if (this.index == "3") {
-								uni.navigateTo({
-									url: '../scan-more/scan-more' //库存批量
-								})
-							}else if (this.index == "4") {
-								uni.showToast({
-									icon: 'none',
-									title: '请选择正确的界面号',
-								});
-							} */
+								}
+							})
 						} else {
 							uni.showToast({
 								icon: 'none',
 								title: res.data.msg,
 							});
 						}
-						/* uni.showToast({
-							icon: 'none',
-							title: '密码或用户名错误',
-						}); */
-
-
 					},
+					fail: (err) => {
+					    console.log('request fail', err)
+						if(err.errMsg=="request:fail timeout"){
+							uni.showToast({
+							    icon: 'none',
+							    title: err.errMsg,
+							    duration: 2000
+							});
+						}  
+					   
+					    reject(err)
+					}
 				})
 
 
@@ -206,7 +199,7 @@
 		height: 100%;
 		text-align: center;
 		font-size: 30rpx;
-        background: white;
+		background: white;
 	}
 
 	.button {

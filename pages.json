@@ -1,47 +1,156 @@
 {
+	 "easycom": {
+	        "^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	    },
 	"pages": [
+		 /* {
+			"path": "pages/Test/Test3",
+			"style": {
+				 "navigationBarTitleText": "",
+		"scrollIndicator":"all"
+			}
+		}, */
 		{
 			"path": "pages/register/register",
 			"style": {
 				/* "navigationBarTitleText": "登录界面", */
-				"navigationStyle": "custom"
-
+				 "navigationBarTitleText": ""
 			}
 
 		},
-		{
+		{  
 			"path": "pages/scan/scan",
 			"style": {
-				"navigationStyle": "custom"
+				 "navigationBarTitleText": ""
 
+			}
+		},
+		{
+			"path": "pages/reach/reach-number",
+			"style": {
+				 "navigationBarTitleText": "01-21 未交查询输入"
+		
+			}
+		},
+		{
+			"path": "pages/reach/reach-num",
+			"style": {
+				 "navigationBarTitleText": "01-23 按订单到料信息输入"
+		
+			}
+		},
+		{
+			"path": "pages/reach/reach-look",
+			"style": {
+				 "navigationBarTitleText": "01-22 按订单未交查询结果"
+		
+			}
+		},
+		{
+			"path": "pages/replace/replace",
+			"style": {
+				 "navigationBarTitleText": "02-21 计划到料查询输入"
+		
+			}
+		},
+		{
+			"path": "pages/replace/message",
+			"style": {
+				 "navigationBarTitleText": "02-28 到料确认-收料信息输入"
+		
+			}
+		},
+		{
+			"path": "pages/replace/replace-one",
+			"style": {
+				 "navigationBarTitleText": "02-22A 计划到料查询结果"
+		
+			}
+		},
+		{
+			"path": "pages/replace/replace-two",
+			"style": {
+				 "navigationBarTitleText": "02-22B 计划到料查询结果"
+		
+			}
+		},
+		{
+			"path": "pages/replace/replace-three",
+			"style": {
+				 "navigationBarTitleText": "02-22C 计划到料查询结果"
+		
+			}
+		},
+		{
+			"path": "pages/replace/replace-four",
+			"style": {
+				 "navigationBarTitleText": "02-12D 计划到料查询结果"
+		
+			}
+		},
+		{
+			"path": "pages/replace/replace-five",
+			"style": {
+				 "navigationBarTitleText": "02-12E 计划到料查询结果"
+		
+			}
+		},
+		{
+			"path": "pages/replace/replace-six",
+			"style": {
+				 "navigationBarTitleText": "02-13A 未交查询结果"
+		
+			}
+		},
+		{
+			"path": "pages/replace/replace-seven",
+			"style": {
+				 "navigationBarTitleText": "02-13B 未交查询结果"
+		
+			}
+		},
+		{
+			"path": "pages/send/send",
+			"style": {
+				 "navigationBarTitleText": ""
+		
 			}
 		},
 		{
 			"path": "pages/scan-more/scan-more",
 			"style": {
-				"navigationStyle": "custom"
+				 "navigationBarTitleText": ""
 		
 			}
 		},
 		{
 			"path": "pages/singly-move/singly-move",
 			"style": {
-				"navigationStyle": "custom"
-
+				  "navigationBarTitleText": ""
+                /* "app-plus":{          //App端扩展配置
+				          "titleNView":{
+				             "backButton":{
+				                "title":"返回",
+				                    "titleSize": "16px"
+				             }
+				           }
+				        }	 */
 			}
 		},
 		{
 			"path": "pages/singly-movee/singly-movee",
 			"style": {
-				"navigationStyle": "custom"
+				 "navigationBarTitleText": ""
 		
 			}
 		},
+		
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationStyle": "custom"
-					
+				/* "navigationStyle": "custom" , */
+				"navigationBarTitleText": "权限显示的界面"
+				
 			}
 
 		}
@@ -49,8 +158,18 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "uni-app",
+		/* "navigationBarTitleText": "uni-app", */
 		"navigationBarBackgroundColor": "#377EB8",
 		"backgroundColor": "#FFFFFF"
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
 	}
 }
