@@ -1,6 +1,6 @@
 <template>
 	<u-form :model="form" ref="uForm" style="margin-left: 50rpx;" label-width=190>
-		<uni-view class="name">按料号计划到料</uni-view>
+		<uni-view class="name">按订单计划到料</uni-view>
 		<u-form-item label="供应商代号">
 			<u-input v-model="form.code" />
 		</u-form-item>
@@ -93,7 +93,7 @@
 			},
 			chaxun: function(e) {
 				uni.navigateTo({
-					url: '../reach/reach-look' //用户选择界面
+					url: '../order/order-one' //用户选择界面
 				})
 			}
 		}

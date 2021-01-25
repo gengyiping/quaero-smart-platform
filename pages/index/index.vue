@@ -28,12 +28,14 @@
 	            未交查询输入
 				</navigator>
 	        </view>
-			<!-- <view style="padding: 30rpx;">
-				<navigator url='../reach/reach-num' hover-class='none'>
-			    到料信息输入-按料号
-				</navigator>
-			</view> -->
 	    </uni-collapse-item>
+		<uni-collapse-item title="01---计划到料-按订单">
+		    <view style="padding: 30rpx;">
+				<navigator url='../order/order' hover-class='none'>
+		        未交查询输入
+				</navigator>
+		    </view>
+		</uni-collapse-item>
 	    <uni-collapse-item title="02---收料确认-按料号">
 	        <view style="padding: 30rpx;">
 				<navigator url='../replace/replace' hover-class='none'>

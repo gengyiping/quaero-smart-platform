@@ -47,7 +47,7 @@
 				},
 				content: [{
 						name2: '未交数量总和:',
-						name1: '1XXXXXX',
+						name1: '11XXXXXX',
 						name: '111111111-11111111111111111111111-1111111111111',
 						value: '0',
 						id: 1,
@@ -56,7 +56,7 @@
 					},
 					{
 						name2: '未交数量总和:',
-						name1: '2XXXXXX',
+						name1: '22XXXXXX',
 						name: '料号:',
 						value: '1',
 						id: 2,
@@ -65,7 +65,7 @@
 					},
 					{
 						name2: '未交数量总和:',
-						name1: '3XXXXXX',
+						name1: '33XXXXXX',
 						name: '料号:',
 						value: '2',
 						id: 3,
@@ -110,7 +110,7 @@
 			chview: function(id) {
 				console.log('66666', id)
 				uni.navigateTo({
-					url: '../reach/reach-num?id=' + id+'&lmessage='+this.content[id-1].name1+"&mmessage="+this.content[id-1].name1+'&wmessage='+this.content[id-1].name1+"&jmessage="+this.content[id-1].name1+'&qmessage='+this.content[id-1].name1+"&ymessage="+this.content[id-1].name1
+					url: '../order/order-two?id=' + id+'&lmessage='+this.content[id-1].name1+"&mmessage="+this.content[id-1].name1+'&wmessage='+this.content[id-1].name1+"&jmessage="+this.content[id-1].name1+'&qmessage='+this.content[id-1].name1+"&ymessage="+this.content[id-1].name1
 				})
 			},
 			onLoad: function(options) {
@@ -120,13 +120,13 @@
 
 
 
-				 if (this.options.enchangeid == undefined) {
+				 if (this.array[0].enchangeid == undefined) {
 					console.log("=options=", options)
 				} else {
 
-					this.content[this.options.enchangeid - 1].isShow = true
-					this.content[this.options.enchangeid - 1].name2 = options.numid
-					this.content[this.options.enchangeid - 1].name = options.dateid
+					this.content[this.array[0].enchangeid - 1].isShow = true
+					this.content[this.array[0].enchangeid - 1].name2 = options.numid
+					this.content[this.array[0].enchangeid - 1].name = options.dateid
 				}
 
 
