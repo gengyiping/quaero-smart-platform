@@ -107,14 +107,14 @@
 				that.$request.request('/api/materialPlan/unpaidListByOrder', {
 					arrivalDateAfter:that.dateafter+'T00:00:00.000' ,
 					arrivalDateBefore:that.datebefore+'T00:00:00.000',
-					careCode:that.form.code,
+					cardCode:that.form.code,
 					itemCode:that.form.number,
 					orderType:that.ind,
 					salesmanName:that.form.staff,
 				}, 'POST', 'application/json').then(res => {
 					console.log('确定成功', res.data.data);
 					uni.navigateTo({
-						url: '../order/order-one?arrivalDateAfter='+that.dateafter+'&arrivalDateBefore='+that.datebefore+"&careCode="+that.form.code+'&itemCode='+that.form.number+"&orderType="+that.ind+"&salesmanName="+that.form.staff //用户选择界面
+						url: '../order/order-one?arrivalDateAfter='+that.dateafter+'&arrivalDateBefore='+that.datebefore+"&cardCode="+that.form.code+'&itemCode='+that.form.number+"&orderType="+that.ind+"&salesmanName="+that.form.staff //用户选择界面
 					})
 				})
 			},

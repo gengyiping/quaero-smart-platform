@@ -92,13 +92,13 @@
 		methods: {
 			onLoad: function(options) {
 				console.log('==options==', options)
-				console.log('==options336666==', options.careCode)
+				console.log('==options336666==', options.cardCode)
 				this.changeid = options.index
 				this.hang = options.wmessage
 				this.dingdan = options.jmessage
 				this.arrivalDateAfter=options.arrivalDateAfter
 				this.arrivalDateBefore=options.arrivalDateBefore
-				this.careCode=options.careCode
+				this.cardCode=options.cardCode
 				this.itemCode=options.itemCode
 				this.orderType=options.orderType
 				this.salesmanName=options.salesmanName
@@ -132,11 +132,10 @@
 					wlxx: that.form.message,
 				}, 'POST', 'application/json').then(res => {
 					console.log('到料信息输入数据显示：', res.data);
-					
 				}) 
 			
 				uni.navigateTo({
-					url: '../order/order-one?arrivalDateAfter='+this.arrivalDateAfter+'&arrivalDateBefore='+this.arrivalDateBefore+"&careCode="+this.careCode+'&itemCode='+this.itemCode+"&orderType="+this.orderType+"&salesmanName="+this.salesmanName
+					url: '../order/order-one?arrivalDateAfter='+this.arrivalDateAfter+'&arrivalDateBefore='+this.arrivalDateBefore+"&cardCode="+this.cardCode+'&itemCode='+this.itemCode+"&orderType="+this.orderType+"&salesmanName="+this.salesmanName
 				}) 
 			
 				/* if(this.date!=''&& this.form.number!=''){
