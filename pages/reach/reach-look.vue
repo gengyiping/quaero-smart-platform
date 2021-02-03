@@ -13,7 +13,7 @@
 					<view class="oone">未交数量总和：{{item.name1}}</view>
 					<view class="oone">缺料数：{{item.name1}}</view>
 					<view class="oone">要求到料日期：{{item.name1}}</view>
-					<view v-if="item.isShow">
+					<view v-if="item.isShow" style="color: #007AFF;">
 						<view class="oone">计划到料数：{{item.name2}}</view>
 						<view class="oone">计划到料日期：{{item.name}}</view>
 					</view>
@@ -37,8 +37,6 @@
 	export default {
 		data() {
 			return {
-				arr: [],
-				array: [],
 				isShow: false,
 				allCheck: {
 					name: '全选',
@@ -48,7 +46,7 @@
 				content: [{
 						name2: '未交数量总和:',
 						name1: '1XXXXXX',
-						name: '111111111-11111111111111111111111-1111111111111',
+						name: '1111111111',
 						value: '0',
 						id: 1,
 						whether: true,
@@ -78,6 +76,7 @@
 		methods: {
 			// 全选
 			changeAll: function(e) {
+				console.log("全选打印的长度：", e.detail.value.length)
 				if (e.detail.value.length == 0) {
 					this.content.map(item => this.$set(item, 'checked', false));
 					this.$set(this.allCheck, 'checked', false);
@@ -110,28 +109,43 @@
 			chview: function(id) {
 				console.log('66666', id)
 				uni.navigateTo({
-					url: '../reach/reach-num?id=' + id+'&lmessage='+this.content[id-1].name1+"&mmessage="+this.content[id-1].name1+'&wmessage='+this.content[id-1].name1+"&jmessage="+this.content[id-1].name1+'&qmessage='+this.content[id-1].name1+"&ymessage="+this.content[id-1].name1
+					url: '../reach/reach-num?id=' + id + '&lmessage=' + this.content[id - 1].name1 + "&mmessage=" + this.content[id -
+							1].name1 + '&wmessage=' + this.content[id - 1].name1 + "&jmessage=" + this.content[id - 1].name1 +
+						'&qmessage=' + this.content[id - 1].name1 + "&ymessage=" + this.content[id - 1].name1
 				})
 			},
 			onLoad: function(options) {
-			 	console.log("新的数组1:", this.array)
-				this.array = this.array.concat(options)
-				console.log("新的数组2:", this.array) 
+				console.log("123456", uni.getStorageSync("datenum"))
+				var dateNumArr = new Array()
+				var storageDatenum = uni.getStorageSync("datenum")
 
-
-
-				 if (this.options.enchangeid == undefined) {
-					console.log("=options=", options)
+				if (storageDatenum == "") {
+					dateNumArr.push(options)
+					uni.setStorageSync("datenum", dateNumArr)
 				} else {
-
-					this.content[this.options.enchangeid - 1].isShow = true
-					this.content[this.options.enchangeid - 1].name2 = options.numid
-					this.content[this.options.enchangeid - 1].name = options.dateid
+					dateNumArr = uni.getStorageSync("datenum")
+					dateNumArr.push(options)
+					uni.setStorageSync("datenum", dateNumArr)
+				}
+				for (var i = 0; i < this.content.length; i++) {
+					for (var j = 0; j < dateNumArr.length; j++) {
+						if (this.content[i].id == dateNumArr[j].enchangeid) {
+							this.content[i].isShow = true;
+							this.content[i].name2 = dateNumArr[j].numid;
+							this.content[i].name = dateNumArr[j].dateid;
+						}
+					}
 				}
 
-
-
-			}
+			},
+			loginsure: function() {
+				//uni.setStorageSync("datenum", "")
+				uni.removeStorageSync('datenum');
+				console.log("123", uni.getStorageSync("datenum"))
+				uni.navigateTo({
+					url: "../reach/reach-number"
+				})
+			},
 		}
 	}
 </script>

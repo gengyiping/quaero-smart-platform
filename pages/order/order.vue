@@ -2,7 +2,13 @@
 	<u-form :model="form" ref="uForm" style="margin-left: 50rpx;" label-width=190>
 		<uni-view class="name">按订单计划到料</uni-view>
 		<u-form-item label="供应商代号">
-			<u-input v-model="form.code" />
+			<u-input v-model="form.code" @input="codeclick"/>
+		</u-form-item>
+		<u-form-item>
+		<picker @change="cardchange" :value="index" :range="list" :range-key="'cardName'">
+			<view class="uni-input">供应商名称：
+				{{list[index].cardName}}</view>
+		</picker>
 		</u-form-item>
 		<u-form-item label="料号">
 			<u-input v-model="form.number" />
@@ -24,12 +30,12 @@
 			</u-form-item> -->
 		<view>
 			<br>
-			<radio-group name="depicttype" class="depict1" @change="radioChange">
+			<radio-group name="depicttype"  @change="radioChange">
 				<label class="radio">
-					<radio value="true" checked="true" />采购订单未交
+					<radio value="0" checked="0" />采购订单未交
 				</label>
 				<label>
-					<radio value="false" />生产订单未交
+					<radio value="1" />生产订单未交
 				</label>
 			</radio-group>
 		</view>
@@ -45,8 +51,11 @@
 	export default {
 		data() {
 			return {
+				dateafter:'',
+				datebefore:'',
+				list:[''],
 				index: 0,
-				ind: true,
+				ind: 0,
 				datebtn: '请选择日期范围',
 				show: false,
 				mode: 'range',
@@ -77,6 +86,8 @@
 		methods: {
 			change: function(e) {
 				console.log(e)
+				this.datebefore=e.endDate;
+				this.dateafter=e.startDate;
 				this.datebtn = e.startDate + '-' + e.endDate;
 			},
 			radioChange: function(e) {
@@ -92,9 +103,44 @@
 				this.form.staff = ''
 			},
 			chaxun: function(e) {
-				uni.navigateTo({
-					url: '../order/order-one' //用户选择界面
+				var that=this
+				that.$request.request('/api/materialPlan/unpaidListByOrder', {
+					arrivalDateAfter:that.dateafter+'T00:00:00.000' ,
+					arrivalDateBefore:that.datebefore+'T00:00:00.000',
+					careCode:that.form.code,
+					itemCode:that.form.number,
+					orderType:that.ind,
+					salesmanName:that.form.staff,
+				}, 'POST', 'application/json').then(res => {
+					console.log('确定成功', res.data.data);
+					uni.navigateTo({
+						url: '../order/order-one?arrivalDateAfter='+that.dateafter+'&arrivalDateBefore='+that.datebefore+"&careCode="+that.form.code+'&itemCode='+that.form.number+"&orderType="+that.ind+"&salesmanName="+that.form.staff //用户选择界面
+					})
 				})
+			},
+			codeclick: function(e) {
+				console.log("用户输入的code", e)
+				if(e.substring(0,1)!='V'){
+					uni.showToast({
+						icon:'none',
+						title:"请输入正确的供应商代码",
+					})
+				}else{
+					var that = this
+					that.$request.request('/api/materialPlan/supplierList', {
+						cardCode: e
+					}, 'GET', 'application/json').then(res => {
+						console.log('确定成功', res.data.data);
+						that.list = res.data.data
+						console.log("供应商名称", that.list)
+					})
+				}
+				
+			},
+			cardchange: function(e) {
+				console.log('picker发送选择改变，携带值为', e.detail.value)
+				this.index = e.detail.value 
+				this.form.code=this.list[this.index].cardCode
 			}
 		}
 	};

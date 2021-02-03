@@ -83,7 +83,6 @@
 					uni.navigateTo({
 						url: '../reach/reach-look?numid='+this.form.number+'&dateid='+this.date+"&enchangeid="+this.changeid
 					})
-				
 				}
 				
 			}

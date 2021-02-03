@@ -35,7 +35,7 @@
 
 <script>
 	export default {
-		data() { 
+		data() {
 			return {
 				inputValue: '',
 				index: 0,
@@ -80,7 +80,7 @@
 				//console.log("密码输出的是2：", this.Password)
 
 				uni.request({
-					url: 'http://192.168.123.211:8890/api/login',
+					url: 'http://192.168.31.36:8890/api/login',
 					method: 'POST',
 					data: {
 						username: this.Username,
@@ -128,16 +128,16 @@
 						}
 					},
 					fail: (err) => {
-					    console.log('request fail', err)
-						if(err.errMsg=="request:fail timeout"){
+						console.log('request fail', err)
+						if (err.errMsg == "request:fail timeout") {
 							uni.showToast({
-							    icon: 'none',
-							    title: err.errMsg,
-							    duration: 2000
+								icon: 'none',
+								title: err.errMsg,
+								duration: 2000
 							});
-						}  
-					   
-					    reject(err)
+						}
+
+						reject(err)
 					}
 				})
 
