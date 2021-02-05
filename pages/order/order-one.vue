@@ -21,7 +21,6 @@
 			<view class="checkview" v-for="(item, index) in content" :key="item.value">
 				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
 				<view class="one" @click="chview(index)">
-					{{index}}---
 					<view class="oone">料号：{{item.itemCode}}</view>
 					<view class="oone">名称规格：{{item.dscription}}</view>
 					<view class="oone">订单号：{{item.docEntry}}</view>
