@@ -19,7 +19,7 @@
 		<checkbox-group @change="changeCheck" class="check">
 			<!-- 注意v-for不要设在checkbox-group上 -->
 			<view class="checkview" v-for="(item, index) in content" :key="item.value">
-				<checkbox :value="{index}" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
+				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
 				<view class="one" @click="chview(index)">
 					{{index}}---
 					<view class="oone">料号：{{item.itemCode}}</view>
