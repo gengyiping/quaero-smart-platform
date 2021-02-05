@@ -16,11 +16,12 @@
 		<view class="cont" style="color: #007AFF;">显示结果如下：</view>
 		<!-- <scroll-view class="scroll-view" scroll-y="true" > -->
 		<!-- 每项选择 -->
-		<checkbox-group name="check" @change="changeCheck" class="check">
+		<checkbox-group @change="changeCheck" class="check">
 			<!-- 注意v-for不要设在checkbox-group上 -->
 			<view class="checkview" v-for="(item, index) in content" :key="item.value">
-				<checkbox :value="item.value" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
+				<checkbox :value="{index}" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
 				<view class="one" @click="chview(index)">
+					{{index}}---
 					<view class="oone">料号：{{item.itemCode}}</view>
 					<view class="oone">名称规格：{{item.dscription}}</view>
 					<view class="oone">订单号：{{item.docEntry}}</view>
@@ -28,8 +29,8 @@
 					<view class="oone">预交日期：{{item.shipDate}}</view>
 					<view class="oone">未交数量：{{item.unpaidQuantity}}</view>
 					<!-- <view v-if="isShow" style="color: #007AFF;"> -->
-					<view class="oone" style="color:#007AFF;">计划到料数：{{item.plannedQty}}</view>
-					<view class="oone" style="color:#007AFF;">计划到料日期：{{item.dueDate}}</view>
+					<view class="oone" style="color: #007AFF;">计划到料数：{{item.plannedQty}}</view>
+					<view class="oone" style="color: #007AFF;">计划到料日期：{{item.dueDate}}</view>
 					<!-- </view> -->
 				</view>
 			</view>
@@ -57,9 +58,11 @@
 	export default {
 		data() {
 			return {
+				submitData: [],
 				arr: [],
 				array: [],
 				isShow: false,
+
 				checkedArr: [], //复选框选中的值
 				allChecked: false, //是否全选
 				/* allCheck: {
@@ -67,38 +70,19 @@
 					value: 'all',
 					checked: false
 				}, */
-				content: [{
-						/* itemCode: '料号',
-						dscription: '名称规格',
-						docEntry: '订单号',
-						lineNum:'订单行号',
-						shipDate:'预交日期',
-						plannedQty:'计划到料数',
-						unpaidQuantity:'未交数量',
-						dueDate:'计划到料日期',
-						value: '0',
-						id: 1,
-						whether: true,
-						isShow: false */
-					},
-					{
-						/* name2: '未交数量总和:',
-						name1: '22XXXXXX',
-						name: '料号:',
-						value: '1',
-						id: 2,
-						whether: true,
-						isShow: false */
-					},
-
-				]
+				content: [{}],
 			}
 		},
 		methods: {
 			// 全选
 			changeAll: function(e) {
 				console.log(e)
+				/* for(var int=0;i<this.content.length;i++)
+				if(this.content[i].dueDate!=''){
+					
+				} */
 				let chooseItem = e.detail.value;
+				console.info("==chooseItem==", chooseItem)
 				// 全选
 				if (chooseItem[0] == 'all') {
 					this.allChecked = true;
@@ -117,6 +101,7 @@
 			// 多选
 			changeCheck: function(e) {
 				console.log(e.detail.value)
+				
 				this.checkedArr = e.detail.value;
 				// 如果选择的数组中有值，并且长度等于列表的长度，就是全选
 				if (this.checkedArr.length > 0 && this.checkedArr.length == this.content.length) {
@@ -137,12 +122,17 @@
 
 			},
 			loginsure: function(e) {
+				for (let i = 0; i < this.checkedArr.length; i++) {
+					let submitObj = {};
+					submitObj.docEntry = this.content[this.checkedArr[i]].docEntry;
+					submitObj.lineNum = this.content[this.checkedArr[i]].lineNum;
+					console.info("==submitObj==", submitObj)
+					this.submitData.push(submitObj);
+				}
+				console.info("==submitData==", this.submitData)
 				var that = this
-				that.$request.request('/api/materialPlan/unpaidByOrder', {
-					docEntry: '9520',
-					lineNum: '0',
-				}, 'PUT', 'application/json').then(res => {
-					console.log('跳转界面确定成功', res.data.data);
+				that.$request.request('/api/materialPlan/unpaidByOrder', this.submitData, 'PUT', 'application/json').then(res => {
+					console.log('提交成功');
 
 				})
 			},
