@@ -5,9 +5,12 @@
 			<view class="oone" style="font-size: 15px;color: #007AFF;">已选择信息显示：</view>
 			<view class="oone" style="margin-top: 10rpx;">料号：{{options.lmessage}}</view>
 			<view class="oone" style="margin-top: 10rpx;">名称规格：{{options.mmessage}}</view>
+			<view class="oone" style="margin-top: 10rpx;">交付模式：{{options.jfmessage}}</view>
+			<view class="oone" style="margin-top: 10rpx;">缺料日期：{{options.qlmessage}}</view>
 			<view class="oone" style="margin-top: 10rpx;">订单号：{{options.wmessage}}</view>
 			<view class="oone" style="margin-top: 10rpx;">订单行号：{{options.jmessage}}</view>
 			<view class="oone" style="margin-top: 10rpx;">预交日期：{{options.qmessage}}</view>
+			<view class="oone" style="margin-top: 10rpx;">订单数量：{{options.qmessage}}</view>
 			<view class="oone" style="margin-top: 10rpx;">未交数量：{{options.ymessage}}</view><br>
 		</view>
 

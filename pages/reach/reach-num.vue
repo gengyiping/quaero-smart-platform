@@ -1,3 +1,5 @@
+//按料号不看
+
 <template>
 	<u-form :model="form" ref="uForm" style="margin-left: 50rpx;" label-width="190">
 		<uni-view class="name">到料信息输入-按料号</uni-view>

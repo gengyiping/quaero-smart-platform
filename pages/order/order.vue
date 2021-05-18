@@ -19,7 +19,6 @@
 		<u-form-item label="要求到料日期:">
 			<u-calendar v-model="show" :mode="mode" @change="change" max-date="2022-12-30"></u-calendar>
 			<u-button style="margin-left: 3rpx;" @click="show = true">{{datebtn}}</u-button>
-
 		</u-form-item>
 		<!-- <u-form-item >
 				<u-radio-group v-model="radio">
@@ -34,13 +33,14 @@
 				<label class="radio">
 					<radio value="0" checked="0" />采购订单未交
 				</label>
-				<label>
+				<label style="font-size: 15px;">
 					<radio value="1" />生产订单未交
 				</label>
 			</radio-group>
+			<br>
 		</view>
 		</u-form-item>
-		<u-form-item>
+		<u-form-item style="margin-left: -100rpx;">
 			<u-button @click="loginq" type="primary">清空</u-button>
 			<u-button type="primary" @click="chaxun">查询</u-button>
 		</u-form-item>
@@ -96,17 +96,20 @@
 			},
 			loginq: function(e) {
 				console.log("2222222", e)
+				this.datebefore=''
+				this.dateafter=''
 				this.datebtn = '请选择日期范围'
 				this.form.number = ''
 				this.form.code = ''
 				this.form.name = ''
 				this.form.staff = ''
+				this.list[this.index].cardName=''
 			},
 			chaxun: function(e) {
 				var that=this
 				that.$request.request('/api/materialPlan/unpaidListByOrder', {
-					arrivalDateAfter:that.dateafter+'T00:00:00.000' ,
-					arrivalDateBefore:that.datebefore+'T00:00:00.000',
+					arrivalDateAfter:that.dateafter ,
+					arrivalDateBefore:that.datebefore,
 					cardCode:that.form.code,
 					itemCode:that.form.number,
 					orderType:that.ind,
@@ -125,7 +128,7 @@
 						icon:'none',
 						title:"请输入正确的供应商代码",
 					})
-				}else{
+				}else{ 
 					var that = this
 					that.$request.request('/api/materialPlan/supplierList', {
 						cardCode: e
@@ -158,7 +161,7 @@
 	}
 
 	.radio {
-		font-size: 14px;
+		font-size: 15px;
 		margin-right: 70px;
 
 	}

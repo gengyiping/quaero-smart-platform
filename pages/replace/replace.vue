@@ -1,3 +1,4 @@
+//按料号，不管
 <template>
 	<u-form :model="form" ref="uForm" style="margin-left: 50rpx;" label-width="190">
 		<uni-view class="name">按料号确认收料</uni-view>

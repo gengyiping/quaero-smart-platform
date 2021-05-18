@@ -81,7 +81,7 @@
 
 				uni.request({
 					url: 'http://192.168.31.36:8890/api/login',
-					method: 'POST',
+					method: 'POST', 
 					data: {
 						username: this.Username,
 						password: this.Password
@@ -90,7 +90,6 @@
 						"Content-Type": 'application/x-www-form-urlencoded',
 					},
 					success: res => {
-
 						//console.log("1111", res)
 						if (res.statusCode == 200) {
 							uni.showToast({
@@ -121,7 +120,7 @@
 								}
 							})
 						} else {
-							uni.showToast({
+ 							uni.showToast({
 								icon: 'none',
 								title: res.data.msg,
 							});
