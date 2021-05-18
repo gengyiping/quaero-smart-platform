@@ -46,27 +46,97 @@
 
 			}
 		},
+		//计划到料-按订单
 		{
 			"path": "pages/order/order",
 			"style": {
-				"navigationBarTitleText": "01-21未交查询输入"
+				"navigationBarTitleText": "01-21计划到料-未交查询输入"
 
 			}
 		},
 		{
 			"path": "pages/order/order-one",
 			"style": {
-				"navigationBarTitleText": "01-22 按订单未交查询结果"
+				"navigationBarTitleText": "01-22计划到料-按订单未交查询结果"
 
 			}
 		},
 		{
 			"path": "pages/order/order-two",
 			"style": {
-				"navigationBarTitleText": "01-22 按订单未交查询结果"
+				"navigationBarTitleText": "01-23计划到料-按订单到料信息输入"
 
 			}
 		},
+		
+		//到料确认-按订单
+		{
+			"path": "pages/receivingOrder/receivingOrder-one",
+			"style": {
+				"navigationBarTitleText": "02-21收料确认-计划到料查询输入"
+		
+			}
+		},
+		{
+			"path": "pages/receivingOrder/queryOrderone",
+			"style": {
+				"navigationBarTitleText": "02-22A收料确认-计划到料查询结果"
+		
+			}
+		},
+		 
+		 {
+			"path": "pages/receivingOrder/queryOrdertwo",
+			"style": {
+				"navigationBarTitleText": "02-22B收料确认-计划到料查询结果"
+		
+			}
+		},
+		{
+			"path": "pages/receivingOrder/queryOrderthree",
+			"style": {
+				"navigationBarTitleText": "02-22C收料确认-计划到料查询结果"
+		
+			}
+		}, 
+		{
+			"path": "pages/receivingOrder/queryOrderfour",
+			"style": {
+				"navigationBarTitleText": "02-22C收料确认-计划到料查询结果"
+		
+			}
+		}, 
+		{
+			"path": "pages/receivingOrder/queryOrderfive",
+			"style": {
+				"navigationBarTitleText": "02-22C收料确认-计划到料查询结果"
+		
+			}
+		}, 
+		{
+			"path": "pages/receivingOrder/queryOrdersix",
+			"style": {
+				"navigationBarTitleText": "02-22C收料确认-计划到料查询结果"
+		
+			}
+		}, 
+		{
+			"path": "pages/receivingOrder/queryMessage",
+			"style": {
+				"navigationBarTitleText": "02-28到料确认-收料信息输入"
+		
+			}
+		},
+		
+		{
+			"path": "pages/receivingOrder/querywithoutMessage",
+			"style": {
+				"navigationBarTitleText": "02-28到料确认-收料信息输入"
+		
+			}
+		},
+		
+		
 		{
 			"path": "pages/replace/replace",
 			"style": {

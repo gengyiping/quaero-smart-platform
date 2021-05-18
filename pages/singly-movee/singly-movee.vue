@@ -116,14 +116,15 @@
 						baseline: that.oname.substring(20,23),
 						disNum: that.oname.substring(8,12),
 						doctype: that.oname.substring(12,14),   
-						itemCode:that.oname.substring(0,8) 
+						itemCode:that.oname.substring(0,8) , 
+						
 						/* baseEntry: '',
 						baseline: '',
-						disNum: '0C01',
+						disNum: '1101',
 						doctype: '',    
-						itemCode:'11023920'  */
+						itemCode:'1631' */
 						},'post','application/json').then(res => {
-                            //console.log('查询成功',res.data);  
+                            console.log('查询成功',res.data);  
 							if (res.data.code == 400) {
 							    uni.showToast({ 
 							        icon: 'none',

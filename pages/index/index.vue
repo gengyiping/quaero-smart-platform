@@ -22,63 +22,31 @@
 				</navigator> 
 			</view>
 	    </uni-collapse-item>
-	    <uni-collapse-item title="01---计划到料-按料号">
-	        <view style="padding: 30rpx;">
-				<navigator url='../reach/reach-number' hover-class='none'>
-	            未交查询输入
-				</navigator>
-	        </view>
-	    </uni-collapse-item>
-		<uni-collapse-item title="01---计划到料-按订单">
+       
+		 <uni-collapse-item title="01---计划到料通知">
 		    <view style="padding: 30rpx;">
 				<navigator url='../order/order' hover-class='none'>
 		        未交查询输入
 				</navigator>
 		    </view>
 		</uni-collapse-item>
-	    <uni-collapse-item title="02---收料确认-按料号">
-	        <view style="padding: 30rpx;">
-				<navigator url='../replace/replace' hover-class='none'>
-	            计划到料查询输入
+	   
+		<uni-collapse-item title="02---到料收料确认">
+		    <view style="padding: 30rpx;">
+				<navigator url='../receivingOrder/receivingOrder-one' hover-class='none'>
+		        计划到料查询输入
 				</navigator>
-	        </view>
+		    </view>
 			<!-- <view style="padding: 30rpx;">
-				<navigator url='../replace/replace-one' hover-class='none'>
-			    计划到料查询结果-按日期
-				</navigator>
-			</view>
-			<view style="padding: 30rpx;">
-				<navigator url='../replace/replace-two' hover-class='none'>
-			   计划到料查询结果-按料号
-			   </navigator>
-			</view>
-			<view style="padding: 30rpx;">
-				<navigator url='../replace/replace-three' hover-class='none'>
-			    计划到料查询结果-按供应商代号+日期
-				</navigator>
-			</view> -->
-			<!-- <view style="padding: 30rpx;">
-			    计划到料查询结果-按供应商代号+料号
-			</view>
-			<view style="padding: 30rpx;">
-			    计划到料查询结果-按供应商代号+料号+日期
-			</view>
-			<view style="padding: 30rpx;">
-			    无计划到料未交查询结果-按料号
-			</view>
-			<view style="padding: 30rpx;">
-			    无计划到料未交查询结果-按料号+供应商
-			</view> -->
-			<view style="padding: 30rpx;">
-				<navigator url='../replace/message' hover-class='none'>
+				<navigator url='../receivingOrder/queryMessage' hover-class='none'>
 			    到料确认信息输入
 				</navigator>
 			</view>
 			<view style="padding: 30rpx;">
 			    到料标签模板
-			</view>
-	    </uni-collapse-item>
-	<uni-collapse-item title="03---送检">
+			</view> -->
+		</uni-collapse-item>
+	<uni-collapse-item title="05---送检">
 	    <view style="padding: 30rpx;">
 			<navigator url='../send/send' hover-class='none'>
 	        送检-收料确认查询输入
@@ -99,7 +67,7 @@
 		<view style="padding: 30rpx;">
 		    送检-单据形成信息确认
 		</view>
-	</uni-collapse-item>
+	</uni-collapse-item> 
 	</uni-collapse>
  </template>
  

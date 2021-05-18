@@ -23,7 +23,7 @@ function request(url, data, method, contentType) {
 	                        icon: 'none',
 	                        title: res.data.msg,
 	                        duration: 1500
-	                    });
+	                    }); 
 	                } else { 
 	                    uni.showToast({
 	                        icon: 'none',
