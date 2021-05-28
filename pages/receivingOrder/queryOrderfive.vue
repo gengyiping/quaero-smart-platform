@@ -1,7 +1,7 @@
 //料号+代号+日期
 <template>
 	<view class="container">
-		<view class="cont" style="color:#007AFF;">料号+代号+日期+查询条件如下：</view>
+		<view class="cont" style="color:#007AFF;">（料号+代号+日期）查询条件如下：</view>
 		<view class="cont">时间：{{options.DateAfter}}-{{options.DateBefore}}</view>
 		<view class="cont">供应商代号：{{options.cardCode}}</view>
 		<view class="cont">料号：{{options.itemCode}}</view>
@@ -26,7 +26,7 @@
 				</view>
 				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
 				<view class="one" @click="chview(index)">
-
+ 
 					<view class="oone">订单号：{{item.baseEntry}}</view>
 					<view class="oone">订单行号：{{item.baseLine}}</view>
 					<view class="oone">版本：{{item.cardCode}}</view>
@@ -44,16 +44,7 @@
 							<view class="oone" style="color: #007AFF;">外包信息：{{item.uwb}}</view>
 							<view class="oone" style="color: #007AFF;">图片路径：{{item.ulj}}</view>
 
-							<!-- <view class="oone">收料确认方式：{{item.docEntry}}</view> -->
-							<view v-if='item.plannedQty == undefined'>
-							</view>
-							<view v-else='item.plannedQty == !undefined'>
-								<view>
-									<view class="oone" style="color: #007AFF;">收料确认方式：{{item.plannedQty}}</view>
-
-
-								</view>
-							</view>
+							
 						</view>
 					</view>
 				</view>
@@ -136,9 +127,9 @@
 				console.log('66666', index)
 				uni.navigateTo({
 
-					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.content[index].uid
+					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.content[index].uid+'&DateAfter=' + this.arraycontent.arrivalDateAfter + '&DateBefore=' + this.arraycontent.arrivalDateBefore+ '&cardCode=' + this.arraycontent.cardCode+'&itemCode=' + this.arraycontent.itemCode
 				})
-			},
+			}, 
 			loginsure: function(index) {
 				console.log("计划所勾选的数值：：", this.checkedArr)
 				for (let i = 0; i < this.checkedArr.length; i++) {

@@ -106,7 +106,7 @@
 					
 				} */
 				let chooseItem = e.detail.value;
-				console.info("==chooseItem==", chooseItem[0])
+				console.info("==chooseItem==", chooseItem)
 				// 全选
 				if (chooseItem[0] == 'all') {
 					this.allChecked = true;
@@ -127,13 +127,11 @@
 			},
 			// 多选
 			changeCheck: function(e) {
-				console.log(e.detail.value)
+				console.log("选中的是",e.detail.value)
 				this.checkedArr = e.detail.value;
 				// 如果选择的数组中有值，并且长度等于列表的长度，就是全选
 				if (this.checkedArr.length > 0 && this.checkedArr.length == this.content.length) {
-					/* for(let i=0;i<this.checkedArr;i++){
-						if(this.checkedArr[i]==undefined)
-					} */
+					
 					this.allChecked = true;
 				} else {
 					this.allChecked = false;

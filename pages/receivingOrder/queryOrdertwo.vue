@@ -1,7 +1,7 @@
 //按料号
 <template>
 	<view class="container">
-		<view class="cont" style="color:#007AFF;">料号+查询条件如下：</view>
+		<view class="cont" style="color:#007AFF;">（料号）查询条件如下：</view>
 		<view class="cont">时间：{{options.arrivalDateAfter}}-{{options.arrivalDateBefore}}</view>
 		<view class="cont">供应商代号：{{options.cardCode}}</view>
 		<view class="cont">料号：{{options.itemCode}}</view>
@@ -141,7 +141,7 @@
 				console.log('66666', index)
 				uni.navigateTo({
 
-					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.listitem[index].uid 
+					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.listitem[index].uid +'&itemCode=' + this.arraycontent.itemCode
 				})
 			},
 			loginsure:function(index){
@@ -167,9 +167,10 @@
 			},
 		
 
-		/* 	onShow:function(){
+		 	/* onShow:function(){
 				console.log("11234455666")
 				var that = this
+				that.listitem=[]
 				that.$request.request('/api/materialReceipt/planListByOrder', {
 					arrivalDateAfter: '' ,
 					arrivalDateBefore: '' ,
@@ -179,10 +180,19 @@
 				}, 'POST', 'application/json').then(res => {
 					console.log('界面刷新确定成功', res.data);
 					that.arraycontent = res.data.data
-					that.content=that.arraycontent.itemCodeVos
-					that.listcontent=that.content[that.index].list
-					console.log('赋值后的数据显示', that.listcontent)
-					})
+						that.content=that.arraycontent.itemCodeVos
+						console.log('content=======数据', that.content)
+						for (var k = 0; k < that.content.length; k++) {
+							for(var h=0;h<that.content[k].list.length;h++){
+							that.listcontent = that.content[k].list[h]
+							console.log('listcontent========数据', that.listcontent)
+							that.listitem.push(that.listcontent)
+							
+							}
+						}
+					
+					console.log('listitem========数据', that.listitem)
+						})
 			}, */
 
 			onLoad: function(options) {

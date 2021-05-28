@@ -55,25 +55,25 @@
 
 			</view>
 
-	
 
 
 
-	</checkbox-group>
 
-	<checkbox-group @change="changeAll">
-		<label>
-			<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
-		</label>
-	</checkbox-group>
-	<button class="button-c " @click="loginsure">提交计划到料</button>
+		</checkbox-group>
+
+		<checkbox-group @change="changeAll">
+			<label>
+				<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
+			</label>
+		</checkbox-group>
+		<button class="button-c " @click="loginsure">提交计划到料</button>
 	</view>
 </template>
 
 <script>
 	export default {
 		data() {
-			return { 
+			return {
 				submitData: [],
 
 				docEntryData: [],
@@ -175,8 +175,33 @@
 						that.submitData = []
 					})
 			},
-
-
+/* 
+			onShow: function() {
+				console.log("11234455666")
+				var that = this
+				that.listitem = []
+				that.$request.request('/api/materialReceipt/planListByOrder', {
+					arrivalDateAfter: '',
+					arrivalDateBefore: '',
+					cardCode: '',
+					itemCode: that.itemCode,
+					salesmanName: '',
+				}, 'POST', 'application/json').then(res => {
+					console.log('onLoad===数据', res.data);
+					that.arraycontent = res.data.data
+					that.content = that.arraycontent.itemCodeVos
+					console.log('content=======数据', that.content)
+					for (var k = 0; k < that.content.length; k++) {
+						for (var h = 0; h < that.content[k].unPlanList.length; h++) {
+							that.listcontent = that.content[k].unPlanList[h]
+							console.log('listcontent========数据', that.listcontent)
+							that.listitem.push(that.listcontent)
+					
+						}
+					}
+					console.log('listitem========数据', that.listitem)
+				})
+			}, */
 
 
 			onLoad: function(options) {
@@ -218,37 +243,6 @@
 					}
 					that.listitem = conitem
 					console.log('赋值后的数据显示', that.listitem)
-
-					console.log('131跳转界面确定成功', res.data);
-					that.arraycontent = res.data.data
-					that.content = that.arraycontent.itemCodeVos
-					that.listcontent = that.content[that.index].unPlanList
-					console.log('赋值后的数据显示', that.listcontent)
-					var conitem = that.content
-					var orde = ''
-					for (var i = 0; i < conitem.length; i++) {
-						console.log('赋值', 112345)
-						for (var t = 0; t < conitem[i].unPlanList.length; t++) {
-
-							if (conitem[i].unPlanList[t].cardCode == orde && orde != '') {
-
-								let key = "showflag"
-								let value = false
-								var arrayitem = conitem[i].unPlanList[t]
-								arrayitem[key] = value;
-							} else {
-								console.log('赋值', conitem[i].unPlanList[t].cardCode)
-								let key = "showflag"
-								let value = true
-								var arrayitem = conitem[i].unPlanList[t]
-								arrayitem[key] = value;
-							}
-							orde = arrayitem.cardCode
-						}
-
-					}
-					that.content = conitem
-					console.log('赋值后的数据显示123', that.content)
 
 
 				})

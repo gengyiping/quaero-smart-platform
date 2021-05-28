@@ -1,7 +1,7 @@
 //供应商代号+日期
 <template>
 	<view class="container">
-		<view class="cont" style="color:#007AFF;">料号+查询条件如下：</view>
+		<view class="cont" style="color:#007AFF;">（代号+时间）查询条件如下：</view>
 		<view class="cont">时间：{{options.DateAfter}}-{{options.DateBefore}}</view>
 		<view class="cont">供应商代号：{{options.cardCode}}</view>
 		<view class="cont">料号：{{options.itemCode}}</view>
@@ -131,7 +131,7 @@
 			chview: function(index) {
 				console.log('66666', index)
 				uni.navigateTo({
-					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.listitem[index].uid
+					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.listitem[index].uid+'&DateAfter=' + this.arraycontent.arrivalDateAfter + '&DateBefore=' + this.arraycontent.arrivalDateBefore+ '&cardCode=' + this.arraycontent.cardCode
 				})
 			},
 			loginsure: function(index) {
@@ -177,7 +177,7 @@
 				console.log("==queryOrderthree==", options)
 				this.arrivalDateAfter = options.DateAfter
 				this.arrivalDateBefore = options.DateBefore
-				this.cardCode = options.cardCode
+				this.cardCode = options.cardCode 
 				var that = this
 				that.$request.request('/api/materialReceipt/planListByOrder', {
 					arrivalDateAfter: options.DateAfter,
