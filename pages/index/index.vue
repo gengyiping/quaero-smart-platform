@@ -37,14 +37,22 @@
 		        计划到料查询输入
 				</navigator>
 		    </view>
+<<<<<<< HEAD
 			<!-- <view style="padding: 30rpx;">
+=======
+			<view style="padding: 30rpx;">
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 				<navigator url='../receivingOrder/queryMessage' hover-class='none'>
 			    到料确认信息输入
 				</navigator>
 			</view>
 			<view style="padding: 30rpx;">
 			    到料标签模板
+<<<<<<< HEAD
 			</view> -->
+=======
+			</view> 
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 		</uni-collapse-item>
 	<uni-collapse-item title="05---送检">
 	    <view style="padding: 30rpx;">

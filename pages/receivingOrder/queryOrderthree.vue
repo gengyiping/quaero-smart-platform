@@ -18,6 +18,7 @@
 		<!-- <scroll-view class="scroll-view" scroll-y="true" > -->
 		<!-- 每项选择 -->
 		<checkbox-group @change="changeCheck" class="check">
+<<<<<<< HEAD
 			<view class="checkview" v-for="(item, index) in listitem" :key="item.value">
 
 				<view class="oone" v-show="item.showflag">
@@ -55,6 +56,39 @@
 
 		</checkbox-group>
 
+=======
+			<view class="checkview" v-for="(item, index) in content" :key="item.value">
+				<view class="oone" v-show="item.showflag">
+				<view class="oone">料号：{{item.itemCode}}</view>
+				<view class="oone">名称规格：{{item.itemName}}</view>
+				<view class="oone">未交数量总和：{{item.unpaidQuantity}}</view>
+				</view>
+				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
+				<view class="one" @click="chview(index)">
+				
+					<view class="oone">订单号：{{item.baseEntry}}</view>
+					<view class="oone">订单行号：{{item.baseLine}}</view>
+					<view class="oone">版本：{{item.cardCode}}</view>
+					<view class="oone">预交日期：{{item.shipDate}}</view>
+					<view class="oone">未交数量：{{item.unpaidQuantity}}</view>
+					<view class="oone">计划到料日期：{{item.shipDate}}</view>
+					<view class="oone">收料确认方式：{{item.docEntry}}</view>
+					<view v-if='item.plannedQty == undefined'>
+					</view>
+					<view v-else='item.plannedQty == !undefined'>
+						<view>
+							<view class="oone" style="color: #007AFF;">计划到料数：{{item.plannedQty}}</view>
+							<view class="oone" style="color: #007AFF;">计划到料日期：{{item.dueDate}}</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			
+		
+
+		</checkbox-group>
+		
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 		<checkbox-group @change="changeAll">
 			<label>
 				<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
@@ -80,10 +114,15 @@
 					value: 'all',
 					checked: false
 				}, */
+<<<<<<< HEAD
 				arraycontent: '',
 				content: '',
 				listcontent: '',
 				listitem:[],
+=======
+				arraycontent:'',
+				content: '',
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 			}
 		},
 		methods: {
@@ -101,11 +140,19 @@
 					this.allChecked = true;
 					for (let item of this.content) {
 						let itemVal = String(item.value);
+<<<<<<< HEAD
 
 						if (!this.checkedArr.includes(itemVal)) {
 							this.checkedArr.push(itemVal);
 							console.log("quanxuan=====", this.checkedArr)
 
+=======
+						
+						if (!this.checkedArr.includes(itemVal)) {
+							this.checkedArr.push(itemVal);
+							console.log("quanxuan=====", this.checkedArr)
+							
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 						}
 					}
 				} else {
@@ -131,6 +178,7 @@
 			chview: function(index) {
 				console.log('66666', index)
 				uni.navigateTo({
+<<<<<<< HEAD
 					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.listitem[index].uid
 				})
 			},
@@ -216,6 +264,48 @@
 					 that.listitem=conitem
 					console.log('赋值后的数据显示', that.listitem)
 				})
+=======
+					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.content[index].list[0].uid 
+				})
+			},
+			
+			onLoad: function(options) {
+				console.log("==queryOrderthree==",options)
+					 var that = this
+					that.$request.request('/api/materialReceipt/planListByOrder', {
+						arrivalDateAfter: options.DateAfter ,
+						arrivalDateBefore: options.DateBefore,
+						cardCode: options.cardCode,
+						itemCode:'',
+						salesmanName: '',
+					}, 'POST', 'application/json').then(res => {
+						console.log('121跳转界面确定成功', res.data);
+						that.arraycontent = res.data.data
+						that.content=that.arraycontent.cardCodeVos
+						console.log('赋值后的数据显示', that.content)
+						var conitem=that.content
+						 var orde=''
+						 for(var i=0;i<conitem.length;i++){
+							 if(conitem[i].itemCode==orde&&orde!=''){
+								 let key = "showflag";
+								 let value = false
+							 	conitem[i][key] = value;
+							 }else{
+								 let key = "showflag";
+								 let value = true
+								conitem[i][key] = value;
+							 }
+							 orde=conitem[i].itemCode
+						 } 
+						 that.content=conitem 
+						//console.log("123456", that.content.length)
+						/* for (var i = 0; i < that.content.length; i++) {
+							console.log("===content===", that.content)
+							that.Orderarray = that.content[i].list
+							console.log("===Orderarray===", that.Orderarray)
+						} */
+					})
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 			}
 		}
 	}
@@ -226,17 +316,26 @@
 		margin-top: 60rpx;
 		margin-left: 50rpx;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 	.cont {
 		margin-bottom: 10rpx;
 		font-size: 15px;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 	.one {
 		margin-top: -46rpx;
 		margin-left: 60rpx;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 	.button-c {
 		margin-top: -95rPX;
 		width: 260rpx;
@@ -248,30 +347,49 @@
 		font-size: 15px;
 		text-align: center;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 	.oone {
 		margin-bottom: 10rpx;
 		word-break: break-all;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 	.check {
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 20rpx;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 	.checkview {
 		border-bottom: 1px solid rgb(207, 201, 222);
 		width: 92%;
 		margin-bottom: 25rpx;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 	.flex {
 		margin-top: -30rpx;
 		margin-left: 120rpx;
 	}
+<<<<<<< HEAD
 
 	/* page {
 		background-color: #e6dcf4;
 	} */
 </style>
+=======
+	/* page {
+		background-color: #e6dcf4;
+	} */
+</style>
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748

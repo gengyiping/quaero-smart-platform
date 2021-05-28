@@ -2,6 +2,7 @@
 
 	<view class="uni-form-item uni-column">
 		<view style="margin-left: 25px;font-size: 15px;margin-top: 20rpx;">
+<<<<<<< HEAD
 			<view style="font-size: 15px;color: #007AFF;">已选择信息显示(未交)：</view>
 			<view style="margin-top: 10rpx;">料号：{{content.uitemCode}}</view>
 			<view style="margin-top: 10rpx;">名称规格：{{content.uitemName}}</view>
@@ -19,6 +20,25 @@
 		</view>
 
 		<view class="title" style="margin-left: 25px;margin-top: 30rpx;font-size: 30rpx;">收料确认方式（至少勾选一种方式）：</view><br>
+=======
+		<view class="oone" style="font-size: 15px;color: #007AFF;">已选择信息显示(未交)：</view>
+		<view class="oone" style="margin-top: 10rpx;">料号：{{content.uitemCode}}</view>
+		<view class="oone" style="margin-top: 10rpx;">名称规格：{{content.uitemName}}</view>
+		<view class="oone" style="margin-top: 10rpx;">缺料日期：{{content.uzzql}}</view>
+		<view class="oone" style="margin-top: 10rpx;">交付模式：{{content.upmczd}}</view>
+		<view class="oone" style="margin-top: 10rpx;">缺料数量：{{content.upmcQty}}</view>
+		<view class="oone" style="margin-top: 10rpx;">单据类型：{{content.ymessage}}</view>
+		<view class="oone" style="margin-top: 10rpx;">订单号：{{content.ubaseEntry}}</view>
+		<view class="oone" style="margin-top: 10rpx;">订单行号：{{content.ubaseLine}}</view>
+		<view class="oone" style="margin-top: 10rpx;">订单版本：{{content.ymessage}}</view>
+		<view class="oone" style="margin-top: 10rpx;">预交日期：{{content.ushipDate}}</view>
+		<view class="oone" style="margin-top: 10rpx;">未交数量：{{content.ujyjfqty}}</view>
+		<view class="oone" style="margin-top: 10rpx;">PMC需求版本：{{content.ymessage}}</view>
+		<view class="oone" style="margin-top: 10rpx;">仓位：{{content.ymessage}}</view>
+		</view>
+		
+		<view class="title" style="margin-left: 50rpx;margin-top: 30rpx;font-size: 32rpx;">收料确认方式（至少勾选一种方式）：</view><br>
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 		<checkbox-group class="uni-list" @change="checkboxChange" style="margin-left: 50rpx;">
 
 			<view class="machine-name" style="margin-top: 10rpx;">
@@ -61,8 +81,12 @@
 				<checkbox value="4" :checked="isChecked4" class="checkbox-3" style="font-size: 30rpx;">拍照确认</checkbox>
 			</view>
 			<view style="margin-left: -10rpx;">
+<<<<<<< HEAD
 				<u-upload :action="action" :header="header" :file-list="fileList" :limitType="['png', 'jpg', 'jpeg', 'webp', 'gif']"
 				 name="files" max-count="3" ref="uUpload"></u-upload>
+=======
+				<u-upload :action="action" :file-list="fileList" max-count="3" ref="uupload"></u-upload>
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 			</view><br>
 
 
@@ -70,7 +94,11 @@
 			<u-form-item>
 				<u-button @click="qingk" type="primary">清空</u-button>
 				<u-button type="primary">打印标签</u-button>
+<<<<<<< HEAD
 				<u-button type="primary" @click="Confirmbutton">确定</u-button>
+=======
+				<u-button type="primary"@click="Confirmbutton">确定</u-button>
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 			</u-form-item>
 		</checkbox-group>
 	</view>
@@ -80,9 +108,12 @@
 	export default {
 		data() {
 			return {
+<<<<<<< HEAD
 				header: {
 					'Authorization': '',
 				},
+=======
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 				action: 'http://192.168.31.36:8890/api/materialReceipt/upload',
 				fileList: [],
 				oname: '',
@@ -96,16 +127,39 @@
 
 				// u-radio-group的v-model绑定的值如果设置为某个radio的name，就会被默认选中
 				value: 'orange',
+<<<<<<< HEAD
 				content: [],
 				lists: [],
 				arrayitem:[],
 listitem:[],				
+=======
+				content:[],
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 			};
 		},
 		methods: {
 			checkboxChange: function(e) {
 				console.log("22---->", e)
 				console.log("22---->", e.detail.value)
+<<<<<<< HEAD
+=======
+				// console.log("22---->",e.detail.value.length)
+				// console.log("22---->",e.detail.value[e.detail.value.length-1])
+				// let boxVal = e.detail.value[0];
+				// if("checkBox1" == boxVal){
+				// 	// this.isChecked1 = !this.isChecked1;
+				// 	this.isChecked1 = true;
+				// } else if("checkBox2" == boxVal){
+				// 	// this.isChecked2 = !this.isChecked2;
+				// 	this.isChecked2 = true;
+				// }else if("checkBox3" == boxVal){
+				// 	// this.isChecked2 = !this.isChecked2;
+				// 	this.isChecked3 = true;
+				// }else if("checkBox4" == boxVal){
+				// 	// this.isChecked2 = !this.isChecked2;
+				// 	this.isChecked4 = true;
+				// }
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 				var values = e.detail.value;
 
 				if (values.includes("1")) {
@@ -175,6 +229,7 @@ listitem:[],
 				this.oname = ''
 				this.mname = ''
 			},
+<<<<<<< HEAD
 			Confirmbutton: function() {
 				var that = this
 				that.lists = that.$refs.uUpload.lists;
@@ -201,12 +256,32 @@ listitem:[],
 			},
 			onLoad: function(options) {
 				console.log("传过来的ID是：", options)
+=======
+			Confirmbutton:function(){
+				var that = this
+					that.$request.request('/api/materialReceipt/unPlanEditByOrder', {
+						baseEntry: that.content.ubaseEntry,
+						baseLine: that.content.ubaseLine,
+						images: [],
+						ucz: that.nname,
+						uds: that.ename,			
+						uwb: that.oname,
+						uwlwz: that.mname,
+					}, 'PUT', 'application/json').then(res => {
+						console.log("信息编辑数据显示", res.data);
+						
+					})
+			},
+			onLoad: function(options) {
+				console.log("传过来的ID是：",options)
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 				var that = this
 				that.$request.request('/api/materialReceipt/UnPlanInitByOrder', {
 					baseEntry: options.docEntry,
 					baseLine: options.lineNum,
 				}, 'get', 'application/json').then(res => {
 					//console.log("queryOrderone数据显示", res.data);
+<<<<<<< HEAD
 					that.content = res.data.data
 					console.log("queryOrderone数据显示", that.content);
 				})
@@ -219,6 +294,12 @@ listitem:[],
 					}
 				});
 			},
+=======
+					that.content=res.data.data
+			console.log("queryOrderone数据显示", that.content);
+				})
+			}, 
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 
 		}
 	};
@@ -248,3 +329,7 @@ listitem:[],
 
 	}
 </style>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748

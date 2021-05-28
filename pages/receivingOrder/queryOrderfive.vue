@@ -33,6 +33,7 @@
 					<view class="oone">预交日期：{{item.shipDate}}</view>
 					<view class="oone">未交数量：{{item.unpaidQuantity}}</view>
 					<view class="oone">计划到料日期：{{item.shipDate}}</view>
+<<<<<<< HEAD
 					<view v-if='item.uwlwz == undefined'>
 					</view>
 					<view v-else='item.uwlwz == !undefined'>
@@ -42,6 +43,15 @@
 							<view class="oone" style="color: #007AFF;">点数信息：{{item.uds}}</view>
 							<view class="oone" style="color: #007AFF;">外包信息：{{item.uwb}}</view>
 							<view class="oone" style="color: #007AFF;">图片路径：{{item.ulj}}</view>
+=======
+					<!-- <view class="oone">收料确认方式：{{item.docEntry}}</view> -->
+					<view v-if='item.plannedQty == undefined'>
+					</view>
+					<view v-else='item.plannedQty == !undefined'>
+						<view>
+							<view class="oone" style="color: #007AFF;">收料确认方式：{{item.plannedQty}}</view>
+							
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 						</view>
 					</view>
 				</view>
@@ -125,6 +135,7 @@
 			chview: function(index) {
 				console.log('66666', index)
 				uni.navigateTo({
+<<<<<<< HEAD
 					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.content[index].uid
 				}) 
 			},
@@ -150,6 +161,12 @@
 						that.submitData = []
 					})
 			},
+=======
+					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.content[index].list[0].uid 
+				})
+			},
+			
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 			onLoad: function(options) {
 				console.log("==queryOrderthree==",options)
 					 var that = this

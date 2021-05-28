@@ -62,7 +62,17 @@
 			</view>
 			<view style="margin-left: -10rpx;">
 				<u-upload :action="action" :header="header" :file-list="fileList" :limitType="['png', 'jpg', 'jpeg', 'webp', 'gif']"
+<<<<<<< HEAD
 				 name="files" max-count="3" ref="uUpload"></u-upload>
+=======
+				 name="files" max-count="3" ref="uupload"></u-upload>
+				<!-- <u-upload  ref="uUpload" @oversize="oversize"
+				  :action="action" :header="headers" :auto-upload="autoUpload"
+				 :file-list="fileList" ::max-count="maxCount" @on-list-change="onListChange"
+				 :max-size="50 * 1024 * 1024">
+					
+				</u-upload> -->
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 			</view><br>
 
 
@@ -97,10 +107,14 @@
 				// u-radio-group的v-model绑定的值如果设置为某个radio的name，就会被默认选中
 				value: 'orange',
 				content: [],
+<<<<<<< HEAD
 				id: '',
 				lists: [],
 				arrayitem: [],
 				listitem: [],
+=======
+				id: ''
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 
 			};
 		},
@@ -200,6 +214,7 @@
 
 			Confirmbutton: function() {
 				var that = this
+<<<<<<< HEAD
 				that.lists = that.$refs.uUpload.lists;
 				for (var i = 0; i < that.lists.length; i++) {
 					that.arrayitem = that.lists[i].url
@@ -207,18 +222,28 @@
 					console.info("路径", that.listitem)
 				}
 
+=======
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 				that.$request.request('/api/materialReceipt/planEditByOrder', {
 					/* baseEntry: that.content.ubaseEntry,
 					baseLine: that.content.ubaseLine, */
 					id: that.id,
+<<<<<<< HEAD
 					images: that.listitem,
+=======
+					images: [],
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 					ucz: that.nname,
 					uds: that.ename,
 					uwb: that.oname,
 					uwlwz: that.mname,
 				}, 'PUT', 'application/json').then(res => {
 					console.log("信息编辑数据显示", res.data);
+<<<<<<< HEAD
 					/* uni.$emit('refreshData') */
+=======
+					uni.$emit('refreshData')
+>>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 					uni.navigateBack({ //uni.navigateTo跳转的返回，默认1为返回上一级
 						delta: 1
 					})
