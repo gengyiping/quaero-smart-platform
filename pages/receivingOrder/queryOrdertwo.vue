@@ -17,28 +17,16 @@
 		<view class="cont" style="color: #007AFF;">显示结果如下：</view>
 		<!-- <scroll-view class="scroll-view" scroll-y="true" > -->
 		<!-- 每项选择 -->
-<<<<<<< HEAD
+
 		<view>
 		<checkbox-group @change="changeCheck" class="check">
 			<view class="checkview" v-for="(item, index) in listitem" :key="item.value">
-=======
-		<checkbox-group @change="changeCheck" class="check">
-			<view  v-for="(item, index) in content" :key="item.value">
-				
-				<view class="checkview" v-for="(item, index) in listcontent" :key="item.value">
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 					<view class="oone" v-show="item.showflag">
 					<view class="oone">供应商名称：{{item.cardName}}</view>
 					<view class="oone">未交数量总和：{{item.unpaidQuantity}}</view>
 					</view>
 				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
-<<<<<<< HEAD
 				<view class="one" @click="chview(index)">
-=======
-				
-				<view class="one" @click="chview(index)">
-				
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
 					<view class="oone">订单号：{{item.baseEntry}}</view>
 					<view class="oone">订单行号：{{item.baseLine}}</view>
 					<view class="oone">版本：{{item.cardCode}}</view>
@@ -60,7 +48,7 @@
 					
 					
 					</view>
-<<<<<<< HEAD
+
 				
 			</view>
 		</checkbox-group>
@@ -73,23 +61,14 @@
 		   </checkbox-group>
 		   <button class="button-c " @click="loginsure">提交计划到料</button>
 		</view>
-	    </view>
-=======
-				</view>
-			</view>
-			
+	   
 		
 
-		</checkbox-group>
 		
-		<checkbox-group @change="changeAll">
-			<label>
-				<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
-			</label>
-		</checkbox-group>
-		<button class="button-c " @click="loginsure">提交计划到料</button>
+		
+		
 	</view>
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+
 </template>
 
 <script>
@@ -111,10 +90,9 @@
 				arraycontent:'',
 				content: '',
 				listcontent:'',
-<<<<<<< HEAD
+
 				listitem:[],
-=======
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+
 			}
 		},
 		methods: {
@@ -162,7 +140,7 @@
 			chview: function(index) {
 				console.log('66666', index)
 				uni.navigateTo({
-<<<<<<< HEAD
+
 					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.listitem[index].uid 
 				})
 			},
@@ -188,11 +166,8 @@
 				})
 			},
 		
-=======
-					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.content[index].list[0].uid 
-				})
-			},
-			onShow:function(){
+
+		/* 	onShow:function(){
 				console.log("11234455666")
 				var that = this
 				that.$request.request('/api/materialReceipt/planListByOrder', {
@@ -208,8 +183,8 @@
 					that.listcontent=that.content[that.index].list
 					console.log('赋值后的数据显示', that.listcontent)
 					})
-			},
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+			}, */
+
 			onLoad: function(options) {
 				console.log("==queryOrdertwo==",options)
 				this.itemCode=options.itemCode
@@ -221,7 +196,7 @@
 						itemCode:options.itemCode,
 						salesmanName: '',
 					}, 'POST', 'application/json').then(res => {
-<<<<<<< HEAD
+
 						console.log('onLoad======数据', res.data);
 						that.arraycontent = res.data.data
 						that.content=that.arraycontent.itemCodeVos
@@ -234,88 +209,43 @@
 							
 							}
 						}
-=======
-						console.log('11跳转界面确定成功', res.data);
-						that.arraycontent = res.data.data
-						that.content=that.arraycontent.itemCodeVos
-						that.listcontent=that.content[that.index].list
-						console.log('赋值后的数据显示', that.listcontent)
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
-						var conitem = that.content
-						var orde = ''
-						for (var i = 0; i < conitem.length; i++) {
-							console.log('赋值', 112345)
-							for (var t = 0; t < conitem[i].list.length; t++) {
-								
-								if (conitem[i].list[t].cardCode == orde && orde != '') {
-						
-									let key = "showflag"
-									let value = false
-									var arrayitem=conitem[i].list[t]
-									arrayitem[key] = value;
-								} else {
-									console.log('赋值', conitem[i].list[t].cardCode)
-									let key = "showflag"
-									let value = true
-									var arrayitem=conitem[i].list[t]
-									arrayitem[key] = value;
-								}
-								orde = arrayitem.cardCode
-							}
-						
-						}
-						that.content = conitem
-<<<<<<< HEAD
-						console.log('赋值后的数据显示123', that.listitem)
+
+					console.log('listitem========数据', that.listitem)
+					var conitem=that.listitem
+					var orde=''
+					 for(var i=0;i<conitem.length;i++){
+						 if(conitem[i].itemCode==orde&&orde!=''){
+							 let key = "showflag";
+							 let value = false
+						 	conitem[i][key] = value;7
+						 }else{
+							 let key = "showflag";
+							 let value = true
+							conitem[i][key] = value;
+						 }
+						 orde=conitem[i].itemCode
+					 } 
+					 that.listitem=conitem
+					console.log('赋值后的数据显示', that.listitem)
 					})
 			},
-			onShow:function(){
-				 console.log("111111",this.listitem)
-				
-				 console.log("111121",this.listitem)
-				var that = this
-				that.$request.request('/api/materialReceipt/planListByOrder', {
-					arrivalDateAfter: '' ,
-					arrivalDateBefore: '' ,
-					cardCode: '',
-					itemCode:that.itemCode,
-					salesmanName: '',
-				}, 'POST', 'application/json').then(res => {
-					console.log('onShow=====数据', res.data);
-					 that.arraycontent = res.data.data
-					that.content=that.arraycontent.itemCodeVos
-					
-					 console.log('content=======数据', that.content)
-					 for (var k = 0; k < that.content.length; k++) {
-						for(var h=0;h<that.content[k].list.length;h++){
-						that.listcontent = that.content[k].list[h]
-						console.log('listcontent========数据', that.listcontent)
-						that.listitem.push(that.listcontent)
-						
-						}
-					} 
-					}) 
-					
-			}, 
-=======
-						console.log('赋值后的数据显示123', that.content)
-					})
+		
+
 			}
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+
 		}
-	}
+	
 </script>
 
 <style>
-<<<<<<< HEAD
-	.background{
+
+/* 	.background{
 		width: 100%;
-		height: 200px;
+		height: 60px;
 		background:#000000;
 		
-	}
-=======
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+	} */
+
 	.container {
 		margin-top: 60rpx;
 		margin-left: 50rpx;

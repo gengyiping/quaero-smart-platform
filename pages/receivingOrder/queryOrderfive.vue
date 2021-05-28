@@ -20,20 +20,20 @@
 		<checkbox-group @change="changeCheck" class="check">
 			<view class="checkview" v-for="(item, index) in content" :key="item.value">
 				<view class="oone" v-show="item.showflag">
-				<view class="oone">料号：{{item.cardName}}</view>
-				<view class="oone">名称规格：{{item.unpaidQuantity}}</view>
-				<view class="oone">未交数量总和：{{item.unpaidQuantity}}</view>
+					<view class="oone">料号：{{item.cardName}}</view>
+					<view class="oone">名称规格：{{item.unpaidQuantity}}</view>
+					<view class="oone">未交数量总和：{{item.unpaidQuantity}}</view>
 				</view>
 				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
 				<view class="one" @click="chview(index)">
-				
+
 					<view class="oone">订单号：{{item.baseEntry}}</view>
 					<view class="oone">订单行号：{{item.baseLine}}</view>
 					<view class="oone">版本：{{item.cardCode}}</view>
 					<view class="oone">预交日期：{{item.shipDate}}</view>
 					<view class="oone">未交数量：{{item.unpaidQuantity}}</view>
 					<view class="oone">计划到料日期：{{item.shipDate}}</view>
-<<<<<<< HEAD
+
 					<view v-if='item.uwlwz == undefined'>
 					</view>
 					<view v-else='item.uwlwz == !undefined'>
@@ -43,24 +43,24 @@
 							<view class="oone" style="color: #007AFF;">点数信息：{{item.uds}}</view>
 							<view class="oone" style="color: #007AFF;">外包信息：{{item.uwb}}</view>
 							<view class="oone" style="color: #007AFF;">图片路径：{{item.ulj}}</view>
-=======
-					<!-- <view class="oone">收料确认方式：{{item.docEntry}}</view> -->
-					<view v-if='item.plannedQty == undefined'>
-					</view>
-					<view v-else='item.plannedQty == !undefined'>
-						<view>
-							<view class="oone" style="color: #007AFF;">收料确认方式：{{item.plannedQty}}</view>
-							
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+
+							<!-- <view class="oone">收料确认方式：{{item.docEntry}}</view> -->
+							<view v-if='item.plannedQty == undefined'>
+							</view>
+							<view v-else='item.plannedQty == !undefined'>
+								<view>
+									<view class="oone" style="color: #007AFF;">收料确认方式：{{item.plannedQty}}</view>
+
+
+								</view>
+							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-			
-		
+</view> 
 
 		</checkbox-group>
-		
+
 		<checkbox-group @change="changeAll">
 			<label>
 				<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
@@ -86,7 +86,7 @@
 					value: 'all',
 					checked: false
 				}, */
-				arraycontent:'',
+				arraycontent: '',
 				content: '',
 			}
 		},
@@ -105,11 +105,11 @@
 					this.allChecked = true;
 					for (let item of this.content) {
 						let itemVal = String(item.value);
-						
+
 						if (!this.checkedArr.includes(itemVal)) {
 							this.checkedArr.push(itemVal);
 							console.log("quanxuan=====", this.checkedArr)
-							
+
 						}
 					}
 				} else {
@@ -135,16 +135,16 @@
 			chview: function(index) {
 				console.log('66666', index)
 				uni.navigateTo({
-<<<<<<< HEAD
+
 					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.content[index].uid
-				}) 
+				})
 			},
 			loginsure: function(index) {
 				console.log("计划所勾选的数值：：", this.checkedArr)
 				for (let i = 0; i < this.checkedArr.length; i++) {
 					let submitObj = {};
 					submitObj.uid = this.content[this.checkedArr[i]].uid;
-			
+
 					console.info("==submitObj==", submitObj)
 					this.submitData.push(submitObj.uid);
 				}
@@ -161,48 +161,46 @@
 						that.submitData = []
 					})
 			},
-=======
-					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.content[index].list[0].uid 
-				})
-			},
-			
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+
+
+
+
 			onLoad: function(options) {
-				console.log("==queryOrderthree==",options)
-					 var that = this
-					that.$request.request('/api/materialReceipt/planListByOrder', {
-						arrivalDateAfter: options.DateAfter ,
-						arrivalDateBefore: options.DateBefore,
-						cardCode: options.cardCode,
-						itemCode:options.itemCode,
-						salesmanName: '',
-					}, 'POST', 'application/json').then(res => {
-						console.log('121跳转界面确定成功', res.data);
-						that.arraycontent = res.data.data
-						that.content=that.arraycontent.listVos
-						console.log('赋值后的数据显示', that.content)
-						var conitem=that.content
-						 var orde=''
-						 for(var i=0;i<conitem.length;i++){
-							 if(conitem[i].itemCode==orde&&orde!=''){
-								 let key = "showflag";
-								 let value = false
-							 	conitem[i][key] = value;
-							 }else{
-								 let key = "showflag";
-								 let value = true
-								conitem[i][key] = value;
-							 }
-							 orde=conitem[i].itemCode
-						 } 
-						 that.content=conitem 
-						//console.log("123456", that.content.length)
-						/* for (var i = 0; i < that.content.length; i++) {
-							console.log("===content===", that.content)
-							that.Orderarray = that.content[i].list
-							console.log("===Orderarray===", that.Orderarray)
-						} */
-					})
+				console.log("==queryOrderthree==", options)
+				var that = this
+				that.$request.request('/api/materialReceipt/planListByOrder', {
+					arrivalDateAfter: options.DateAfter,
+					arrivalDateBefore: options.DateBefore,
+					cardCode: options.cardCode,
+					itemCode: options.itemCode,
+					salesmanName: '',
+				}, 'POST', 'application/json').then(res => {
+					console.log('121跳转界面确定成功', res.data);
+					that.arraycontent = res.data.data
+					that.content = that.arraycontent.listVos
+					console.log('赋值后的数据显示', that.content)
+					var conitem = that.content
+					var orde = ''
+					for (var i = 0; i < conitem.length; i++) {
+						if (conitem[i].itemCode == orde && orde != '') {
+							let key = "showflag";
+							let value = false
+							conitem[i][key] = value;
+						} else {
+							let key = "showflag";
+							let value = true
+							conitem[i][key] = value;
+						}
+						orde = conitem[i].itemCode
+					}
+					that.content = conitem
+					//console.log("123456", that.content.length)
+					/* for (var i = 0; i < that.content.length; i++) {
+						console.log("===content===", that.content)
+						that.Orderarray = that.content[i].list
+						console.log("===Orderarray===", that.Orderarray)
+					} */
+				})
 			}
 		}
 	}
@@ -213,14 +211,17 @@
 		margin-top: 60rpx;
 		margin-left: 50rpx;
 	}
+
 	.cont {
 		margin-bottom: 10rpx;
 		font-size: 15px;
 	}
+
 	.one {
 		margin-top: -46rpx;
 		margin-left: 60rpx;
 	}
+
 	.button-c {
 		margin-top: -95rPX;
 		width: 260rpx;
@@ -232,24 +233,29 @@
 		font-size: 15px;
 		text-align: center;
 	}
+
 	.oone {
 		margin-bottom: 10rpx;
 		word-break: break-all;
 	}
+
 	.check {
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 20rpx;
 	}
+
 	.checkview {
 		border-bottom: 1px solid rgb(207, 201, 222);
 		width: 92%;
 		margin-bottom: 25rpx;
 	}
+
 	.flex {
 		margin-top: -30rpx;
 		margin-left: 120rpx;
 	}
+
 	/* page {
 		background-color: #e6dcf4;
 	} */

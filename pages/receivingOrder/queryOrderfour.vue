@@ -18,7 +18,7 @@
 		<!-- <scroll-view class="scroll-view" scroll-y="true" > -->
 		<!-- 每项选择 -->
 		<checkbox-group @change="changeCheck" class="check">
-<<<<<<< HEAD
+
 			<view class="checkview" v-for="(item, index) in listitem" :key="item.value">
 
 				<!-- <view class="checkview" v-for="(item, index) in listcontent" :key="item.value"> -->
@@ -30,26 +30,15 @@
 				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
 				<view class="one" @click="chview(index)">
 					<view class="oone">订单号：{{item.docEntry}}</view>
-=======
-			<view  v-for="(item, index) in content" :key="item.value">
-				
-				<view class="checkview" v-for="(item, index) in listcontent" :key="item.value">
-					<view class="oone" v-show="item.showflag">
-						<view class="oone">供应商代号：{{item.cardCode}}</view>
-						<view class="oone">供应商名称：{{item.cardName}}</view>
-						<view class="oone">未交数量总和：{{item.unpaidQuantity}}</view> 
-					</view>
-				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
-				<view class="one" @click="chview(index)">
-					<view class="oone">订单号：{{item.docEntry}}</view> 
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+
+
 					<view class="oone">订单行号：{{item.lineNum}}</view>
 					<view class="oone">版本：{{item.cardCode}}</view>
 					<view class="oone">预交日期：{{item.shipDate}}</view>
 					<view class="oone">未交数量：{{item.unpaidQuantity}}</view>
 					<view class="oone">计划到料数：{{item.shipDate}}</view>
 					<view class="oone">计划到料日期：{{item.shipDate}}</view>
-<<<<<<< HEAD
+
 					<view v-if='item.uwlwz == undefined'>
 					</view>
 					<view v-else='item.uwlwz == !undefined'>
@@ -62,49 +51,34 @@
 						</view>
 					</view>
 				</view>
-				<!-- <view v-if='item.plannedQty == undefined'>
-=======
-					<view class="oone">收料确认方式：{{item.docEntry}}</view>
-					</view>
-					<!-- <view v-if='item.plannedQty == undefined'>
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
-					</view>
-					<view v-else='item.plannedQty == !undefined'>
-						<view>
-							<view class="oone" style="color: #007AFF;">计划到料数：{{item.plannedQty}}</view>
-							<view class="oone" style="color: #007AFF;">计划到料日期：{{item.dueDate}}</view>
-						</view>
-					</view> -->
-<<<<<<< HEAD
-				<!-- </view> -->
-=======
-				</view>
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+
+
 			</view>
 
+	
 
 
-		</checkbox-group>
 
-		<checkbox-group @change="changeAll">
-			<label>
-				<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
-			</label>
-		</checkbox-group>
-		<button class="button-c " @click="loginsure">提交计划到料</button>
+	</checkbox-group>
+
+	<checkbox-group @change="changeAll">
+		<label>
+			<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
+		</label>
+	</checkbox-group>
+	<button class="button-c " @click="loginsure">提交计划到料</button>
 	</view>
 </template>
 
 <script>
 	export default {
 		data() {
-			return {
+			return { 
 				submitData: [],
-<<<<<<< HEAD
-				docEntryData:[],
-				lineNumData:[],
-=======
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+
+				docEntryData: [],
+				lineNumData: [],
+
 				arr: [],
 				array: [],
 				isShow: false,
@@ -118,15 +92,14 @@
 				}, */
 				arraycontent: '',
 				content: '',
-<<<<<<< HEAD
+
 				listcontent: '',
 				listitem: [],
 
-=======
-				listcontent:'',
-			
-		
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+
+				listcontent: '',
+
+
 			}
 		},
 		methods: {
@@ -174,7 +147,7 @@
 			chview: function(index) {
 				console.log('66666', index)
 				uni.navigateTo({
-<<<<<<< HEAD
+
 					url: '../receivingOrder/querywithoutMessage?index=' + index + '&docEntry=' + this.listitem[index].docEntry +
 						'&lineNum=' + this.listitem[index].lineNum
 				})
@@ -187,7 +160,7 @@
 					submitObj.lineNum = this.listitem[this.checkedArr[i]].lineNum;
 					console.info("==submitObj==", submitObj)
 					this.submitData.push(submitObj);
-					
+
 				}
 				console.info("==submitData==", this.submitData)
 				var that = this
@@ -202,12 +175,10 @@
 						that.submitData = []
 					})
 			},
-=======
-					url: '../receivingOrder/querywithoutMessage?index=' + index + '&docEntry=' + this.listcontent[index].docEntry +'&lineNum=' + this.listcontent[index].lineNum
-				})
-			},
 
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+
+
+
 			onLoad: function(options) {
 				console.log("==queryOrderfour==", options)
 				var that = this
@@ -217,7 +188,7 @@
 					orderType: true,
 					salesmanName: '',
 				}, 'POST', 'application/json').then(res => {
-<<<<<<< HEAD
+
 					console.log('onLoad===数据', res.data);
 					that.arraycontent = res.data.data
 					that.content = that.arraycontent.itemCodeVos
@@ -247,29 +218,29 @@
 					}
 					that.listitem = conitem
 					console.log('赋值后的数据显示', that.listitem)
-=======
+
 					console.log('131跳转界面确定成功', res.data);
 					that.arraycontent = res.data.data
 					that.content = that.arraycontent.itemCodeVos
-					that.listcontent=that.content[that.index].unPlanList
+					that.listcontent = that.content[that.index].unPlanList
 					console.log('赋值后的数据显示', that.listcontent)
 					var conitem = that.content
 					var orde = ''
 					for (var i = 0; i < conitem.length; i++) {
 						console.log('赋值', 112345)
 						for (var t = 0; t < conitem[i].unPlanList.length; t++) {
-							
+
 							if (conitem[i].unPlanList[t].cardCode == orde && orde != '') {
-					
+
 								let key = "showflag"
 								let value = false
-								var arrayitem=conitem[i].unPlanList[t]
+								var arrayitem = conitem[i].unPlanList[t]
 								arrayitem[key] = value;
 							} else {
 								console.log('赋值', conitem[i].unPlanList[t].cardCode)
 								let key = "showflag"
 								let value = true
-								var arrayitem=conitem[i].unPlanList[t]
+								var arrayitem = conitem[i].unPlanList[t]
 								arrayitem[key] = value;
 							}
 							orde = arrayitem.cardCode
@@ -277,8 +248,8 @@
 
 					}
 					that.content = conitem
-				console.log('赋值后的数据显示123', that.content)
->>>>>>> 4c26531c34287eda4d32a20ecdb3e15fa3885748
+					console.log('赋值后的数据显示123', that.content)
+
 
 				})
 			}
