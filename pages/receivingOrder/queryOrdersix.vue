@@ -33,13 +33,16 @@
 					<view class="oone">预交日期：{{item.shipDate}}</view>
 					<view class="oone">未交数量：{{item.unpaidQuantity}}</view>
 					<view class="oone">计划到料日期：{{item.shipDate}}</view>
-					<view class="oone">收料确认方式：{{item.docEntry}}</view>
-					<view v-if='item.plannedQty == undefined'>
+					<view class="oone">计划到料日期：{{item.shipDate}}</view>
+					<view v-if='item.uwlwz == undefined'>
 					</view>
-					<view v-else='item.plannedQty == !undefined'>
+					<view v-else='item.uwlwz == !undefined'>
 						<view>
-							<view class="oone" style="color: #007AFF;">计划到料数：{{item.plannedQty}}</view>
-							<view class="oone" style="color: #007AFF;">计划到料日期：{{item.dueDate}}</view>
+							<view class="oone" style="color: #007AFF;">物理位置：{{item.uwlwz}}</view>
+							<view class="oone" style="color: #007AFF;">称重信息：{{item.ucz}}</view>
+							<view class="oone" style="color: #007AFF;">点数信息：{{item.uds}}</view>
+							<view class="oone" style="color: #007AFF;">外包信息：{{item.uwb}}</view>
+							<view class="oone" style="color: #007AFF;">图片路径：{{item.ulj}}</view>
 						</view>
 					</view>
 				</view>
@@ -130,7 +133,29 @@
 				})
 				console.log('6634666', index)
 			},
-			
+			loginsure: function(index) {
+				console.log("计划所勾选的数值：：", this.checkedArr)
+				for (let i = 0; i < this.checkedArr.length; i++) {
+					let submitObj = {};
+					submitObj.docEntry = this.content[this.checkedArr[i]].docEntry;
+					submitObj.lineNum = this.content[this.checkedArr[i]].lineNum;
+					console.info("==submitObj==", submitObj)
+					this.submitData.push(submitObj);
+					
+				}
+				console.info("==submitData==", this.submitData)
+				var that = this
+				that.$request.request('/api/materialReceipt/unPlanConfirmedByOrder', that.submitData, 'PUT', 'application/json').then(
+					res => {
+						console.log('提交成功');
+						uni.showToast({
+							icon: 'none',
+							title: '提交成功',
+						});
+						//数据暂时没有删除，这边先清空处理
+						that.submitData = []
+					})
+			},
 			onLoad: function(options) {
 				console.log("==queryOrderfour==",options)
 					 var that = this
