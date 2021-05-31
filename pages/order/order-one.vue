@@ -93,7 +93,8 @@
 					checked: false
 				}, */
 				content: [{}],
-
+				itemVal: '',
+				itemValarr: [],
 
 			}
 		},
@@ -101,37 +102,54 @@
 			// 全选
 			changeAll: function(e) {
 				console.log(e)
-				/* for(var int=0;i<this.content.length;i++)
-				if(this.content[i].dueDate!=''){
-					
-				} */
 				let chooseItem = e.detail.value;
-				console.info("==chooseItem==", chooseItem)
-				// 全选
-				if (chooseItem[0] == 'all') {
-					this.allChecked = true;
+
+
+				
+				 this.checkedArr=chooseItem
+				 console.log("checkedArr=====", this.checkedArr)
+				 this.checkedArr.push("all");
+				 if (chooseItem[0] == 'all') {
+					 this.allChecked = true; 
 					for (let item of this.content) {
 						let itemVal = String(item.value);
-
+						
 						if (!this.checkedArr.includes(itemVal)) {
 							this.checkedArr.push(itemVal);
 							console.log("quanxuan=====", this.checkedArr)
+							
+						}
+					}
+				} 
+			/* 	if (chooseItem[0] == 'all') {
+					this.allChecked = true;
+					console.log("content=====", this.content)
+					for (var i = 0; i < this.content.length; i++) {
+
+						if (this.content[i].plannedQty != undefined) {
+							console.log("content=====", this.content[i], i)
+							this.itemVal = String(i);
+							console.log("itemVal=====", this.itemVal)
+							this.checkedArr.push(this.itemVal)
 
 						}
 					}
+
+					console.log("checkedArr=====", this.checkedArr)
 				} else {
-					// 取消全选
+
 					this.allChecked = false;
 					this.checkedArr = [];
-				}
+					console.log("取消全选=====", this.checkedArr)
+				} */
 			},
 			// 多选
 			changeCheck: function(e) {
-				console.log("选中的是",e.detail.value)
+				console.log("选中的是", e.detail.value)
 				this.checkedArr = e.detail.value;
 				// 如果选择的数组中有值，并且长度等于列表的长度，就是全选
 				if (this.checkedArr.length > 0 && this.checkedArr.length == this.content.length) {
-					
+
 					this.allChecked = true;
 				} else {
 					this.allChecked = false;
@@ -224,9 +242,9 @@
 </script>
 <style>
 	.nav {
-		width: 100%;  
+		width: 100%;
 		height: 60px;
-		background:#FFFFFF;
+		background: #FFFFFF;
 		margin-left: -50rpx;
 		position: fixed;
 		bottom: 0px;
