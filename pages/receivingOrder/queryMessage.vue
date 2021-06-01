@@ -62,10 +62,9 @@
 			</view>
 			<view style="margin-left: -10rpx;">
 				<u-upload :action="action" :header="header" :file-list="fileList" :limitType="['png', 'jpg', 'jpeg', 'webp', 'gif']"
-
 				 name="files" max-count="3" ref="uUpload"></u-upload>
 
-				
+
 				<!-- <u-upload  ref="uUpload" @oversize="oversize"
 				  :action="action" :header="headers" :auto-upload="autoUpload"
 				 :file-list="fileList" ::max-count="maxCount" @on-list-change="onListChange"
@@ -114,10 +113,10 @@
 				listitem: [],
 
 				id: '',
-				itemCode:'',
-DateAfter:'',
-DateBefore:'',
-cardCode:'',
+				itemCode: '',
+				DateAfter: '',
+				DateBefore: '',
+				cardCode: '',
 			};
 		},
 		methods: {
@@ -239,25 +238,30 @@ cardCode:'',
 					uwlwz: that.mname,
 				}, 'PUT', 'application/json').then(res => {
 					console.log("信息编辑数据显示", res.data);
-					/* uni.$emit('refreshData') */		
-				if(this.itemCode!=undefined && this.DateAfter==undefined && this.DateBefore==undefined && this.cardCode==undefined){
-					uni.navigateTo({
-						//料号
-						url: '../receivingOrder/queryOrdertwo?itemCode=' + that.itemCode 
-					})
-				}else if(this.itemCode!=undefined&&this.DateAfter!=undefined&&this.DateBefore!=undefined&&this.cardCode!=undefined){
-					console.log("liaohao",this.itemCode)
-					uni.navigateTo({
-						//料号+代号+时间
-						url: '../receivingOrder/queryOrderfive?itemCode=' + that.itemCode +'&cardCode=' + that.cardCode+'&DateAfter=' + that.DateAfter+'&DateBefore=' + that.DateBefore
-					})
-				}else if(this.DateAfter!=undefined&&this.DateBefore!=undefined&&this.cardCode!=undefined&&this.itemCode== undefined){
-					console.log("liaohao1111111",this.itemCode)
-					uni.navigateTo({
-						//代号+时间
-						url: '../receivingOrder/queryOrderthree?cardCode=' + that.cardCode+'&DateAfter=' + that.DateAfter+'&DateBefore=' + that.DateBefore
-					}) 
-				}
+					/* uni.$emit('refreshData') */
+					if (this.itemCode != undefined && this.DateAfter == undefined && this.DateBefore == undefined && this.cardCode ==
+						undefined) {
+						uni.navigateTo({
+							//料号
+							url: '../receivingOrder/queryOrdertwo?itemCode=' + that.itemCode
+						})
+					} else if (this.itemCode != undefined && this.DateAfter != undefined && this.DateBefore != undefined && this.cardCode !=
+						undefined) {
+						console.log("liaohao", this.itemCode)
+						uni.navigateTo({
+							//料号+代号+时间
+							url: '../receivingOrder/queryOrderfive?itemCode=' + that.itemCode + '&cardCode=' + that.cardCode +
+								'&DateAfter=' + that.DateAfter + '&DateBefore=' + that.DateBefore
+						})
+					} else if (this.DateAfter != undefined && this.DateBefore != undefined && this.cardCode != undefined && this.itemCode ==
+						undefined) {
+						console.log("liaohao1111111", this.itemCode)
+						uni.navigateTo({
+							//代号+时间
+							url: '../receivingOrder/queryOrderthree?cardCode=' + that.cardCode + '&DateAfter=' + that.DateAfter +
+								'&DateBefore=' + that.DateBefore
+						})
+					}
 					/* uni.navigateBack({ //uni.navigateTo跳转的返回，默认1为返回上一级
 						delta: 1
 					}) */
@@ -265,11 +269,11 @@ cardCode:'',
 			},
 			onLoad: function(options) {
 				console.log("传过来的ID是：", options)
-				this.itemCode=options.itemCode
-				this.DateAfter=options.DateAfter
-				this.DateBefore=options.DateBefore
-				this.cardCode=options.cardCode
-				
+				this.itemCode = options.itemCode
+				this.DateAfter = options.DateAfter
+				this.DateBefore = options.DateBefore
+				this.cardCode = options.cardCode
+
 				this.id = options.uid
 				var that = this
 				that.$request.request('/api/materialReceipt/planInitByOrder', {

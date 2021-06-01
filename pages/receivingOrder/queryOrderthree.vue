@@ -26,41 +26,43 @@
 					<view class="oone">未交数量总和：{{item.unpaidQuantity}}</view>
 				</view>
 				<!-- <view v-for="(item, index) in listcontent" :key="item.value"> -->
-					<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
-					<view class="one" @click="chview(index)">
+				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
+				<view class="one" @click="chview(index)">
 
-						<view class="oone">订单号：{{item.baseEntry}}</view>
-						<view class="oone">订单行号：{{item.baseLine}}</view>
-						<view class="oone">版本：{{item.cardCode}}</view>
-						<view class="oone">预交日期：{{item.shipDate}}</view>
-						<view class="oone">未交数量：{{item.unpaidQuantity}}</view>
-						<view class="oone">计划到料日期：{{item.shipDate}}</view>
-						<view class="oone">收料确认方式：{{item.docEntry}}</view>
-						<view v-if='item.uwlwz == undefined'>
-						</view>
-						<view v-else='item.uwlwz == !undefined'>
-							<view>
-								<view class="oone" style="color: #007AFF;">物理位置：{{item.uwlwz}}</view>
-								<view class="oone" style="color: #007AFF;">称重信息：{{item.ucz}}</view>
-								<view class="oone" style="color: #007AFF;">点数信息：{{item.uds}}</view>
-								<view class="oone" style="color: #007AFF;">外包信息：{{item.uwb}}</view>
-								<view class="oone" style="color: #007AFF;">图片路径：{{item.ulj}}</view>
-							</view>
+					<view class="oone">订单号：{{item.baseEntry}}</view>
+					<view class="oone">订单行号：{{item.baseLine}}</view>
+					<view class="oone">版本：{{item.cardCode}}</view>
+					<view class="oone">预交日期：{{item.shipDate}}</view>
+					<view class="oone">未交数量：{{item.unpaidQuantity}}</view>
+					<view class="oone">计划到料日期：{{item.shipDate}}</view>
+					<view class="oone">收料确认方式：{{item.docEntry}}</view>
+					<view v-if='item.uwlwz == undefined'>
+					</view>
+					<view v-else='item.uwlwz == !undefined'>
+						<view>
+							<view class="oone" style="color: #007AFF;">物理位置：{{item.uwlwz}}</view>
+							<view class="oone" style="color: #007AFF;">称重信息：{{item.ucz}}</view>
+							<view class="oone" style="color: #007AFF;">点数信息：{{item.uds}}</view>
+							<view class="oone" style="color: #007AFF;">外包信息：{{item.uwb}}</view>
+							<view class="oone" style="color: #007AFF;">图片路径：{{item.ulj}}</view>
 						</view>
 					</view>
+				</view>
 				<!-- </view> -->
 			</view>
 
 
 
 		</checkbox-group>
-
-		<checkbox-group @change="changeAll">
-			<label>
-				<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
-			</label>
-		</checkbox-group>
-		<button class="button-c " @click="loginsure">提交计划到料</button>
+		<view class="nav">
+			<checkbox-group @change="changeAll">
+				<label style="position:fixed ;
+		bottom: 20px;margin-left: 50rpx;">
+					<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
+				</label>
+			</checkbox-group>
+			<button class="button-c " @click="loginsure">提交计划到料</button>
+		</view>
 	</view>
 </template>
 
@@ -83,7 +85,7 @@
 				arraycontent: '',
 				content: '',
 				listcontent: '',
-				listitem:[],
+				listitem: [],
 			}
 		},
 		methods: {
@@ -131,7 +133,9 @@
 			chview: function(index) {
 				console.log('66666', index)
 				uni.navigateTo({
-					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.listitem[index].uid+'&DateAfter=' + this.arraycontent.arrivalDateAfter + '&DateBefore=' + this.arraycontent.arrivalDateBefore+ '&cardCode=' + this.arraycontent.cardCode
+					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.listitem[index].uid + '&DateAfter=' +
+						this.arraycontent.arrivalDateAfter + '&DateBefore=' + this.arraycontent.arrivalDateBefore + '&cardCode=' +
+						this.arraycontent.cardCode
 				})
 			},
 			loginsure: function(index) {
@@ -177,7 +181,7 @@
 				console.log("==queryOrderthree==", options)
 				this.arrivalDateAfter = options.DateAfter
 				this.arrivalDateBefore = options.DateBefore
-				this.cardCode = options.cardCode 
+				this.cardCode = options.cardCode
 				var that = this
 				that.$request.request('/api/materialReceipt/planListByOrder', {
 					arrivalDateAfter: options.DateAfter,
@@ -191,29 +195,30 @@
 					that.content = that.arraycontent.cardCodeVos
 					console.log('content=======数据', that.content)
 					for (var k = 0; k < that.content.length; k++) {
-						for(var h=0;h<that.content[k].list.length;h++){
-						that.listcontent = that.content[k].list[h]
-						console.log('listcontent========数据', that.listcontent)
-						that.listitem.push(that.listcontent)
-						
+						for (var h = 0; h < that.content[k].list.length; h++) {
+							that.listcontent = that.content[k].list[h]
+							console.log('listcontent========数据', that.listcontent)
+							that.listitem.push(that.listcontent)
+
 						}
 					}
 					console.log('listitem========数据', that.listitem)
-					var conitem=that.listitem
-					var orde=''
-					 for(var i=0;i<conitem.length;i++){
-						 if(conitem[i].itemCode==orde&&orde!=''){
-							 let key = "showflag";
-							 let value = false
-						 	conitem[i][key] = value;7
-						 }else{
-							 let key = "showflag";
-							 let value = true
+					var conitem = that.listitem
+					var orde = ''
+					for (var i = 0; i < conitem.length; i++) {
+						if (conitem[i].itemCode == orde && orde != '') {
+							let key = "showflag";
+							let value = false
 							conitem[i][key] = value;
-						 }
-						 orde=conitem[i].itemCode
-					 } 
-					 that.listitem=conitem
+							7
+						} else {
+							let key = "showflag";
+							let value = true
+							conitem[i][key] = value;
+						}
+						orde = conitem[i].itemCode
+					}
+					that.listitem = conitem
 					console.log('赋值后的数据显示', that.listitem)
 				})
 			}
@@ -222,6 +227,15 @@
 </script>
 
 <style>
+	.nav {
+		width: 100%;
+		height: 60px;
+		background: #FFFFFF;
+		margin-left: -50rpx;
+		position: fixed;
+		bottom: 0px;
+	}
+
 	.container {
 		margin-top: 60rpx;
 		margin-left: 50rpx;
@@ -240,13 +254,15 @@
 	.button-c {
 		margin-top: -95rPX;
 		width: 260rpx;
-		height: 75rpx;
+		height: 65rpx;
 		background-color: #00a0e9;
 		color: #fff;
 		display: inline-block;
 		margin-left: 350rpx;
 		font-size: 15px;
 		text-align: center;
+		position: fixed;
+		bottom: 10px;
 	}
 
 	.oone {

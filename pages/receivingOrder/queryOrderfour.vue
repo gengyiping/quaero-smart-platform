@@ -60,13 +60,15 @@
 
 
 		</checkbox-group>
-
-		<checkbox-group @change="changeAll">
-			<label>
-				<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
-			</label>
-		</checkbox-group>
-		<button class="button-c " @click="loginsure">提交计划到料</button>
+		<view class="nav">
+			<checkbox-group @change="changeAll">
+				<label style="position:fixed ;
+		bottom: 20px;margin-left: 50rpx;">
+					<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
+				</label>
+			</checkbox-group>
+			<button class="button-c " @click="loginsure">提交计划到料</button>
+		</view>
 	</view>
 </template>
 
@@ -149,7 +151,8 @@
 				uni.navigateTo({
 
 					url: '../receivingOrder/querywithoutMessage?index=' + index + '&docEntry=' + this.listitem[index].docEntry +
-						'&lineNum=' + this.listitem[index].lineNum
+						'&lineNum=' + this.listitem[index].lineNum+ '&itemCode=' + this
+						.arraycontent.itemCode
 				})
 			},
 			loginsure: function(index) {
@@ -175,33 +178,33 @@
 						that.submitData = []
 					})
 			},
-/* 
-			onShow: function() {
-				console.log("11234455666")
-				var that = this
-				that.listitem = []
-				that.$request.request('/api/materialReceipt/planListByOrder', {
-					arrivalDateAfter: '',
-					arrivalDateBefore: '',
-					cardCode: '',
-					itemCode: that.itemCode,
-					salesmanName: '',
-				}, 'POST', 'application/json').then(res => {
-					console.log('onLoad===数据', res.data);
-					that.arraycontent = res.data.data
-					that.content = that.arraycontent.itemCodeVos
-					console.log('content=======数据', that.content)
-					for (var k = 0; k < that.content.length; k++) {
-						for (var h = 0; h < that.content[k].unPlanList.length; h++) {
-							that.listcontent = that.content[k].unPlanList[h]
-							console.log('listcontent========数据', that.listcontent)
-							that.listitem.push(that.listcontent)
-					
-						}
-					}
-					console.log('listitem========数据', that.listitem)
-				})
-			}, */
+			/* 
+						onShow: function() {
+							console.log("11234455666")
+							var that = this
+							that.listitem = []
+							that.$request.request('/api/materialReceipt/planListByOrder', {
+								arrivalDateAfter: '',
+								arrivalDateBefore: '',
+								cardCode: '',
+								itemCode: that.itemCode,
+								salesmanName: '',
+							}, 'POST', 'application/json').then(res => {
+								console.log('onLoad===数据', res.data);
+								that.arraycontent = res.data.data
+								that.content = that.arraycontent.itemCodeVos
+								console.log('content=======数据', that.content)
+								for (var k = 0; k < that.content.length; k++) {
+									for (var h = 0; h < that.content[k].unPlanList.length; h++) {
+										that.listcontent = that.content[k].unPlanList[h]
+										console.log('listcontent========数据', that.listcontent)
+										that.listitem.push(that.listcontent)
+								
+									}
+								}
+								console.log('listitem========数据', that.listitem)
+							})
+						}, */
 
 
 			onLoad: function(options) {
@@ -252,6 +255,15 @@
 </script>
 
 <style>
+	.nav {
+		width: 100%;
+		height: 60px;
+		background: #FFFFFF;
+		margin-left: -50rpx;
+		position: fixed;
+		bottom: 0px;
+	}
+
 	.container {
 		margin-top: 60rpx;
 		margin-left: 50rpx;
@@ -270,13 +282,15 @@
 	.button-c {
 		margin-top: -95rPX;
 		width: 260rpx;
-		height: 75rpx;
+		height: 65rpx;
 		background-color: #00a0e9;
 		color: #fff;
 		display: inline-block;
 		margin-left: 350rpx;
 		font-size: 15px;
 		text-align: center;
+		position: fixed;
+		bottom: 10px;
 	}
 
 	.oone {

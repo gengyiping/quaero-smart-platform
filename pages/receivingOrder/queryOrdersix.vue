@@ -20,13 +20,13 @@
 		<checkbox-group @change="changeCheck" class="check">
 			<view class="checkview" v-for="(item, index) in content" :key="item.value">
 				<view class="oone" v-show="item.showflag">
-				<view class="oone">料号：{{item.itemCode}}</view>
-				<view class="oone">名称规格：{{item.itemName}}</view>
-				<view class="oone">未交数量总和：{{item.unpaidQuantity}}</view>
+					<view class="oone">料号：{{item.itemCode}}</view>
+					<view class="oone">名称规格：{{item.itemName}}</view>
+					<view class="oone">未交数量总和：{{item.unpaidQuantity}}</view>
 				</view>
 				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
 				<view class="one" @click="chview(index)">
-				
+
 					<view class="oone">订单号：{{item.baseEntry}}</view>
 					<view class="oone">订单行号：{{item.baseLine}}</view>
 					<view class="oone">版本：{{item.cardCode}}</view>
@@ -47,17 +47,19 @@
 					</view>
 				</view>
 			</view>
-			
-		
+
+
 
 		</checkbox-group>
-		
-		<checkbox-group @change="changeAll">
-			<label>
-				<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
-			</label>
-		</checkbox-group>
-		<button class="button-c " @click="loginsure">提交计划到料</button>
+		<view class="nav">
+			<checkbox-group @change="changeAll">
+				<label style="position:fixed ;
+		bottom: 20px;margin-left: 50rpx;">
+					<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
+				</label>
+			</checkbox-group>
+			<button class="button-c " @click="loginsure">提交计划到料</button>
+		</view>
 	</view>
 </template>
 
@@ -77,7 +79,7 @@
 					value: 'all',
 					checked: false
 				}, */
-				arraycontent:'',
+				arraycontent: '',
 				content: '',
 			}
 		},
@@ -96,11 +98,11 @@
 					this.allChecked = true;
 					for (let item of this.content) {
 						let itemVal = String(item.value);
-						
+
 						if (!this.checkedArr.includes(itemVal)) {
 							this.checkedArr.push(itemVal);
 							console.log("quanxuan=====", this.checkedArr)
-							
+
 						}
 					}
 				} else {
@@ -125,11 +127,13 @@
 			},
 			chview: function(index) {
 				console.log('66666', index)
-					uni.navigateTo({
-					url: '../receivingOrder/querywithoutMessage?index=' + index + '&docEntry=' + this.content[index].docEntry+ '&lineNum=' + this.content[index].lineNum
-					
-						
-					
+				uni.navigateTo({
+					url: '../receivingOrder/querywithoutMessage?index=' + index + '&docEntry=' + this.content[index].docEntry +
+						'&lineNum=' + this.content[index].lineNum+ '&cardCode=' + this.arraycontent
+						.cardCode + '&itemCode=' + this.arraycontent.itemCode
+
+
+
 				})
 				console.log('6634666', index)
 			},
@@ -141,7 +145,7 @@
 					submitObj.lineNum = this.content[this.checkedArr[i]].lineNum;
 					console.info("==submitObj==", submitObj)
 					this.submitData.push(submitObj);
-					
+
 				}
 				console.info("==submitData==", this.submitData)
 				var that = this
@@ -157,83 +161,102 @@
 					})
 			},
 			onLoad: function(options) {
-				console.log("==queryOrderfour==",options)
-					 var that = this
-					that.$request.request('/api/materialReceipt/unPlanListByOrder', {
-						arrivalDateAfter: '', 
-						arrivalDateBefore: '',
-						cardCode: options.cardCode,
-						itemCode:options.itemCode,
-						orderType:true,
-						salesmanName: '',
-					}, 'POST', 'application/json').then(res => {
-						console.log('151跳转界面确定成功', res.data);
-						that.arraycontent = res.data.data
-						that.content=that.arraycontent.listVos
-						console.log('赋值后的数据显示', that.content)
-						var conitem=that.content
-						 var orde=''
-						 for(var i=0;i<conitem.length;i++){
-							 if(conitem[i].itemCode==orde&&orde!=''){
-								 let key = "showflag";
-								 let value = false
-							 	conitem[i][key] = value;
-							 }else{
-								 let key = "showflag";
-								 let value = true
-								conitem[i][key] = value;
-							 }
-							 orde=conitem[i].itemCode
-						 } 
-						 that.content=conitem 
-					})
+				console.log("==queryOrderfour==", options)
+				var that = this
+				that.$request.request('/api/materialReceipt/unPlanListByOrder', {
+					arrivalDateAfter: '',
+					arrivalDateBefore: '',
+					cardCode: options.cardCode,
+					itemCode: options.itemCode,
+					orderType: true,
+					salesmanName: '',
+				}, 'POST', 'application/json').then(res => {
+					console.log('151跳转界面确定成功', res.data);
+					that.arraycontent = res.data.data
+					that.content = that.arraycontent.listVos
+					console.log('赋值后的数据显示', that.content)
+					var conitem = that.content
+					var orde = ''
+					for (var i = 0; i < conitem.length; i++) {
+						if (conitem[i].itemCode == orde && orde != '') {
+							let key = "showflag";
+							let value = false
+							conitem[i][key] = value;
+						} else {
+							let key = "showflag";
+							let value = true
+							conitem[i][key] = value;
+						}
+						orde = conitem[i].itemCode
+					}
+					that.content = conitem
+				})
 			}
 		}
 	}
 </script>
 
 <style>
+	.nav {
+		width: 100%;
+		height: 60px;
+		background: #FFFFFF;
+		margin-left: -50rpx;
+		position: fixed;
+		bottom: 0px;
+	}
+
 	.container {
 		margin-top: 60rpx;
 		margin-left: 50rpx;
 	}
+
 	.cont {
 		margin-bottom: 10rpx;
 		font-size: 15px;
 	}
+
 	.one {
 		margin-top: -46rpx;
 		margin-left: 60rpx;
 	}
+
 	.button-c {
 		margin-top: -95rPX;
 		width: 260rpx;
-		height: 75rpx;
+		height: 65rpx;
 		background-color: #00a0e9;
 		color: #fff;
 		display: inline-block;
 		margin-left: 350rpx;
 		font-size: 15px;
 		text-align: center;
+		position: fixed;
+		bottom: 10px;
 	}
+
 	.oone {
 		margin-bottom: 10rpx;
 		word-break: break-all;
 	}
+
 	.check {
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 20rpx;
 	}
+
 	.checkview {
 		border-bottom: 1px solid rgb(207, 201, 222);
 		width: 92%;
 		margin-bottom: 25rpx;
 	}
+
 	.flex {
 		margin-top: -30rpx;
 		margin-left: 120rpx;
 	}
+
 	/* page {
 		background-color: #e6dcf4;
 	} */

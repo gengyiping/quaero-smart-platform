@@ -26,7 +26,7 @@
 				</view>
 				<checkbox :value="String(index)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox><br>
 				<view class="one" @click="chview(index)">
- 
+
 					<view class="oone">订单号：{{item.baseEntry}}</view>
 					<view class="oone">订单行号：{{item.baseLine}}</view>
 					<view class="oone">版本：{{item.cardCode}}</view>
@@ -44,20 +44,22 @@
 							<view class="oone" style="color: #007AFF;">外包信息：{{item.uwb}}</view>
 							<view class="oone" style="color: #007AFF;">图片路径：{{item.ulj}}</view>
 
-							
+
 						</view>
 					</view>
 				</view>
-</view> 
+			</view>
 
 		</checkbox-group>
-
-		<checkbox-group @change="changeAll">
-			<label>
-				<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
-			</label>
-		</checkbox-group>
-		<button class="button-c " @click="loginsure">提交计划到料</button>
+		<view class="nav">
+			<checkbox-group @change="changeAll">
+				<label style="position:fixed ;
+		bottom: 20px;margin-left: 50rpx;">
+					<checkbox value="all" :class="{'checked':allChecked}" :checked="allChecked?true:false"></checkbox> 全选
+				</label>
+			</checkbox-group>
+			<button class="button-c " @click="loginsure">提交计划到料</button>
+		</view>
 	</view>
 </template>
 
@@ -127,9 +129,11 @@
 				console.log('66666', index)
 				uni.navigateTo({
 
-					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.content[index].uid+'&DateAfter=' + this.arraycontent.arrivalDateAfter + '&DateBefore=' + this.arraycontent.arrivalDateBefore+ '&cardCode=' + this.arraycontent.cardCode+'&itemCode=' + this.arraycontent.itemCode
+					url: '../receivingOrder/queryMessage?index=' + index + '&uid=' + this.content[index].uid + '&DateAfter=' + this
+						.arraycontent.arrivalDateAfter + '&DateBefore=' + this.arraycontent.arrivalDateBefore + '&cardCode=' + this.arraycontent
+						.cardCode + '&itemCode=' + this.arraycontent.itemCode
 				})
-			}, 
+			},
 			loginsure: function(index) {
 				console.log("计划所勾选的数值：：", this.checkedArr)
 				for (let i = 0; i < this.checkedArr.length; i++) {
@@ -198,6 +202,15 @@
 </script>
 
 <style>
+	.nav {
+		width: 100%;
+		height: 60px;
+		background: #FFFFFF;
+		margin-left: -50rpx;
+		position: fixed;
+		bottom: 0px;
+	}
+
 	.container {
 		margin-top: 60rpx;
 		margin-left: 50rpx;
@@ -216,13 +229,15 @@
 	.button-c {
 		margin-top: -95rPX;
 		width: 260rpx;
-		height: 75rpx;
+		height: 65rpx;
 		background-color: #00a0e9;
 		color: #fff;
 		display: inline-block;
 		margin-left: 350rpx;
 		font-size: 15px;
 		text-align: center;
+		position: fixed;
+		bottom: 10px;
 	}
 
 	.oone {

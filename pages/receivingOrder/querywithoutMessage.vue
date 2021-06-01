@@ -100,6 +100,8 @@
 				lists: [],
 				arrayitem: [],
 				listitem: [],
+				itemCode:'',
+				cardCode:'',
 			};
 		},
 		methods: {
@@ -192,14 +194,29 @@
 					uwb: that.oname,
 					uwlwz: that.mname,
 				}, 'PUT', 'application/json').then(res => {
+					
 					console.log("信息编辑数据显示", res.data);
-					uni.navigateBack({ //uni.navigateTo跳转的返回，默认1为返回上一级
-						delta: 1
-					})
+					/* uni.$emit('refreshData') */
+					if (this.itemCode != undefined && this.cardCode ==
+						undefined) {
+						uni.navigateTo({
+							//料号
+							url: '../receivingOrder/queryOrderfour?itemCode=' + that.itemCode
+						})
+					} else if (this.itemCode != undefined&& this.cardCode !=
+						undefined) {
+						console.log("liaohao", this.itemCode)
+						uni.navigateTo({
+							//料号+代号
+							url: '../receivingOrder/queryOrdersix?itemCode=' + that.itemCode + '&cardCode=' + that.cardCode 
+						})
+					} 
 				})
 			},
 			onLoad: function(options) {
 				console.log("传过来的ID是：", options)
+				this.itemCode=options.itemCode
+				this.cardCode=options.cardCode
 				var that = this
 				that.$request.request('/api/materialReceipt/UnPlanInitByOrder', {
 					baseEntry: options.docEntry,

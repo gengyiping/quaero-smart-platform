@@ -106,7 +106,7 @@
 
 
 				
-				 this.checkedArr=chooseItem
+			/* 	 this.checkedArr=chooseItem
 				 console.log("checkedArr=====", this.checkedArr)
 				 this.checkedArr.push("all");
 				 if (chooseItem[0] == 'all') {
@@ -120,8 +120,8 @@
 							
 						}
 					}
-				} 
-			/* 	if (chooseItem[0] == 'all') {
+				} */
+		 	if (chooseItem[0] == 'all') {
 					this.allChecked = true;
 					console.log("content=====", this.content)
 					for (var i = 0; i < this.content.length; i++) {
@@ -141,7 +141,7 @@
 					this.allChecked = false;
 					this.checkedArr = [];
 					console.log("取消全选=====", this.checkedArr)
-				} */
+				} 
 			},
 			// 多选
 			changeCheck: function(e) {

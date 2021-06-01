@@ -13,7 +13,6 @@
 			<view class="inputWrapper">
 				<input name="Password" class="input" type="password" @input="wordInput" value="" placeholder="请输入密码">
 			</view><br>
-
 			<!-- <view class="number"> 
 				<view class="uni-list-cell-left" style="color:#F1F1F1">
 					
