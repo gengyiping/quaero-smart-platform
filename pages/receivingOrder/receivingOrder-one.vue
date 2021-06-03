@@ -42,6 +42,7 @@
 				datebtn: "请输入日期范围",
 				show: false,
 				mode: 'range',
+				ind:0,
 				form: {
 					name: '',
 					number: '',
@@ -65,6 +66,7 @@
 			radioChange: function(e) {
 				console.log("11111111", e.detail.value)
 				this.ind = e.detail.value
+				console.log("11111111", this.ind)
 			},
 			
 			yesquery: function() {
@@ -88,27 +90,21 @@
 							console.log('料号')
 							uni.navigateTo({
 								//料号
-								url: '../receivingOrder/queryOrdertwo?DateAfter=' + that.DateAfter + '&DateBefore=' + that.DateBefore+ '&itemCode=' + that.form.number
+								url: '../receivingOrder/queryOrdertwo?DateAfter=' + that.DateAfter + '&DateBefore=' + that.DateBefore+ '&itemCode=' + that.form.number+ '&salesmanName=' + that.form.name+ '&ind=' + that.ind
 							})
 						}else if (that.form.number == '' && that.form.staff != '' && that.datebtn != '请输入日期范围') {
 							console.log('供应商+时间')
 							uni.navigateTo({
 								//供应商+时间
-								url: '../receivingOrder/queryOrderthree?DateAfter=' + that.DateAfter + '&DateBefore=' + that.DateBefore+ '&cardCode=' + that.form.staff
+								url: '../receivingOrder/queryOrderthree?DateAfter=' + that.DateAfter + '&DateBefore=' + that.DateBefore+ '&cardCode=' + that.form.staff+ '&salesmanName=' + that.form.name+ '&ind=' + that.ind
 							})
 						}
-					/* 	else if (this.form.number != '' && this.form.staff != ''  && this.datebtn == '请输入日期范围') {
-							console.log('供应商+料号')
-							uni.navigateTo({
-								//供应商+料号
-								url: '../receivingOrder/queryOrderfour?DateAfter=' + that.DateAfter + '&DateBefore=' + that.DateBefore+ '&cardCode=' + that.form.staff+ '&itemCode=' + that.form.number
-							})
-						} */
+					
 					 else if (that.form.number != '' && that.form.staff != '' && that.datebtn != '请输入日期范围') {
 							console.log('供应商+料号+时间') 
 							uni.navigateTo({
 								//供应商+料号+时间
-								url: '../receivingOrder/queryOrderfive?DateAfter=' + that.DateAfter + '&DateBefore=' + that.DateBefore+ '&cardCode=' + that.form.staff+ '&itemCode=' + that.form.number
+								url: '../receivingOrder/queryOrderfive?DateAfter=' + that.DateAfter + '&DateBefore=' + that.DateBefore+ '&cardCode=' + that.form.staff+ '&itemCode=' + that.form.number+ '&salesmanName=' + that.form.name+ '&ind=' + that.ind
 							})
 						}
 					 }else if (res.data.data.flag == true) {
@@ -117,7 +113,7 @@
 							title: "请按在途未交查询",
 						})
 					}
-				})
+				})  
 			},
 			withoutquery: function() {
 				var that = this
@@ -131,12 +127,12 @@
 				if (that.form.number != '' && that.form.staff == ''  && that.datebtn == '请输入日期范围') {
 					uni.navigateTo({
 						//按料号
-						url: '../receivingOrder/queryOrderfour?DateAfter=' + that.DateAfter + '&DateBefore=' + that.DateBefore+ '&itemCode=' + that.form.number
+						url: '../receivingOrder/queryOrderfour?DateAfter=' + that.DateAfter + '&DateBefore=' + that.DateBefore+ '&itemCode=' + that.form.number+ '&salesmanName=' + that.form.name+ '&ind=' + that.ind
 					})
 				} else if (that.form.number != '' && that.form.staff != ''  && that.datebtn == '请输入日期范围') {
 					uni.navigateTo({
 						//按料号+供应商
-						url: '../receivingOrder/queryOrdersix?cardCode=' + that.form.staff+ '&itemCode=' + that.form.number
+						url: '../receivingOrder/queryOrdersix?cardCode=' + that.form.staff+ '&itemCode=' + that.form.number+ '&salesmanName=' + that.form.name+ '&ind=' + that.ind
 					})
 				}
 				})

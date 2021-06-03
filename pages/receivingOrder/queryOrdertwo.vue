@@ -2,18 +2,18 @@
 <template>
 	<view class="container">
 		<view class="cont" style="color:#007AFF;">（料号）查询条件如下：</view>
-		<view class="cont">时间：{{options.arrivalDateAfter}}-{{options.arrivalDateBefore}}</view>
-		<view class="cont">供应商代号：{{options.cardCode}}</view>
-		<view class="cont">料号：{{options.itemCode}}</view>
+		<!-- <view class="cont">时间：{{options.arrivalDateAfter}}-{{options.arrivalDateBefore}}</view> -->
+		<!-- <view class="cont">供应商代号：{{options.cardCode}}</view> -->
+		<view class="cont">料号：{{this.itemCode}}</view>
 		<view class="cont">订单类型：
-			<view v-if="options.orderType==0">
+			<view v-if="this.ind==0">
 				<view class="flex"> 采购订单未交</view>
 			</view>
-			<view v-else="options.orderType==1">
+			<view v-else="this.ind==1">
 				<view class="flex"> 生产订单未交</view>
 			</view>
 		</view>
-		<view class="cont">业务员：{{options.salesmanName}}</view><br>
+		<view class="cont">业务员：{{this.salesmanName}}</view><br>
 		<view class="cont" style="color: #007AFF;">显示结果如下：</view>
 		<!-- <scroll-view class="scroll-view" scroll-y="true" > -->
 		<!-- 每项选择 -->
@@ -169,45 +169,18 @@
 					})
 			},
 
-
-			/* onShow:function(){
-				console.log("11234455666")
-				var that = this
-				that.listitem=[]
-				that.$request.request('/api/materialReceipt/planListByOrder', {
-					arrivalDateAfter: '' ,
-					arrivalDateBefore: '' ,
-					cardCode: '',
-					itemCode:that.itemCode,
-					salesmanName: '',
-				}, 'POST', 'application/json').then(res => {
-					console.log('界面刷新确定成功', res.data);
-					that.arraycontent = res.data.data
-						that.content=that.arraycontent.itemCodeVos
-						console.log('content=======数据', that.content)
-						for (var k = 0; k < that.content.length; k++) {
-							for(var h=0;h<that.content[k].list.length;h++){
-							that.listcontent = that.content[k].list[h]
-							console.log('listcontent========数据', that.listcontent)
-							that.listitem.push(that.listcontent)
-							
-							}
-						}
-					
-					console.log('listitem========数据', that.listitem)
-						})
-			}, */
-
 			onLoad: function(options) {
 				console.log("==queryOrdertwo==", options)
 				this.itemCode = options.itemCode
+				this.salesmanName = options.salesmanName
+				this.ind=options.ind
 				var that = this
 				that.$request.request('/api/materialReceipt/planListByOrder', {
 					arrivalDateAfter: '',
 					arrivalDateBefore: '',
 					cardCode: '',
 					itemCode: options.itemCode,
-					salesmanName: '',
+					salesmanName: options.salesmanName,
 				}, 'POST', 'application/json').then(res => {
 
 					console.log('onLoad======数据', res.data);
@@ -307,8 +280,8 @@
 	}
 
 	.flex {
-		margin-top: -30rpx;
-		margin-left: 120rpx;
+		margin-top: -45rpx;
+		margin-left: 150rpx;
 	}
 
 	/* page {

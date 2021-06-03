@@ -3,17 +3,17 @@
 		<uni-view class="name">到料信息输入-按料号</uni-view>
 		<view v-if="isShow">
 			<view class="oone" style="font-size: 15px;color: #007AFF;">已选择信息显示：</view>
-			<view class="oone" style="margin-top: 10rpx;">料号：{{options.lmessage}}</view>
-			<view class="oone" style="margin-top: 10rpx;">名称规格：{{options.mmessage}}</view>
-			<view class="oone" style="margin-top: 10rpx;">交付模式：{{options.jfmessage}}</view>
-			<view class="oone" style="margin-top: 10rpx;">缺料日期：{{options.qlmessage}}</view>
-			<view class="oone" style="margin-top: 10rpx;">订单号：{{options.wmessage}}</view>
-			<view class="oone" style="margin-top: 10rpx;">订单行号：{{options.jmessage}}</view>
-			<view class="oone" style="margin-top: 10rpx;">预交日期：{{options.qmessage}}</view>
-			<view class="oone" style="margin-top: 10rpx;">订单数量：{{options.qmessage}}</view>
-			<view class="oone" style="margin-top: 10rpx;">未交数量：{{options.ymessage}}</view><br>
+			<view class="oone" style="margin-top: 10rpx;">料号：{{this.lmessage}}</view>
+			<view class="oone" style="margin-top: 10rpx;">名称规格：{{this.mmessage}}</view>
+			<view class="oone" style="margin-top: 10rpx;">交付模式：{{this.jfmessage}}</view>
+			<view class="oone" style="margin-top: 10rpx;">缺料日期：{{this.qmessage}}</view>
+			<view class="oone" style="margin-top: 10rpx;">订单号：{{this.dingdan}}</view>
+			<view class="oone" style="margin-top: 10rpx;">订单行号：{{this.hang}}</view>
+			<view class="oone" style="margin-top: 10rpx;">预交日期：{{this.qlmessage}}</view>
+			<view class="oone" style="margin-top: 10rpx;">订单数量：{{this.ymessage}}</view> 
+			<view class="oone" style="margin-top: 10rpx;">未交数量：{{this.ymessage}}</view><br>
 		</view>
-
+  
 		<u-form-item label="计划到料数量:">
 			<u-input v-model="form.number" />
 		</u-form-item>
@@ -88,7 +88,20 @@
 				radio: '',
 				switchVal: false,
 
-				index: 0
+				index: 0,
+				changeid:'',
+				hang:'',
+				dingdan:'',
+				arrivalDateAfter:'',
+				arrivalDateBefore:'',
+				cardCode:'',
+				itemCode:'',
+				orderType:'',
+				salesmanName:'',
+				mmessage:'',
+				jfmessage:'',
+				qlmessage:'',
+				
 			};
 		},
 
@@ -97,8 +110,13 @@
 				console.log('==options==', options)
 				console.log('==options336666==', options.cardCode)
 				this.changeid = options.index
+				this.mmessage=options.mmessage
+				this.lmessage=options.lmessage
 				this.hang = options.wmessage
 				this.dingdan = options.jmessage
+				this.qlmessage = options.qlmessage
+				this.qmessage = options.qmessage
+					this.ymessage = options.ymessage
 				this.arrivalDateAfter=options.arrivalDateAfter
 				this.arrivalDateBefore=options.arrivalDateBefore
 				this.cardCode=options.cardCode

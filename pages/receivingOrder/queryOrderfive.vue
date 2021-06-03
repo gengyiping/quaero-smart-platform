@@ -2,18 +2,18 @@
 <template>
 	<view class="container">
 		<view class="cont" style="color:#007AFF;">（料号+代号+日期）查询条件如下：</view>
-		<view class="cont">时间：{{options.DateAfter}}-{{options.DateBefore}}</view>
-		<view class="cont">供应商代号：{{options.cardCode}}</view>
-		<view class="cont">料号：{{options.itemCode}}</view>
+		<view class="cont">时间：{{this.DateAfter}}-{{this.DateBefore}}</view>
+		<view class="cont">供应商代号：{{this.cardCode}}</view>
+		<view class="cont">料号：{{this.itemCode}}</view>
 		<view class="cont">订单类型：
-			<view v-if="options.orderType==0">
+			<view v-if="this.ind==0">
 				<view class="flex"> 采购订单未交</view>
 			</view>
-			<view v-else="options.orderType==1">
+			<view v-else="this.ind==1">
 				<view class="flex"> 生产订单未交</view>
 			</view>
 		</view>
-		<view class="cont">业务员：{{options.salesmanName}}</view><br>
+		<view class="cont">业务员：{{this.salesmanName}}</view><br>
 		<view class="cont" style="color: #007AFF;">显示结果如下：</view>
 		<!-- <scroll-view class="scroll-view" scroll-y="true" > -->
 		<!-- 每项选择 -->
@@ -162,6 +162,11 @@
 
 			onLoad: function(options) {
 				console.log("==queryOrderthree==", options)
+				this.DateAfter= options.DateAfter
+				this.DateBefore=options.DateBefore
+				this.ind=options.ind
+				this.cardCode=options.cardCode
+				this.itemCode=options.itemCode
 				var that = this
 				that.$request.request('/api/materialReceipt/planListByOrder', {
 					arrivalDateAfter: options.DateAfter,
@@ -258,8 +263,8 @@
 	}
 
 	.flex {
-		margin-top: -30rpx;
-		margin-left: 120rpx;
+		margin-top: -47rpx;
+		margin-left: 150rpx;
 	}
 
 	/* page {

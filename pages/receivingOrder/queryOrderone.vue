@@ -2,17 +2,17 @@
 <template>
 	<view class="container">
 		<view class="cont" style="font-size: 15px;">显示查询条件：</view>
-		<view>计划到料日期：{{options.DateAfter}}-{{options.DateBefore}}</view><br>
+		<view>计划到料日期：{{this.DateAfter}}-{{this.DateBefore}}</view><br>
 		<view class="kon" style="font-size: 15px;">显示查询结果如下：</view>
 		<view class="kon">送货的供应商名称有：{{arrayOrder.cardCount}}个</view>
-		
+		 
 		
 		<view v-for='(item,index) in Orderlist'>
 			<view class="kon">代号：{{Orderlist[index].cardCode}}</view>
 			<view class="kon">供应商名称：{{Orderlist[index].cardName}}</view>
 			<view class="kon">送货的物料有：{{Orderlist[index].itemCount}}种</view>
 			<view style="color: #007AFF;">--------------------------------------------------------</view>
-		</view>
+		</view>  
 		<view v-for='(item,index) in Orderarray'>
 			<view class="kon">料号：{{Orderarray[index].itemCode}}</view>
 			<view class="kon">名称：{{Orderarray[index].itemName}}</view>
@@ -36,6 +36,8 @@
 		methods: {
 			onLoad: function(options) {
 				//console.log('OPTIONS',options)
+				this.DateAfter=options.DateAfter
+				this.DateBefore=options.DateBefore
 				var that = this
 				that.$request.request('/api/materialReceipt/planListByOrder', {
 					arrivalDateAfter: options.DateAfter + 'T00:00:00.000',

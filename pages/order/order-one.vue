@@ -2,24 +2,24 @@
 <template>
 	<view class="container">
 		<view class="cont" style="color:#007AFF;">查询条件如下：</view>
-		<view class="cont">时间：{{options.arrivalDateAfter}}-{{options.arrivalDateBefore}}</view>
-		<view class="cont">供应商代号：{{options.cardCode}}</view>
-		<view class="cont">料号：{{options.itemCode}}</view>
+		<view class="cont">时间：{{this.arrivalDateAfter}}-{{this.arrivalDateBefore}}</view>
+		<view class="cont">供应商代号：{{this.cardCode}}</view>
+		<view class="cont">料号：{{this.itemCode}}</view>
 		<view class="cont">订单类型：
-			<view v-if="options.orderType==0">
+			<view v-if="this.orderType==0">
 				<view class="flex"> 采购订单未交</view>
 			</view>
-			<view v-else="options.orderType==1">
+			<view v-else="this.orderType==1">
 				<view class="flex"> 生产订单未交</view>
 			</view>
 		</view>
-		<view class="cont">业务员：{{options.salesmanName}}</view><br>
+		<view class="cont">业务员：{{this.salesmanName}}</view><br>
 		<view class="cont" style="color: #007AFF;">显示结果如下：</view>
 		<!-- <scroll-view class="scroll-view" scroll-y="true" > -->
 		<!-- 每项选择 -->
 
 
-		<checkbox-group @change="changeCheck" class="check">
+		<checkbox-group @change="changeCheck" class="check"> 
 
 			<view class="checkview" v-for="(item, index) in content" :key="item.value">
 				<view class="oone" v-show="item.showflag">
@@ -95,7 +95,13 @@
 				content: [{}],
 				itemVal: '',
 				itemValarr: [],
-
+				arrivalDateAfter:'',
+				arrivalDateBefore:'',
+				cardCode:'',
+				itemCode:'',
+				orderType:'',
+				salesmanName:"",
+    
 			}
 		},
 		methods: {
@@ -106,11 +112,11 @@
 
 
 				
-			/* 	 this.checkedArr=chooseItem
+				/* this.checkedArr=chooseItem
 				 console.log("checkedArr=====", this.checkedArr)
-				 this.checkedArr.push("all");
+				 this.checkedArr.push("all"); */
 				 if (chooseItem[0] == 'all') {
-					 this.allChecked = true; 
+					 /* this.allChecked = true; */
 					for (let item of this.content) {
 						let itemVal = String(item.value);
 						
@@ -120,8 +126,13 @@
 							
 						}
 					}
-				} */
-		 	if (chooseItem[0] == 'all') {
+				}else {
+
+					this.allChecked = false;
+					this.checkedArr = [];
+					console.log("取消全选=====", this.checkedArr)
+				} 
+		 	/* if (chooseItem[0] == 'all') {
 					this.allChecked = true;
 					console.log("content=====", this.content)
 					for (var i = 0; i < this.content.length; i++) {
@@ -136,12 +147,7 @@
 					}
 
 					console.log("checkedArr=====", this.checkedArr)
-				} else {
-
-					this.allChecked = false;
-					this.checkedArr = [];
-					console.log("取消全选=====", this.checkedArr)
-				} 
+				} */ 
 			},
 			// 多选
 			changeCheck: function(e) {
@@ -208,12 +214,12 @@
 				} */
 				var that = this
 				that.$request.request('/api/materialPlan/unpaidListByOrder', {
-					arrivalDateAfter: options.arrivalDateAfter,
-					arrivalDateBefore: options.arrivalDateBefore,
-					cardCode: options.cardCode,
-					itemCode: options.itemCode,
-					orderType: options.orderType,
-					salesmanName: options.salesmanName,
+					arrivalDateAfter: this.arrivalDateAfter,
+					arrivalDateBefore: this.arrivalDateBefore,
+					cardCode: this.cardCode,
+					itemCode: this.itemCode,
+					orderType: this.orderType,
+					salesmanName: this.salesmanName,
 				}, 'POST', 'application/json').then(res => {
 					console.log('跳转界面确定成功', res.data.data);
 					that.content = res.data.data
